@@ -16,7 +16,6 @@ def createBoard():
 
     return superBoard, primeBoard
 
-#pprint.pprint(superBoard)
 def printSuperBoard(superBoard):
     rows = ['top', 'mid', 'low']
     for superRow in rows:
@@ -37,16 +36,6 @@ def printSuperBoard(superBoard):
         if superRow != 'low':
             print('\t=======================')
 
-'''
-count = 0
-for k, v in superBoard.items():
-    #print('k: ' + k + ' and v: ' + str(v))
-    #print('v.keys: ' + str(v.keys()))
-    for pos in v.keys():
-        superBoard[k][pos] = count
-        count = count+1
-
-'''
 
 def getMove(player, boardReq, superBoard, primeBoard):
 
@@ -80,7 +69,8 @@ def getMove(player, boardReq, superBoard, primeBoard):
             if (1 <= row <= 3) and (1 <= col <= 3) and (1 <= board <= 9) and superBoard[boardPos[board]][coord[(row,col)]] == ' ':
                 print('Valid move')
                 superBoard[boardPos[board]][coord[(row,col)]] = player
-                return boardPos.index(coord[(row,col)])
+                #if checkwin(superBoard[boardPos[board]])
+                return boardPos.index(coord[(row,col)]), board
             else:
                 print('Invalid move. Try again.')
 
@@ -93,35 +83,27 @@ def checkWin(board, player):
     boardPos = ['Any', 'top-L', 'top-M', 'top-R', 'mid-L', 'mid-M', 'mid-R', 'low-L', 'low-M', 'low-R']
     rows = ['top', 'mid', 'low']
     cols = ['-L', '-M', '-R']
-    '''
+    #check rows
     for row in rows:
-        if (' ' != board[row + '-L'] == board[row + '-M'] == board[row + '-R']):
+        c1, c2, c3 = map(lambda x: row + str(x), cols)
+        if player == board[c1] == board[c2] == board[c3]:
             return True
+    #check columns
     for col in cols:
-        if (' ' != board['top' + col] == board['mid' + col] == board['low' + col]):
+        c1, c2, c3 = map(lambda x: str(x) + col, rows)
+        if player == board[c1] == board[c2] == board[c3]:
             return True
-    '''
-    #check rows and columns
-    for j in range(0,3):
-        for i in range(j*3+1,j*3+1 + 3):
-            print(boardPos[i])
-            if board[boardPos[i]] == player:
-                return True
-        for i in range(j+1, 10, 3):
-            print(boardPos[i])
-            if board[boardPos[i]] == player:
-                return True
-    #Check diagonal and antidiagonal
-    for i in range(1,10,4):
-        print(boardPos[i])
-        if board[boardPos[i]] == player:
-            return True
-    for i in range(3,8,2):
-        print(boardPos[i])
-        if board[boardPos[i]] == player:
-            return True
+
+    #check diagonal and antidiagonal
+    if player == board['top-L'] == board['mid-M'] == board['low-R']:
+        return True
+    if player == board['top-R'] == board['mid-M'] == board['low-L']:
+        return True
     #All checks failed
+    #print('No win registered!')
     return False
+
+
 
 def main():
 
@@ -138,10 +120,26 @@ def main():
     while True:
         printSuperBoard(superBoard)
         print(f"Player {playerTurn}'s turn.")
-        boardReq = getMove(playerTurn, boardReq, superBoard, primeBoard)
+
+        if (boardReq != 0) and (' ' != primeBoard[boardPos[boardReq]]):
+            boardReq = 0
+
+        nextBoardReq, boardPlayed = getMove(playerTurn, boardReq, superBoard, primeBoard)
+        #if primeBoard has a value at the space associated with boardReq that is anything other than ' ', then boardReq = 0
+        if checkWin(superBoard[boardPos[boardPlayed]], playerTurn):
+            print(superBoard[boardPos[boardPlayed]])
+            primeBoard[boardPos[boardPlayed]] = playerTurn
+            #print(primeBoard)
 
         if checkWin(primeBoard, playerTurn):
+            printSuperBoard(superBoard)
+            print(f"Player {playerTurn} wins!")
             return
+        if playerTurn == 'X':
+            playerTurn = 'O'
+        else:
+            playerTurn = 'X'
+        boardReq = nextBoardReq
 
 if __name__ == "__main__":
     main()
