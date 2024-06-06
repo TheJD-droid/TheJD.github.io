@@ -23,18 +23,19 @@ def printSuperBoard(superBoard):
             print('\t', end='')
             print(superBoard[superRow + '-L'][row + '-L'], end='|')
             print(superBoard[superRow + '-L'][row + '-M'], end='|')
-            print(superBoard[superRow + '-L'][row + '-R'], end=' || ')
+            print(superBoard[superRow + '-L'][row + '-R'], end='||')
             print(superBoard[superRow + '-M'][row + '-L'], end='|')
             print(superBoard[superRow + '-M'][row + '-M'], end='|')
-            print(superBoard[superRow + '-M'][row + '-R'], end=' || ')
+            print(superBoard[superRow + '-M'][row + '-R'], end='||')
             print(superBoard[superRow + '-R'][row + '-L'], end='|')
             print(superBoard[superRow + '-R'][row + '-M'], end='|')
             print(superBoard[superRow + '-R'][row + '-R'], end='\n')
             if row != 'low':
-                print('\t-----------------------')
+                print('\t-+-+-||-+-+-||-+-+-')
 
         if superRow != 'low':
-            print('\t=======================')
+            print('\t===================')
+
 
 
 def getMove(player, boardReq, superBoard, primeBoard):
