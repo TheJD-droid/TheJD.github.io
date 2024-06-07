@@ -37,23 +37,44 @@ def printSuperBoard(superBoard):
             print('\t===================')
 
 
+def printPrimeBoard(primeBoard, numbers, numTabs):
+    boardPos = ['Any', 'top-L', 'top-M', 'top-R', 'mid-L', 'mid-M', 'mid-R', 'low-L', 'low-M', 'low-R']
+    tabs = '\t' * numTabs
+    if (numbers):
+        print('Number associated with each board:', end='')
+    print('\n' + tabs, end='')
+    for i in range(1,10):
+        if (primeBoard[boardPos[i]] == ' '):
+            if (numbers):
+                print(i, end='')
+            else:
+                print(' ', end='')
+        else:
+            print(primeBoard[boardPos[i]], end='')
+
+        if (i % 3 == 0):
+            if (i != 9):
+                print('\n' + tabs + '-+-+-\n' + tabs, end='')
+            else:
+                print()
+        else:
+            print('|', end='')
+
 
 def getMove(player, boardReq, superBoard, primeBoard):
 
     boardName = ['Any', 'top left', 'top middle', 'top right', 'middle left', 'middle middle', 'middle right', 'bottom left', 'bottom middle', 'bottom right']
     boardPos = ['Any', 'top-L', 'top-M', 'top-R', 'mid-L', 'mid-M', 'mid-R', 'low-L', 'low-M', 'low-R']
     coord = {(1,1): 'top-L', (1,2): 'top-M', (1,3): 'top-R', (2,1): 'mid-L', (2,2): 'mid-M', (2,3): 'mid-R', (3,1): 'low-L', (3,2): 'low-M', (3,3): 'low-R'}
-    print('Number associated with each board:')
-    for i in range(1,10):
-        if i % 3 == 0:
-            print(i)
-        else:
-            print(str(i) + '|', end='')
+
+    printPrimeBoard(primeBoard, True, 1)
+
 
     if boardReq == 0:
         print(f"You are playing on {boardName[boardReq]} board. Input your move as 'row,col,board'")
     else:
-        print(f"You are playing on the {boardName[boardReq]} board. Input your move as 'row,col'")
+        #print(f"You are playing on the {boardName[boardReq]} board. Input your move as 'row,col'")
+        print(f"You are playing on board number {boardReq}. Input your move as 'row,col'")
 
     while True:
         try:
@@ -66,7 +87,6 @@ def getMove(player, boardReq, superBoard, primeBoard):
                 board = boardReq
 
 
-            print(f"row: {row} | col: {col} | board: {board}")
             if (1 <= row <= 3) and (1 <= col <= 3) and (1 <= board <= 9) and superBoard[boardPos[board]][coord[(row,col)]] == ' ':
                 print('Valid move')
                 superBoard[boardPos[board]][coord[(row,col)]] = player
@@ -77,7 +97,14 @@ def getMove(player, boardReq, superBoard, primeBoard):
 
 
         except ValueError:
-            print("Invalid input. Enter two numbers separated by a comma. e.g.: '1,3'")
+
+            printSuperBoard(superBoard)
+            printPrimeBoard(primeBoard, True, 1)
+
+            if boardReq == 0:
+                print("Invalid input. Enter three numbers separated by commas. e.g.: '1,3,7'")
+            else:
+                print("Invalid input. Enter two numbers separated by a comma. e.g.: '1,3'")
 
 
 def checkWin(board, player):
@@ -111,10 +138,9 @@ def main():
     boardPos = ['Any', 'top-L', 'top-M', 'top-R', 'mid-L', 'mid-M', 'mid-R', 'low-L', 'low-M', 'low-R']
 
     superBoard, primeBoard = createBoard()
-    printSuperBoard(superBoard)
-    print(primeBoard)
+    #printSuperBoard(superBoard)
     playerTurn = 'X'
-    boardReq = 2
+    boardReq = 0
 
     checkWin(primeBoard, playerTurn)
 
@@ -134,6 +160,8 @@ def main():
 
         if checkWin(primeBoard, playerTurn):
             printSuperBoard(superBoard)
+            print("Final board state: ")
+            printPrimeBoard(primeBoard, False, 2)
             print(f"Player {playerTurn} wins!")
             return
         if playerTurn == 'X':
