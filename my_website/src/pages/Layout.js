@@ -1,8 +1,17 @@
 import {Outlet, Link} from 'react-router-dom';
-
+import { Button, ButtonGroup, Divider } from '@mui/material';
 const Layout = () => {
     return(
         <>
+
+            <nav>
+            <ButtonGroup>
+                <Button variant='contained' href='/ticTacToe'>Tic Tac Toe</Button>
+                <Divider orientation='vertical'/>
+                <Button href='/'>Home</Button>
+                </ButtonGroup>
+            </nav>
+            {/*
             <nav>
                 <ul>
                     <li>
@@ -14,7 +23,7 @@ const Layout = () => {
                 </ul>
             </nav>
 
-
+                */}
             <Outlet />
         </>
     );
