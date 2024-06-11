@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 function TicTacToe() {
 
   return (
-        <Grid container direction='column' sx={{border: '4px solid green', padding: '20px'}}>
+        <Grid container direction='column' sx={{border: '4px solid green', padding: '0px'}}>
           <Box sx={{border: '4px solid green', padding: '20px'}}>
             Tic tac Toe
           </Box>
@@ -22,7 +22,7 @@ function TicTacToe() {
         <Grid item>
           {/* First row */}
           <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -55,7 +55,7 @@ function TicTacToe() {
             </Grid>
             {/* Second Row */}
             <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -88,7 +88,7 @@ function TicTacToe() {
             {/* End of row */}
             {/* Third Row */}
             <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -121,7 +121,7 @@ function TicTacToe() {
             {/* End of row */}
             {/* Fourth Row */}
             <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -154,7 +154,7 @@ function TicTacToe() {
             {/* End of row */}
             {/* Fifth Row */}
             <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -187,7 +187,7 @@ function TicTacToe() {
             {/* End of row */}
           {/* Sixth Row */}
           <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -220,7 +220,7 @@ function TicTacToe() {
             {/* End of row */}
             {/* Seventh Row */}
             <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -253,7 +253,7 @@ function TicTacToe() {
             {/* End of row */}
             {/* Eighth Row */}
             <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>
@@ -286,7 +286,7 @@ function TicTacToe() {
             {/* End of row */}
             {/* Ninth Row */}
             <Grid item>
-        <Grid container spacing={1} direction='row' bgcolor={'white'} sx={{border: '4px solid red'}}>
+        <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item>
                   <BoardSquare />
               </Grid>

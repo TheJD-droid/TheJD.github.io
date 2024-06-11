@@ -25,7 +25,7 @@ const handleClick = () => {
   };
 
   return(
-    <Box sx={{border: '4px solid green', padding: '5px'}}>
+    <Box sx={{padding: '5px'}}>
         <IconButton onClick={handleClick}>
             {displayIcon(flag)}
         </IconButton>
@@ -36,11 +36,13 @@ const handleClick = () => {
 
 function displayIcon(flag) {
     if (flag == 'O') {
-        return <RadioButtonUncheckedIcon />
+        //return <RadioButtonUncheckedIcon />
+        return <RadioButtonUncheckedIcon sx={{color: 'red'}}/>
         
     }
     else if (flag == 'X') {
-        return <ClearIcon />
+        //return <ClearIcon />
+        return <ClearIcon sx={{color: "blue"}}/>
     }
     else {
         return <LensBlurIcon />;
