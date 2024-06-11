@@ -2,40 +2,29 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, ButtonGroup, Divider, useTheme } from '@mui/material';
 import Home from './pages/Home';
-import ticTacToe from './pages/ticTacToe';
+import TicTacToe from './pages/TicTacToe';
 import Layout from './pages/Layout';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Navbar from './components/Navbar';
 function App() {
 
-
-
-  
   return (
-    <div className="App">
-      <header className="App-header">
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Layout />}>
+    <div className="App" id='root'>
+      <BrowserRouter>
+      <div className='App-header'>
+            <Navbar />
+      </div>
+          <div className='App-body'>
+          
+        <Routes>
+            
               <Route index element={<Home />} />
-              <Route path='ticTacToe' element={<ticTacToe />} />
-            </Route>
-          </Routes>
-      </BrowserRouter>
-      {/*
-        <ButtonGroup>
-        <Button href='https://youtube.com' variant='contained'>Tic Tac Toe</Button>
-          <Divider orientation='vertical'/>
-        <Button>Chess</Button>
-        </ButtonGroup>
-        */}
-      </header>
-      {/*
-      <body className='App-body'>
-        <div>
-          <>{Home()}</>
+              <Route path='TicTacToe' element={<TicTacToe />} />
+            
+          </Routes>        
         </div>
-      </body>
-      */}
+        </BrowserRouter>
+      
     </div>
     
   );

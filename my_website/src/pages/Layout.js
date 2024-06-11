@@ -6,11 +6,14 @@ const Layout = () => {
 
             <nav>
             <ButtonGroup>
-                <Button variant='contained' href='/ticTacToe'>Tic Tac Toe</Button>
-                <Divider orientation='vertical'/>
-                <Button href='/'>Home</Button>
+                <Button variant='contained' href='/TicTacToe'>Tic Tac Toe</Button>
+                <Divider orientation='vertical' />
+                
+                <Button variant='contained' href='/'>Home</Button>
                 </ButtonGroup>
             </nav>
+            
+            
             {/*
             <nav>
                 <ul>
