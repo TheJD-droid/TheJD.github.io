@@ -4,329 +4,133 @@ import ClearIcon from '@mui/icons-material/Clear';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import BoardSquare from './../components/BoardSquare';
 import Box from '@mui/material/Box';
+import TTTBoard from '../components/TTTBoard';
+//import { styles } from '../components/TTTBoard';
+
+const BORDER_COLOR = 'black';
+const BORDER_SIZE = '5px';
+const BORDER_STYLE = 'solid';
 
 function TicTacToe() {
 
   return (
-        <Grid container direction='column' sx={{border: '4px solid green', padding: '0px'}}>
+        <Grid container direction='column' sx={{padding: '10px'}}>
           <Box sx={{border: '4px solid green', padding: '20px'}}>
             Tic tac Toe
           </Box>
 
 
-          <Grid container direction='row' spacing={5}>
-          <Grid item minWidth='60vh'></Grid>
+            <Grid container direction='row' spacing={0}>
+                <Grid item minWidth='10vh' width='40vh' sx={{border:'4px solid green', padding: '10px'}}>THIS</Grid>
 
-        <Grid item>
-        {/*Tic tac toe board*/}
-        <Grid item>
-          {/* First row */}
-          <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* Second Row */}
-            <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-            {/* Third Row */}
-            <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-            {/* Fourth Row */}
-            <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-            {/* Fifth Row */}
-            <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-          {/* Sixth Row */}
-          <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-            {/* Seventh Row */}
-            <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-            {/* Eighth Row */}
-            <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-            {/* Ninth Row */}
-            <Grid item>
-        <Grid container spacing={0} direction='row' bgcolor={'white'}>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-              <Grid item>
-                  <BoardSquare />
-              </Grid>
-            </Grid>
-            </Grid>
-            {/* End of row */}
-        
-          </Grid>
-          {/*End of tictactoe board*/}
+                <Grid item>
+                    {/*Tic tac toe board*/}
+                    <Grid container direction='row'>
+                        <Grid item sx={styles.topLeft}><TTTBoard /></Grid>
+                        <Grid item sx={styles.topMiddle}><TTTBoard /></Grid>
+                        <Grid item sx={styles.topRight}><TTTBoard /></Grid>
+                    </Grid>
+                    <Grid container direction='row'>
+                        <Grid item sx={styles.middleLeft}><TTTBoard /></Grid>
+                        <Grid item sx={styles.middleMiddle}><TTTBoard /></Grid>
+                        <Grid item sx={styles.middleRight}><TTTBoard /></Grid>
+                    </Grid>
+                    <Grid container direction='row'>
+                        <Grid item sx={styles.bottomLeft}><TTTBoard /></Grid>
+                        <Grid item sx={styles.bottomMiddle}><TTTBoard /></Grid>
+                        <Grid item sx={styles.bottomRight}><TTTBoard /></Grid>
+                    </Grid>
 
-          </Grid>
 
-        </Grid>
+                </Grid>
+            </Grid>
         </Grid>
       
   );
 }
+
+
+export const styles = {
+    topLeft : {
+        borderRight: BORDER_SIZE, 
+        borderBottom: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+    },
+
+    topMiddle : {
+        borderRight: BORDER_SIZE, 
+        borderBottom: BORDER_SIZE, 
+        borderLeft: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderLeftStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+    },
+    
+    topRight : {
+        borderLeft: BORDER_SIZE, 
+        borderBottom: BORDER_SIZE,
+        borderLeftStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+
+    },
+
+    middleLeft : {
+        borderTop: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderRight: BORDER_SIZE,
+        borderTopStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderRightStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+    },
+    middleMiddle : {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    middleRight : {
+
+        borderTop: BORDER_SIZE,
+        borderLeft: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderTopStyle: BORDER_STYLE,
+        borderLeftStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+        
+    },
+    
+    bottomLeft : {
+        borderRight: BORDER_SIZE,
+        borderTop: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderTopStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+
+    },
+    bottomMiddle : {
+        borderRight: BORDER_SIZE,
+        borderTop: BORDER_SIZE,
+        borderLeft: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderTopStyle: BORDER_STYLE,
+        borderLeftStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+    },
+    bottomRight : {
+        borderLeft: BORDER_SIZE, 
+        borderTop: BORDER_SIZE,
+        borderLeftStyle: BORDER_STYLE,
+        borderTopStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+    }
+
+}
+
+
 
 export default TicTacToe;
