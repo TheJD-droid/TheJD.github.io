@@ -26,6 +26,7 @@ function TicTacToe() {
               <Grid item>
                   <BoardSquare />
               </Grid>
+              
               <Grid item>
                   <BoardSquare />
               </Grid>
