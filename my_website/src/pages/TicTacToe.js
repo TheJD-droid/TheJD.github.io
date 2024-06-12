@@ -6,6 +6,7 @@ import BoardSquare from './../components/BoardSquare';
 import Box from '@mui/material/Box';
 import TTTBoard from '../components/TTTBoard';
 //import { styles } from '../components/TTTBoard';
+import TicTacToeLogic from '../TicTacToeLogic';
 
 const BORDER_COLOR = 'black';
 const BORDER_SIZE = '5px';
@@ -13,6 +14,7 @@ const BORDER_STYLE = 'solid';
 
 function TicTacToe() {
 
+    {TicTacToeLogic()}
   return (
         <Grid container direction='column' sx={{padding: '10px'}}>
           <Box sx={{border: '4px solid green', padding: '20px'}}>
