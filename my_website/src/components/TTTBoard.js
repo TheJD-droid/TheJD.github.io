@@ -2,9 +2,12 @@ import React from "react";
 import BoardSquare from "./BoardSquare";
 import { Grid } from "@mui/material";
 
-
+import TTTState from "./TTTState";
 
 export default function TTTBoard() {
+
+    const [currentState, setState] = React.useState(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
+
     return(
 <Grid item>
           {/* First row */}
