@@ -7,25 +7,61 @@ import LensBlurIcon from '@mui/icons-material/LensBlur';
 import Box from '@mui/material/Box';
 //import checkWin from 
 
-export default function BoardSquare() {
+
+
+export default function BoardSquare(props) {
     
     const [flag, setFlag] = React.useState('blank');
+    
 
+
+    //console.log(props.currentState[props.boardPos])
+    ///console.log(props)
 
     const handleClick = () => {
-        //checkWin()
-        if (flag == 'blank') {
+        console.log(props.currentState)
+        if ('blank' !== props.checkWin(props.currentState, props.currentState[props.boardPos])) {
+            //console.log(props.checkWin(props.currentState, props.currentState[props.boardPos]))
+            console.log('winner winner')
+            return;
+        }
+        
+        if (props.currentState[props.boardPos] === 'blank') {
+            console.log(props.playerTurn);
+            props.currentState[props.boardPos] = props.playerTurn
+            if (props.playerTurn === 'X') {
+                props.setPlayerTurn('O');
+            }
+            else if (props.playerTurn === 'O') {
+                props.setPlayerTurn('X');
+            }
+            else {
+                console.log('Error!');
+                console.log(props.playerTurn);
+            }
+            setFlag(props.currentState[props.boardPos]);
+        
+        }
+        
+
+        console.log(props.currentState)
+        if ('None' !== props.checkWin(props.currentState, props.currentState[props.boardPos])) {
+            return;
+        }
+        /*
+        if (flag === 'blank') {
             setFlag('X');
         }
-        else if (flag == 'X') {
+        else if (flag === 'X') {
             setFlag('O');
         }
-        else if (flag == 'O') {
+        else if (flag === 'O') {
             setFlag('blank');
         }
         else {
             setFlag('blank');
         }
+        */
     };
 
   return(
@@ -39,12 +75,12 @@ export default function BoardSquare() {
 }
 
 function displayIcon(flag) {
-    if (flag == 'O') {
+    if (flag === 'O') {
         //return <RadioButtonUncheckedIcon />
         return <RadioButtonUncheckedIcon sx={{color: 'red'}}/>
         
     }
-    else if (flag == 'X') {
+    else if (flag === 'X') {
         //return <ClearIcon />
         return <ClearIcon sx={{color: "blue"}}/>
     }
@@ -53,7 +89,7 @@ function displayIcon(flag) {
     }
 
 }
-  
+
 
 
   

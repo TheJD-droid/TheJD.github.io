@@ -1,4 +1,5 @@
 import '../App.css';
+import React from "react";
 import { Button, ButtonGroup, Divider, IconButton, useTheme, Grid } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
@@ -18,8 +19,10 @@ const BORDER_STYLE = 'solid';
 
 function TicTacToe() {
 
+    const [playerTurn, setPlayerTurn] = React.useState('X');
     {//TicTacToeLogic()
         }
+    console.log(playerTurn);
   return (
         <Grid container direction='column' sx={{padding: '10px'}}>
           <Box sx={{border: '4px solid green', padding: '20px'}}>
@@ -33,19 +36,19 @@ function TicTacToe() {
                 <Grid item>
                     {/*Tic tac toe board*/}
                     <Grid container direction='row'>
-                        <Grid item sx={styles.topLeft}><TTTBoard /></Grid>
-                        <Grid item sx={styles.topMiddle}><TTTBoard /></Grid>
-                        <Grid item sx={styles.topRight}><TTTBoard /></Grid>
+                        <Grid item sx={styles.topLeft}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
+                        <Grid item sx={styles.topMiddle}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
+                        <Grid item sx={styles.topRight}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
                     </Grid>
                     <Grid container direction='row'>
-                        <Grid item sx={styles.middleLeft}><TTTBoard /></Grid>
-                        <Grid item sx={styles.middleMiddle}><TTTBoard /></Grid>
-                        <Grid item sx={styles.middleRight}><TTTBoard /></Grid>
+                        <Grid item sx={styles.middleLeft}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
+                        <Grid item sx={styles.middleMiddle}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
+                        <Grid item sx={styles.middleRight}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
                     </Grid>
                     <Grid container direction='row'>
-                        <Grid item sx={styles.bottomLeft}><TTTBoard /></Grid>
-                        <Grid item sx={styles.bottomMiddle}><TTTBoard /></Grid>
-                        <Grid item sx={styles.bottomRight}><TTTBoard /></Grid>
+                        <Grid item sx={styles.bottomLeft}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
+                        <Grid item sx={styles.bottomMiddle}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
+                        <Grid item sx={styles.bottomRight}><TTTBoard playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/></Grid>
                     </Grid>
 
 

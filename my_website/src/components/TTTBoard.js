@@ -3,25 +3,31 @@ import BoardSquare from "./BoardSquare";
 import { Grid } from "@mui/material";
 
 import TTTState from "./TTTState";
+import {checkWin} from "./TicTacToeLogic";
 
-export default function TTTBoard() {
+
+export default function TTTBoard(props) {
 
     const [currentState, setState] = React.useState(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
-
+    //console.log(currentState);
+    //setState({topLeft : 'X'})
+    //currentState.topLeft = 'X'
+    //console.log(currentState)
+    //checkWin(currentState)
     return(
 <Grid item>
           {/* First row */}
           <Grid item>
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={styles.topLeft}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'topLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
               <Grid item sx={styles.topMiddle}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'topMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.topRight}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'topRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
             </Grid>
@@ -30,13 +36,13 @@ export default function TTTBoard() {
             <Grid item>
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={styles.middleLeft}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'middleLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.middleMiddle}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'middleMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.middleRight}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'middleRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
         </Grid> 
             </Grid>
@@ -45,13 +51,13 @@ export default function TTTBoard() {
             <Grid item>
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={styles.bottomLeft}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'bottomLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.bottomMiddle}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'bottomMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.bottomRight}>
-                  <BoardSquare />
+                  <BoardSquare currentState = {currentState} boardPos = {'bottomRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
         </Grid>
@@ -110,3 +116,4 @@ export const styles = {
     }
 
 }
+
