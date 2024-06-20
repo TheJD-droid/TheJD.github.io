@@ -17,9 +17,14 @@ const BORDER_STYLE = 'solid';
 
 function TicTacToe() {
 
-    const [superTTTState, setSuperTTTState] = React.useState(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
+    const initialState = new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank');
+    initialState.prevMove = 'None';
+    const [superTTTState, setSuperTTTState] = React.useState(initialState);
     const [playerTurn, setPlayerTurn] = React.useState('X');
-
+    //superTTTState.prevMove = 'None';
+    //setSuperTTTState({...superTTTState, prevMove: 'None'});
+    console.log('superTTTState?!');
+    console.log(superTTTState);
     console.log(playerTurn);
 
     return (
