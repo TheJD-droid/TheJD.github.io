@@ -3,9 +3,13 @@ import React from "react";
 import { Button, ButtonGroup, Divider, IconButton, useTheme, Grid, colors } from '@mui/material';
 import Box from '@mui/material/Box';
 import TTTBoard from '../components/TTTBoard';
+import LayersClearIcon from '@mui/icons-material/LayersClear';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
 
+import './TicTacToe.css';
 //import TicTacToeLogic from '../TicTacToeLogic';
 import TTTState from '../components/TTTState';
+import zIndex from '@mui/material/styles/zIndex';
 
 const SELECTED_BORDER_COLOR = 'black';
 const BORDER_SIZE = '5px';
@@ -36,6 +40,34 @@ function TicTacToe() {
           <Box sx={{border: '4px solid green', padding: '20px'}}>
             Tic tac Toe
           </Box>
+
+
+            <div className="imageWrapper">
+                <img style={{position: 'absolute', zIndex: "1"}} src="https://thumbs.dreamstime.com/b/cool-wallpapers-backgrounds-check-out-our-68126782.jpg" />
+                <img style={{position: 'absolute', zIndex: "0"}} src="https://marketplace.canva.com/EAFPzbZddXA/1/0/1600w/canva-black-and-white%2C-illustration-and-cool%2C-desktop-wallpaper-Oy1LJ3M9RIs.jpg" />
+            </div>
+
+            {//console.log(document.getElementById('img1').style.zIndex)
+           /*
+                    <div className="imageWrapper">
+                    <img className="overlayImage1" id='img1' src="https://marketplace.canva.com/EAFPzbZddXA/1/0/1600w/canva-black-and-white%2C-illustration-and-cool%2C-desktop-wallpaper-Oy1LJ3M9RIs.jpg" />
+                    <img className="overlayImage2" src="https://thumbs.dreamstime.com/b/cool-wallpapers-backgrounds-check-out-our-68126782.jpg" />
+                    </div>
+                */
+            }
+          {/*
+        <Grid container className='imageWrapper'>
+            <div className='imageWrapper'><LayersClearIcon className='overlayImage'/></div>
+            <div className='imageWrapper'><ClearAllIcon className='overlayImage' /></div>
+          <Grid className='overlayImage' item sx={
+            (superTTTState.winner === 'None' && superTTTState.prevMove === 'topLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') || (superTTTState.winningCombo.includes('topLeft')) ? styles.topLeftSelected : styles.topLeft
+            }>
+            <TTTBoard boardID={'topLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
+        </Grid>
+        </Grid>
+        */}
+
+
 
 
             <Grid container direction='row' spacing={0}>
@@ -189,175 +221,9 @@ export const styles = {
     },
 
 
-}
-
-/*
-export const styles = {
-    topLeft : {
-        borderTop: BORDER_SIZE,
-        borderTopStyle: BORDER_STYLE,
-        borderRight: BORDER_SIZE, 
-        borderBottom: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR
-        //borderColor: BORDER_COLOR
-    },
-
-    topLeftSelected : {
-        borderTop: BORDER_SIZE,
-        borderTopStyle: BORDER_STYLE,
-        borderRight: BORDER_SIZE, 
-        borderBottom: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR
-        //borderColor: BORDER_COLOR
-    },
-
-    topMiddle : {
-        borderTop: BORDER_SIZE,
-        borderRight: BORDER_SIZE, 
-        borderBottom: BORDER_SIZE, 
-        borderLeft: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderLeftStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR
-    },
-    topMiddleSelected : {
-        borderTop: BORDER_SIZE,
-        borderRight: BORDER_SIZE, 
-        borderBottom: BORDER_SIZE, 
-        borderLeft: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderLeftStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR
-    },
-    
-    topRight : {
-        borderTop: BORDER_SIZE,
-        borderLeft: BORDER_SIZE, 
-        borderBottom: BORDER_SIZE,
-        borderLeftStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR
-
-    },
-
-    topRightSelected : {
-        borderTop: BORDER_SIZE,
-        borderLeft: BORDER_SIZE, 
-        borderBottom: BORDER_SIZE,
-        borderLeftStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR
-
-    },
-
-    middleLeft : {
-        borderTop: BORDER_SIZE,
-        borderBottom: BORDER_SIZE,
-        borderRight: BORDER_SIZE,
-        borderTopStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderRightStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR
-    },
-    middleLeftSelected : {
-        borderTop: BORDER_SIZE,
-        borderBottom: BORDER_SIZE,
-        borderRight: BORDER_SIZE,
-        borderTopStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderRightStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR
-    },
-    middleMiddle : {
-        border: BORDER_SIZE,
-        borderColor: BORDER_COLOR,
-        borderStyle: BORDER_STYLE
-    },
-    middleMiddleSelected : {
-        border: BORDER_SIZE,
-        borderColor: SELECTED_BORDER_COLOR,
-        borderStyle: BORDER_STYLE
-    },
-    middleRight : {
-
-        borderTop: BORDER_SIZE,
-        borderLeft: BORDER_SIZE,
-        borderBottom: BORDER_SIZE,
-        borderTopStyle: BORDER_STYLE,
-        borderLeftStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR
-        
-    },
-    middleRightSelected : {
-
-        borderTop: BORDER_SIZE,
-        borderLeft: BORDER_SIZE,
-        borderBottom: BORDER_SIZE,
-        borderTopStyle: BORDER_STYLE,
-        borderLeftStyle: BORDER_STYLE,
-        borderBottomStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR
-        
-    },
-    
-    bottomLeft : {
-        borderRight: BORDER_SIZE,
-        borderTop: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderTopStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR,
-
-    },
-    bottomLeftSelected : {
-        borderRight: BORDER_SIZE,
-        borderTop: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderTopStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR,
-
-    },
-    bottomMiddle : {
-        borderRight: BORDER_SIZE,
-        borderTop: BORDER_SIZE,
-        borderLeft: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderTopStyle: BORDER_STYLE,
-        borderLeftStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR
-    },
-    bottomMiddleSelected : {
-        borderRight: BORDER_SIZE,
-        borderTop: BORDER_SIZE,
-        borderLeft: BORDER_SIZE,
-        borderRightStyle: BORDER_STYLE,
-        borderTopStyle: BORDER_STYLE,
-        borderLeftStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR
-    },
-    bottomRight : {
-        borderLeft: BORDER_SIZE, 
-        borderTop: BORDER_SIZE,
-        borderLeftStyle: BORDER_STYLE,
-        borderTopStyle: BORDER_STYLE,
-        borderColor: BORDER_COLOR
-    },
-    bottomRightSelected : {
-        borderLeft: BORDER_SIZE, 
-        borderTop: BORDER_SIZE,
-        borderLeftStyle: BORDER_STYLE,
-        borderTopStyle: BORDER_STYLE,
-        borderColor: SELECTED_BORDER_COLOR
-    }
 
 }
-*/
+
 
 
 

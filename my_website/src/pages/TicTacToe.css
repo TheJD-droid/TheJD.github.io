@@ -1,0 +1,19 @@
+.imageWrapper {
+    position: 'relative';
+    z-index: 1;
+    
+}
+.overlayImage1 {
+    position: 'absolute';
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.overlayImage2 {
+    position: 'absolute';
+    top: 0;
+    left: 0;
+    z-index: 0;
+    
+}
