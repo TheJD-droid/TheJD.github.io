@@ -1,10 +1,16 @@
 import React from "react";
 import BoardSquare from "./BoardSquare";
-import { Grid } from "@mui/material";
+import { Grid, colors } from "@mui/material";
 
 import TTTState from "./TTTState";
 import {checkWin} from "./TicTacToeLogic";
 
+
+//const BORDER_COLOR = 'black';
+const BORDER_SIZE = '2px';
+const BORDER_STYLE = 'solid';
+const SELECTED_BORDER_COLOR = colors.blueGrey[300];
+const BORDER_COLOR = colors.blueGrey[300];
 
 export default function TTTBoard(props) {
 
@@ -81,47 +87,87 @@ export default function TTTBoard(props) {
 
 export const styles = {
     topLeft : {
-        borderRight: '2px solid black', 
-        borderBottom: '2px solid black'
+        borderRight: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
     },
+    /*
+    topLeft : {
+        borderRight: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+    },*/
 
     topMiddle : {
-        borderRight: '2px solid black', 
-        borderBottom: '2px solid black', 
-        borderLeft: '2px solid black'
+        borderRight: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderLeft: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderLeftStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
     },
     
     topRight : {
-        borderLeft: '2px solid black', 
-        borderBottom: '2px solid black'
+        borderLeft: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderLeftStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
     },
 
     middleLeft : {
-        borderTop: '2px solid black',
-        borderBottom: '2px solid black',
-        borderRight: '2px solid black'
+        borderTop: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderRight: BORDER_SIZE,
+        borderTopStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderRightStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+
     },
     middleMiddle : {
-        border: '2px solid black'
+        border: BORDER_SIZE,
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
     },
     middleRight : {
-        borderTop: '2px solid black',
-        borderLeft: '2px solid black',
-        borderBottom: '2px solid black'
+        borderTop: BORDER_SIZE,
+        borderLeft: BORDER_SIZE,
+        borderBottom: BORDER_SIZE,
+        borderTopStyle: BORDER_STYLE,
+        borderLeftStyle: BORDER_STYLE,
+        borderBottomStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
     },
     
     bottomLeft : {
-        borderRight: '2px solid black', 
-        borderTop: '2px solid black'
+        borderRight: BORDER_SIZE,
+        borderTop: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderTopStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
     },
     bottomMiddle : {
-        borderRight: '2px solid black', 
-        borderTop: '2px solid black', 
-        borderLeft: '2px solid black'
+        borderRight: BORDER_SIZE,
+        borderTop: BORDER_SIZE,
+        borderLeft: BORDER_SIZE,
+        borderRightStyle: BORDER_STYLE,
+        borderTopStyle: BORDER_STYLE,
+        borderLeftStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
+
     },
     bottomRight : {
-        borderLeft: '2px solid black', 
-        borderTop: '2px solid black'
+        borderLeft: BORDER_SIZE,
+        borderTop: BORDER_SIZE,
+        borderLeftStyle: BORDER_STYLE,
+        borderTopStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR
     }
 
 }
