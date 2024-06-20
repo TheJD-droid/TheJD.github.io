@@ -3,8 +3,10 @@ import React from "react";
 import { Button, ButtonGroup, Divider, IconButton, useTheme, Grid, colors } from '@mui/material';
 import Box from '@mui/material/Box';
 import TTTBoard from '../components/TTTBoard';
-import LayersClearIcon from '@mui/icons-material/LayersClear';
-import ClearAllIcon from '@mui/icons-material/ClearAll';
+import ClearIcon from '@mui/icons-material/Clear';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+
+
 
 import './TicTacToe.css';
 //import TicTacToeLogic from '../TicTacToeLogic';
@@ -42,27 +44,18 @@ function TicTacToe() {
           </Box>
 
 
-            <div className="imageWrapper">
-                <img style={{position: 'absolute', zIndex: "1"}} src="https://thumbs.dreamstime.com/b/cool-wallpapers-backgrounds-check-out-our-68126782.jpg" />
-                <img style={{position: 'absolute', zIndex: "0"}} src="https://marketplace.canva.com/EAFPzbZddXA/1/0/1600w/canva-black-and-white%2C-illustration-and-cool%2C-desktop-wallpaper-Oy1LJ3M9RIs.jpg" />
-            </div>
+            
 
-            {//console.log(document.getElementById('img1').style.zIndex)
-           /*
-                    <div className="imageWrapper">
-                    <img className="overlayImage1" id='img1' src="https://marketplace.canva.com/EAFPzbZddXA/1/0/1600w/canva-black-and-white%2C-illustration-and-cool%2C-desktop-wallpaper-Oy1LJ3M9RIs.jpg" />
-                    <img className="overlayImage2" src="https://thumbs.dreamstime.com/b/cool-wallpapers-backgrounds-check-out-our-68126782.jpg" />
-                    </div>
-                */
-            }
-          {/*
-        <Grid container className='imageWrapper'>
-            <div className='imageWrapper'><LayersClearIcon className='overlayImage'/></div>
-            <div className='imageWrapper'><ClearAllIcon className='overlayImage' /></div>
-          <Grid className='overlayImage' item sx={
+        {/*
+        <Grid item>
+        <Grid container>
+            {superTTTState['topLeft'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+            {superTTTState['topLeft'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
+          <Grid item sx={
             (superTTTState.winner === 'None' && superTTTState.prevMove === 'topLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') || (superTTTState.winningCombo.includes('topLeft')) ? styles.topLeftSelected : styles.topLeft
             }>
-            <TTTBoard boardID={'topLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
+                <TTTBoard boardID={'topLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
+            </Grid>
         </Grid>
         </Grid>
         */}
@@ -73,42 +66,112 @@ function TicTacToe() {
             <Grid container direction='row' spacing={0}>
                 <Grid item minWidth='10vh' width='40vh' sx={{border:'4px solid green', padding: '10px'}}>THIS</Grid>
 
-                <Grid item>
+                <Grid item minWidth='500px'>
                     {/*Tic tac toe board*/}
                     <Grid container direction='row'>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['topLeft'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['topLeft'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={
                             (superTTTState.winner === 'None' && superTTTState.prevMove === 'topLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') || (superTTTState.winningCombo.includes('topLeft')) ? styles.topLeftSelected : styles.topLeft
                             }>
                             <TTTBoard boardID={'topLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+                        </Grid>
+                        </Grid>
+                        
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['topMiddle'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['topMiddle'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={
                             (superTTTState.winner === 'None' && superTTTState.prevMove === 'topMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topMiddle'] === 'blank') || (superTTTState.winningCombo.includes('topMiddle')) ? styles.topMiddleSelected : styles.topMiddle}>
                             <TTTBoard boardID={'topMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+                        </Grid>
+                        </Grid>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['topRight'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['topRight'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'topRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topRight'] === 'blank') || (superTTTState.winningCombo.includes('topRight')) ? styles.topRightSelected : styles.topRight}>
                             <TTTBoard boardID={'topRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+                        </Grid>
+                        </Grid>
+
                     </Grid>
                     <Grid container direction='row'>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['middleLeft'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['middleLeft'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'middleLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleLeft'] === 'blank') || (superTTTState.winningCombo.includes('middleLeft')) ? styles.middleLeftSelected : styles.middleLeft}>
                             <TTTBoard boardID={'middleLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+
+                        </Grid>
+                        </Grid>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['middleMiddle'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['middleMiddle'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'middleMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleMiddle'] === 'blank') || (superTTTState.winningCombo.includes('middleMiddle')) ? styles.middleMiddleSelected : styles.middleMiddle}>
                             <TTTBoard boardID={'middleMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+
+                        </Grid>
+                        </Grid>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['middleRight'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['middleRight'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'middleRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleRight'] === 'blank') || (superTTTState.winningCombo.includes('middleRight')) ? styles.middleRightSelected : styles.middleRight}>
                             <TTTBoard boardID={'middleRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+
+                        </Grid>
+                        </Grid>
                     </Grid>
                     <Grid container direction='row'>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['bottomLeft'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['bottomLeft'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomLeft'] === 'blank') || (superTTTState.winningCombo.includes('bottomLeft')) ? styles.bottomLeftSelected : styles.bottomLeft}>
                             <TTTBoard boardID={'bottomLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+
+                        </Grid>
+                        </Grid>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['bottomMiddle'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['bottomMiddle'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomMiddle'] === 'blank') || (superTTTState.winningCombo.includes('bottomMiddle')) ? styles.bottomMiddleSelected : styles.bottomMiddle}>
                             <TTTBoard boardID={'bottomMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
+
+                        </Grid>
+                        </Grid>
+
+                        <Grid item>
+                        <Grid container>
+                        {superTTTState['bottomRight'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
+                        {superTTTState['bottomRight'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
                         <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomRight'] === 'blank') || (superTTTState.winningCombo.includes('bottomRight')) ? styles.bottomRightSelected : styles.bottomRight}>
                             <TTTBoard boardID={'bottomRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
+                        </Grid>
+
+                        </Grid>
                         </Grid>
                     </Grid>
 
@@ -220,6 +283,18 @@ export const styles = {
         borderStyle: BORDER_STYLE
     },
 
+    overlayImage1: {
+        position: 'absolute',
+        zIndex: '10',
+        color: 'red',
+        fontSize: 165
+    },
+    overlayImage2: {
+        position: 'absolute',
+        zIndex: '9',
+        color: 'blue',
+        fontSize: 165,
+    }
 
 
 }
