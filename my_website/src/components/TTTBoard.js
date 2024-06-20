@@ -20,14 +20,17 @@ export default function TTTBoard(props) {
           <Grid item>
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={styles.topLeft}>
-                  <BoardSquare currentState = {currentState} boardPos = {'topLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'topLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
               <Grid item sx={styles.topMiddle}>
-                  <BoardSquare currentState = {currentState} boardPos = {'topMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'topMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.topRight}>
-                  <BoardSquare currentState = {currentState} boardPos = {'topRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'topRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
             </Grid>
@@ -36,13 +39,16 @@ export default function TTTBoard(props) {
             <Grid item>
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={styles.middleLeft}>
-                  <BoardSquare currentState = {currentState} boardPos = {'middleLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'middleLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.middleMiddle}>
-                  <BoardSquare currentState = {currentState} boardPos = {'middleMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'middleMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.middleRight}>
-                  <BoardSquare currentState = {currentState} boardPos = {'middleRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'middleRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
         </Grid> 
             </Grid>
@@ -51,13 +57,16 @@ export default function TTTBoard(props) {
             <Grid item>
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={styles.bottomLeft}>
-                  <BoardSquare currentState = {currentState} boardPos = {'bottomLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'bottomLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.bottomMiddle}>
-                  <BoardSquare currentState = {currentState} boardPos = {'bottomMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'bottomMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={styles.bottomRight}>
-                  <BoardSquare currentState = {currentState} boardPos = {'bottomRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
+                  currentState = {currentState} boardPos = {'bottomRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
         </Grid>

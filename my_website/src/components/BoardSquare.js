@@ -20,7 +20,7 @@ export default function BoardSquare(props) {
 
     const handleClick = () => {
         console.log(props.currentState)
-        if ('blank' !== props.checkWin(props.currentState, props.currentState[props.boardPos])) {
+        if ('None' !== props.checkWin(props.currentState, props.currentState[props.boardPos])) {
             //console.log(props.checkWin(props.currentState, props.currentState[props.boardPos]))
             console.log('winner winner')
             return;
@@ -44,8 +44,18 @@ export default function BoardSquare(props) {
         }
         
 
-        console.log(props.currentState)
-        if ('None' !== props.checkWin(props.currentState, props.currentState[props.boardPos])) {
+        console.log(props.currentState);
+        //let result = '';
+        //result = props.checkWin(props.currentState, props.currentState[props.boardPos]);
+        //console.log(`result: ${result}`)
+        const winner = props.checkWin(props.currentState, props.currentState[props.boardPos])
+        if ('None' !== winner) {
+            //winner found
+            console.log('Winner found')
+            props.superTTTState[props.boardID] = winner;
+            console.log('superState: ')
+            //props.superTTTState[props.boardID] = props.currentState
+            console.log(props.superTTTState)
             return;
         }
         /*

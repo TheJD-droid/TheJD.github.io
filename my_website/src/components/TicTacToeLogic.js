@@ -24,10 +24,13 @@ export function checkWin(currentState, player) {
     console.log('checkwin called:')
     console.log(currentState)
     console.log(player)
+    if (currentState.winner !== 'None') {
+        console.log('invalid move')
+    }
     if (currentState.winner === 'None') {
         if ('blank' === player) {
-            console.log(player)
-            return player;
+            console.log(`blank player registered: ${player}`)
+            return currentState.winner;
         }
         //Checking rows
         if (
@@ -112,15 +115,11 @@ export function checkWin(currentState, player) {
                 currentState.winner = 'cat';
                 return currentState.winner;
         }
-
-
-
     }
-    else {
-        return currentState.winner;
-    }
-    //Means it is an invalid move, and the move should not complete
-    return 'blank';
+
+    return currentState.winner;
+
+
 
 }  
 
