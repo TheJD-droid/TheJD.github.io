@@ -20,7 +20,7 @@ export default function BoardSquare(props) {
 
     const handleClick = () => {
         console.log(props.currentState)
-
+        console.log(props.superTTTState)
         //selected board doesn't have a winner, but maybe there already is an overall winner:
         if ('None' !== props.superTTTState['winner']) {
             console.log(`${props.superTTTState['winner']} has already won.`);
@@ -81,7 +81,7 @@ export default function BoardSquare(props) {
         
 
         console.log(props.currentState);
-        const winner = props.checkWin(props.currentState, props.currentState[props.boardPos])
+        const winner = props.checkWin(props.currentState, props.currentState[props.boardPos], false)
         console.log(props.superTTTState)
         if ('None' !== winner) {
             //winner found
@@ -111,7 +111,7 @@ export default function BoardSquare(props) {
             console.log(`Error! superTTTState[${props.boardPos}] value is invalid: `);
         }
 
-        if ('None' !== props.checkWin(props.superTTTState, props.currentState[props.boardPos])) {
+        if ('None' !== props.checkWin(props.superTTTState, props.currentState[props.boardPos], true)) {
             console.log(`${props.currentState[props.boardPos]} wins!`);
         }
 

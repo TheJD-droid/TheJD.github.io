@@ -20,7 +20,9 @@ function createBoard() {
 }
 */
 
-export function checkWin(currentState, player) {
+export function checkWin(currentState, player, isSuper) {
+    console.log(isSuper)
+    
     console.log('checkwin called:')
     console.log(currentState)
     console.log(player)
@@ -40,6 +42,12 @@ export function checkWin(currentState, player) {
             ){
                 currentState.winner = player;
                 //console.log(currentState);
+                if (isSuper) {
+                    currentState.winningCombo.push('topLeft')
+                    currentState.winningCombo.push('topMiddle')
+                    currentState.winningCombo.push('topRight')
+                    //console.log(currentState.winningCombo)
+                }
                 return currentState.winner;
         }
         else if (
@@ -48,6 +56,12 @@ export function checkWin(currentState, player) {
             (currentState.middleRight === player) 
             ){
                 currentState.winner = player;
+                if (isSuper) {
+                    currentState.winningCombo.push('middleLeft')
+                    currentState.winningCombo.push('middleMiddle')
+                    currentState.winningCombo.push('middleRight')
+                    //console.log(currentState.winningCombo)
+                }
                 return currentState.winner;
         }
         else if (
@@ -56,6 +70,12 @@ export function checkWin(currentState, player) {
             (currentState.bottomRight === player) 
             ){
                 currentState.winner = player;
+                if (isSuper) {
+                    currentState.winningCombo.push('bottomLeft')
+                    currentState.winningCombo.push('bottomMiddle')
+                    currentState.winningCombo.push('bottomRight')
+                    //console.log(currentState.winningCombo)
+                }
                 return currentState.winner;
         }
         //checking columns
@@ -65,6 +85,12 @@ export function checkWin(currentState, player) {
             (currentState.bottomLeft === player) 
             ){
                 currentState.winner = player;
+                if (isSuper) {
+                    currentState.winningCombo.push('topLeft')
+                    currentState.winningCombo.push('middleLeft')
+                    currentState.winningCombo.push('bottomLeft')
+                    //console.log(currentState.winningCombo)
+                }
                 return currentState.winner;
         }
         else if (
@@ -73,6 +99,12 @@ export function checkWin(currentState, player) {
             (currentState.bottomMiddle === player) 
             ){
                 currentState.winner = player;
+                if (isSuper) {
+                    currentState.winningCombo.push('topMiddle')
+                    currentState.winningCombo.push('middleMiddle')
+                    currentState.winningCombo.push('bottomMiddle')
+                    //console.log(currentState.winningCombo)
+                }
                 return currentState.winner;
         }
         else if (
@@ -81,6 +113,13 @@ export function checkWin(currentState, player) {
             (currentState.bottomRight === player) 
             ){
                 currentState.winner = player;
+                if (isSuper) {
+                    currentState.winningCombo.push('topRight')
+                    currentState.winningCombo.push('middleRight')
+                    currentState.winningCombo.push('bottomRight')
+                    //console.log(currentState.winningCombo)
+
+                }
                 return currentState.winner;
         }
         //diagonal and antidiagonal
@@ -90,6 +129,13 @@ export function checkWin(currentState, player) {
             (currentState.bottomRight === player) 
             ){
                 currentState.winner = player;
+                if (isSuper) {
+                    currentState.winningCombo.push('topLeft')
+                    currentState.winningCombo.push('middleMiddle')
+                    currentState.winningCombo.push('bottomRight')
+                    //console.log(currentState.winningCombo)
+
+                }
                 return currentState.winner;
         }
         else if (
@@ -98,6 +144,13 @@ export function checkWin(currentState, player) {
             (currentState.bottomLeft === player) 
             ){
                 currentState.winner = player;
+                if (isSuper) {
+                    currentState.winningCombo.push('topRight')
+                    currentState.winningCombo.push('middleMiddle')
+                    currentState.winningCombo.push('bottomLeft')
+                    //console.log(currentState.winningCombo)
+
+                }
                 return currentState.winner;
         }
         //check if it's a cats game
@@ -113,6 +166,11 @@ export function checkWin(currentState, player) {
             (currentState.bottomRight !== 'blank')
             ){
                 currentState.winner = 'cat';
+                if (isSuper) {
+                    currentState.winningCombo.push('cat');
+                    console.log(currentState.winningCombo)
+
+                }
                 return currentState.winner;
         }
     }

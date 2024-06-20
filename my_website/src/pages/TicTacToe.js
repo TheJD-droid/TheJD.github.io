@@ -19,6 +19,10 @@ function TicTacToe() {
 
     const initialState = new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank');
     initialState.prevMove = 'None';
+    initialState.winningCombo = [];
+    //initialState.winningCombo.push('topLeft');
+    
+    //initialState.winningCombo = ('blank', 'blank', 'blank');
     const [superTTTState, setSuperTTTState] = React.useState(initialState);
     const [playerTurn, setPlayerTurn] = React.useState('X');
     //superTTTState.prevMove = 'None';
@@ -40,35 +44,38 @@ function TicTacToe() {
                 <Grid item>
                     {/*Tic tac toe board*/}
                     <Grid container direction='row'>
-                        <Grid item sx={(superTTTState.prevMove === 'topLeft') || (superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') ? styles.topLeftSelected : styles.topLeft}>
+                        <Grid item sx={
+                            (superTTTState.winner === 'None' && superTTTState.prevMove === 'topLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') || (superTTTState.winningCombo.includes('topLeft')) ? styles.topLeftSelected : styles.topLeft
+                            }>
                             <TTTBoard boardID={'topLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={(superTTTState.prevMove === 'topMiddle') || (superTTTState.prevMove === 'None' && superTTTState['topMiddle'] === 'blank') ? styles.topMiddleSelected : styles.topMiddle}>
+                        <Grid item sx={
+                            (superTTTState.winner === 'None' && superTTTState.prevMove === 'topMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topMiddle'] === 'blank') || (superTTTState.winningCombo.includes('topMiddle')) ? styles.topMiddleSelected : styles.topMiddle}>
                             <TTTBoard boardID={'topMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={(superTTTState.prevMove === 'topRight') || (superTTTState.prevMove === 'None' && superTTTState['topRight'] === 'blank') ? styles.topRightSelected : styles.topRight}>
+                        <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'topRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topRight'] === 'blank') || (superTTTState.winningCombo.includes('topRight')) ? styles.topRightSelected : styles.topRight}>
                             <TTTBoard boardID={'topRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
                     </Grid>
                     <Grid container direction='row'>
-                        <Grid item sx={(superTTTState.prevMove === 'middleLeft') || (superTTTState.prevMove === 'None' && superTTTState['middleLeft'] === 'blank') ? styles.middleLeftSelected : styles.middleLeft}>
+                        <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'middleLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleLeft'] === 'blank') || (superTTTState.winningCombo.includes('middleLeft')) ? styles.middleLeftSelected : styles.middleLeft}>
                             <TTTBoard boardID={'middleLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={(superTTTState.prevMove === 'middleMiddle') || (superTTTState.prevMove === 'None' && superTTTState['middleMiddle'] === 'blank') ? styles.middleMiddleSelected : styles.middleMiddle}>
+                        <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'middleMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleMiddle'] === 'blank') || (superTTTState.winningCombo.includes('middleMiddle')) ? styles.middleMiddleSelected : styles.middleMiddle}>
                             <TTTBoard boardID={'middleMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={(superTTTState.prevMove === 'middleRight') || (superTTTState.prevMove === 'None' && superTTTState['middleRight'] === 'blank') ? styles.middleRightSelected : styles.middleRight}>
+                        <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'middleRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleRight'] === 'blank') || (superTTTState.winningCombo.includes('middleRight')) ? styles.middleRightSelected : styles.middleRight}>
                             <TTTBoard boardID={'middleRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
                     </Grid>
                     <Grid container direction='row'>
-                        <Grid item sx={(superTTTState.prevMove === 'bottomLeft') || (superTTTState.prevMove === 'None' && superTTTState['bottomLeft'] === 'blank') ? styles.bottomLeftSelected : styles.bottomLeft}>
+                        <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomLeft'] === 'blank') || (superTTTState.winningCombo.includes('bottomLeft')) ? styles.bottomLeftSelected : styles.bottomLeft}>
                             <TTTBoard boardID={'bottomLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={(superTTTState.prevMove === 'bottomMiddle') || (superTTTState.prevMove === 'None' && superTTTState['bottomMiddle'] === 'blank') ? styles.bottomMiddleSelected : styles.bottomMiddle}>
+                        <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomMiddle'] === 'blank') || (superTTTState.winningCombo.includes('bottomMiddle')) ? styles.bottomMiddleSelected : styles.bottomMiddle}>
                             <TTTBoard boardID={'bottomMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={(superTTTState.prevMove === 'bottomRight') || (superTTTState.prevMove === 'None' && superTTTState['bottomRight'] === 'blank') ? styles.bottomRightSelected : styles.bottomRight}>
+                        <Grid item sx={(superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomRight'] === 'blank') || (superTTTState.winningCombo.includes('bottomRight')) ? styles.bottomRightSelected : styles.bottomRight}>
                             <TTTBoard boardID={'bottomRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
                     </Grid>
