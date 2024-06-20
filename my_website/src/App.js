@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, ButtonGroup, Divider, useTheme } from '@mui/material';
 import Home from './pages/Home';
-import TicTacToe from './pages/temp';
+import TicTacToe from './pages/TicTacToe';
 import Layout from './pages/Layout';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Navbar from './components/Navbar';
