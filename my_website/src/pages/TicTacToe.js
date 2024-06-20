@@ -40,35 +40,35 @@ function TicTacToe() {
                 <Grid item>
                     {/*Tic tac toe board*/}
                     <Grid container direction='row'>
-                        <Grid item sx={superTTTState.prevMove === 'topLeft' ? styles.topLeftSelected : styles.topLeft}>
+                        <Grid item sx={(superTTTState.prevMove === 'topLeft') || (superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') ? styles.topLeftSelected : styles.topLeft}>
                             <TTTBoard boardID={'topLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={superTTTState.prevMove === 'topMiddle' ? styles.topMiddleSelected : styles.topMiddle}>
+                        <Grid item sx={(superTTTState.prevMove === 'topMiddle') || (superTTTState.prevMove === 'None' && superTTTState['topMiddle'] === 'blank') ? styles.topMiddleSelected : styles.topMiddle}>
                             <TTTBoard boardID={'topMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={superTTTState.prevMove === 'topRight' ? styles.topRightSelected : styles.topRight}>
+                        <Grid item sx={(superTTTState.prevMove === 'topRight') || (superTTTState.prevMove === 'None' && superTTTState['topRight'] === 'blank') ? styles.topRightSelected : styles.topRight}>
                             <TTTBoard boardID={'topRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
                     </Grid>
                     <Grid container direction='row'>
-                        <Grid item sx={superTTTState.prevMove === 'middleLeft' ? styles.middleLeftSelected : styles.middleLeft}>
+                        <Grid item sx={(superTTTState.prevMove === 'middleLeft') || (superTTTState.prevMove === 'None' && superTTTState['middleLeft'] === 'blank') ? styles.middleLeftSelected : styles.middleLeft}>
                             <TTTBoard boardID={'middleLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={superTTTState.prevMove === 'middleMiddle' ? styles.middleMiddleSelected : styles.middleMiddle}>
+                        <Grid item sx={(superTTTState.prevMove === 'middleMiddle') || (superTTTState.prevMove === 'None' && superTTTState['middleMiddle'] === 'blank') ? styles.middleMiddleSelected : styles.middleMiddle}>
                             <TTTBoard boardID={'middleMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={superTTTState.prevMove === 'middleRight' ? styles.middleRightSelected : styles.middleRight}>
+                        <Grid item sx={(superTTTState.prevMove === 'middleRight') || (superTTTState.prevMove === 'None' && superTTTState['middleRight'] === 'blank') ? styles.middleRightSelected : styles.middleRight}>
                             <TTTBoard boardID={'middleRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
                     </Grid>
                     <Grid container direction='row'>
-                        <Grid item sx={superTTTState.prevMove === 'bottomLeft' ? styles.bottomLeftSelected : styles.bottomLeft}>
+                        <Grid item sx={(superTTTState.prevMove === 'bottomLeft') || (superTTTState.prevMove === 'None' && superTTTState['bottomLeft'] === 'blank') ? styles.bottomLeftSelected : styles.bottomLeft}>
                             <TTTBoard boardID={'bottomLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={superTTTState.prevMove === 'bottomMiddle' ? styles.bottomMiddleSelected : styles.bottomMiddle}>
+                        <Grid item sx={(superTTTState.prevMove === 'bottomMiddle') || (superTTTState.prevMove === 'None' && superTTTState['bottomMiddle'] === 'blank') ? styles.bottomMiddleSelected : styles.bottomMiddle}>
                             <TTTBoard boardID={'bottomMiddle'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
-                        <Grid item sx={superTTTState.prevMove === 'bottomRight' ? styles.bottomRightSelected : styles.bottomRight}>
+                        <Grid item sx={(superTTTState.prevMove === 'bottomRight') || (superTTTState.prevMove === 'None' && superTTTState['bottomRight'] === 'blank') ? styles.bottomRightSelected : styles.bottomRight}>
                             <TTTBoard boardID={'bottomRight'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
                         </Grid>
                     </Grid>
@@ -81,9 +81,114 @@ function TicTacToe() {
   );
 }
 
+export const styles = {
+    topLeft: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    topLeftSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
 
+    topMiddle: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    topMiddleSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+    topRight: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    topRightSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+    middleLeft: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    middleLeftSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+    middleMiddle: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    middleMiddleSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+    middleRight: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    middleRightSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+    bottomLeft: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    bottomLeftSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+    bottomMiddle: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    bottomMiddleSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+    bottomRight: {
+        border: BORDER_SIZE,
+        borderColor: BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+    bottomRightSelected: {
+        border: BORDER_SIZE,
+        borderColor: SELECTED_BORDER_COLOR,
+        borderStyle: BORDER_STYLE
+    },
+
+
+}
+
+/*
 export const styles = {
     topLeft : {
+        borderTop: BORDER_SIZE,
+        borderTopStyle: BORDER_STYLE,
         borderRight: BORDER_SIZE, 
         borderBottom: BORDER_SIZE,
         borderRightStyle: BORDER_STYLE,
@@ -93,6 +198,8 @@ export const styles = {
     },
 
     topLeftSelected : {
+        borderTop: BORDER_SIZE,
+        borderTopStyle: BORDER_STYLE,
         borderRight: BORDER_SIZE, 
         borderBottom: BORDER_SIZE,
         borderRightStyle: BORDER_STYLE,
@@ -102,6 +209,7 @@ export const styles = {
     },
 
     topMiddle : {
+        borderTop: BORDER_SIZE,
         borderRight: BORDER_SIZE, 
         borderBottom: BORDER_SIZE, 
         borderLeft: BORDER_SIZE,
@@ -111,6 +219,7 @@ export const styles = {
         borderColor: BORDER_COLOR
     },
     topMiddleSelected : {
+        borderTop: BORDER_SIZE,
         borderRight: BORDER_SIZE, 
         borderBottom: BORDER_SIZE, 
         borderLeft: BORDER_SIZE,
@@ -121,6 +230,7 @@ export const styles = {
     },
     
     topRight : {
+        borderTop: BORDER_SIZE,
         borderLeft: BORDER_SIZE, 
         borderBottom: BORDER_SIZE,
         borderLeftStyle: BORDER_STYLE,
@@ -130,6 +240,7 @@ export const styles = {
     },
 
     topRightSelected : {
+        borderTop: BORDER_SIZE,
         borderLeft: BORDER_SIZE, 
         borderBottom: BORDER_SIZE,
         borderLeftStyle: BORDER_STYLE,
@@ -239,6 +350,7 @@ export const styles = {
     }
 
 }
+*/
 
 
 
