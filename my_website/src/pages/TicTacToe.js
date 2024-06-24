@@ -44,23 +44,6 @@ function TicTacToe() {
           </Box>
 
 
-            
-
-        {/*
-        <Grid item>
-        <Grid container>
-            {superTTTState['topLeft'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
-            {superTTTState['topLeft'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-          <Grid item sx={
-            (superTTTState.winner === 'None' && superTTTState.prevMove === 'topLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') || (superTTTState.winningCombo.includes('topLeft')) ? styles.topLeftSelected : styles.topLeft
-            }>
-                <TTTBoard boardID={'topLeft'} superTTTState={superTTTState} setSuperTTTState={setSuperTTTState} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn}/>
-            </Grid>
-        </Grid>
-        </Grid>
-        */}
-
-
 
 
             <Grid container direction='row' spacing={0}>
@@ -178,8 +161,10 @@ function TicTacToe() {
 
                 </Grid>
             </Grid>
+
+            <Button>Reset</Button>
+
         </Grid>
-      
   );
 }
 
