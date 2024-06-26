@@ -100,4 +100,15 @@ router.get('/users', (req, res) => {
       res.send(userData)
 })
 
+router.get('/style', (req, res) => {
+    const currentStyle =
+      {
+        'header': 'App-header', 
+        'body': 'App-body'
+      }
+
+      res.send(currentStyle)
+})
+
+
 module.exports = router

@@ -35,9 +35,9 @@ function TicTacToe() {
     const [playerTurn, setPlayerTurn] = React.useState('X');
     //superTTTState.prevMove = 'None';
     //setSuperTTTState({...superTTTState, prevMove: 'None'});
-    console.log('superTTTState?!');
-    console.log(superTTTState);
-    console.log(playerTurn);
+    // console.log('superTTTState?!');
+    // console.log(superTTTState);
+    // console.log(playerTurn);
 
     //Individual board state information
     //const [resetFlag, setResetFlag] = React.useState(false);
@@ -57,18 +57,18 @@ function TicTacToe() {
 
 
     return (
-        <Grid container direction='column' sx={{border: '4px solid red', padding: '0px', minWidth: '0px', width: '100%', height: '100%'}}>
-          <Box sx={{border: '4px solid green', padding: '0px'}}>
+        <Grid container direction='column' sx={{minWidth: '0px', width: '100%', height: '100%'}}>
+          <Box sx={{padding: '0px'}}>
             Tic tac Toe
           </Box>
 
 
 
 
-            <Grid container minWidth='0px' direction='row' spacing={0}>
-                <Grid item minWidth='0vw' width='25vw' height='1vh' sx={{border:'4px solid green', padding: '0px'}}>THIS</Grid>
+            <Grid container minWidth='850px' direction='row' spacing={0}>
+                <Grid item minWidth='0vw' width='20vw' height='0vh'></Grid>
 
-                <Grid item minWidth='520px'>
+                <Grid item minWidth='520px' sx={{ padding: '0px'}}>
                     {/*Tic tac toe board*/}
                     <Grid container direction='row'>
 
@@ -181,10 +181,10 @@ function TicTacToe() {
 
                 </Grid>
                 <Grid item>
-                    <Grid item sx={{border: '4px solid green', padding: '0px', height: '80%'}}>
+                    <Grid item sx={{height: '60vh'}}>
                         
                     </Grid>
-                    <Grid item sx={{border: '0px solid green', padding: '0px'}}>
+                    <Grid item sx={{padding: '0px'}}>
                         <Button sx={{padding: '0px'}} variant='contained' onClick={() => {
                             //console.log("Are you still there?")
                             restartGame(superTTTState, setSuperTTTState, initialState, playerTurn, setPlayerTurn, setBoardState1, setBoardState2, setBoardState3, setBoardState4, setBoardState5, setBoardState6, setBoardState7, setBoardState8, setBoardState9)
