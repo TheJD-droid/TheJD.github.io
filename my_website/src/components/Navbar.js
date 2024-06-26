@@ -1,6 +1,13 @@
 import {Outlet, Link} from 'react-router-dom';
 import { Button, ButtonGroup, Divider } from '@mui/material';
-const Navbar = () => {
+import React from 'react';
+import { useState } from 'react';
+import { retrieveStyle } from '../styles';
+
+
+function Navbar() {
+
+//const Navbar = (chosenStyle, setChosenStyle) => {
     return(
         <>
 
@@ -19,5 +26,9 @@ const Navbar = () => {
         </>
     );
 };
+
+// function handleSetCurrentStyle() {
+//     setCurrentStyle('TTT');
+// }
 
 export default Navbar;

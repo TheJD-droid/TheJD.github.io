@@ -57,18 +57,18 @@ function TicTacToe() {
 
 
     return (
-        <Grid container direction='column' sx={{padding: '10px'}}>
-          <Box sx={{border: '4px solid green', padding: '20px'}}>
+        <Grid container direction='column' sx={{border: '4px solid red', padding: '0px', minWidth: '0px', width: '100%', height: '100%'}}>
+          <Box sx={{border: '4px solid green', padding: '0px'}}>
             Tic tac Toe
           </Box>
 
 
 
 
-            <Grid container direction='row' spacing={0}>
-                <Grid item minWidth='10vh' width='40vh' sx={{border:'4px solid green', padding: '10px'}}>THIS</Grid>
+            <Grid container minWidth='0px' direction='row' spacing={0}>
+                <Grid item minWidth='0vw' width='25vw' height='1vh' sx={{border:'4px solid green', padding: '0px'}}>THIS</Grid>
 
-                <Grid item minWidth='500px'>
+                <Grid item minWidth='520px'>
                     {/*Tic tac toe board*/}
                     <Grid container direction='row'>
 
@@ -178,11 +178,20 @@ function TicTacToe() {
                     </Grid>
 
 
+
                 </Grid>
-                <Button onClick={() => {
-                    //console.log("Are you still there?")
-                    restartGame(superTTTState, setSuperTTTState, initialState, playerTurn, setPlayerTurn, setBoardState1, setBoardState2, setBoardState3, setBoardState4, setBoardState5, setBoardState6, setBoardState7, setBoardState8, setBoardState9)
-                }}>Reset</Button>
+                <Grid item>
+                    <Grid item sx={{border: '4px solid green', padding: '0px', height: '80%'}}>
+                        
+                    </Grid>
+                    <Grid item sx={{border: '0px solid green', padding: '0px'}}>
+                        <Button sx={{padding: '0px'}} variant='contained' onClick={() => {
+                            //console.log("Are you still there?")
+                            restartGame(superTTTState, setSuperTTTState, initialState, playerTurn, setPlayerTurn, setBoardState1, setBoardState2, setBoardState3, setBoardState4, setBoardState5, setBoardState6, setBoardState7, setBoardState8, setBoardState9)
+                        }}>Reset</Button>
+                    </Grid>
+                </Grid>
+                
             </Grid>
 
             

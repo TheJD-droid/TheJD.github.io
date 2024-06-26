@@ -7,15 +7,22 @@ import Layout from './pages/Layout';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Winner from './pages/WinnerAnimation';
+import React from 'react';
+import { useState } from 'react';
+
+import { retrieveStyle } from './styles';
+
 function App() {
 
+  const [currentStyle, setCurrentStyle] =  React.useState(retrieveStyle('default'));
+  
   return (
     <div className="App" id='root'>
       <BrowserRouter>
-      <div className='App-header'>
+      <div style={currentStyle.AppHeader}>
             <Navbar />
       </div>
-          <div className='App-body'>
+          <div style={currentStyle.AppBody}>
           
         <Routes>
             
@@ -34,3 +41,5 @@ function App() {
 }
 
 export default App;
+
+
