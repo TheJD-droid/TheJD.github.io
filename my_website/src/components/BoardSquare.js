@@ -2,24 +2,20 @@ import React from "react";
 import { Button, IconButton } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import CropDinIcon from '@mui/icons-material/CropDin';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
+import CropDinIcon from '@mui/icons-material/CropDin';
 import Box from '@mui/material/Box';
 //import checkWin from 
-
+import { useEffect } from "react";
 
 
 export default function BoardSquare(props) {
     
     const [flag, setFlag] = React.useState('blank');
-    
-
-
-    //console.log(props.currentState[props.boardPos])
-    ///console.log(props)
+        
 
     const handleClick = () => {
-        console.log(props.currentState)
+        console.log(props.boardState)
         console.log(props.superTTTState)
         //selected board doesn't have a winner, but maybe there already is an overall winner:
         if ('None' !== props.superTTTState['winner']) {
@@ -28,21 +24,21 @@ export default function BoardSquare(props) {
         }
 
         //space might be empty, but there could already be a winner for that board, which would make it an invalid move
-        if ('None' !== props.currentState['winner']) {
+        if ('None' !== props.boardState['winner']) {
             console.log('winner winner!')
-            console.log(`${props.currentState['winner']} has already won on this board.`);
+            console.log(`${props.boardState['winner']} has already won on this board.`);
             return;
         }
 
         //clicking on a space that someone has already played in
-        if (props.currentState[props.boardPos] !== 'blank') {
+        if (props.boardState[props.boardPos] !== 'blank') {
             console.log('Error! That space is not empty')
             return;
         }
 
 
         
-        if (props.currentState[props.boardPos] === 'blank') {
+        if (props.boardState[props.boardPos] === 'blank') {
             //the currently selected square is blank,
             //the selected board does not have a winner,
             //there is not yet an overall winner
@@ -64,7 +60,7 @@ export default function BoardSquare(props) {
             }
 
             console.log(props.playerTurn);
-            props.currentState[props.boardPos] = props.playerTurn
+            props.boardState[props.boardPos] = props.playerTurn
             if (props.playerTurn === 'X') {
                 props.setPlayerTurn('O');
             }
@@ -75,20 +71,20 @@ export default function BoardSquare(props) {
                 console.log('Error!');
                 console.log(props.playerTurn);
             }
-            setFlag(props.currentState[props.boardPos]);
+            setFlag(props.boardState[props.boardPos]);
         
         }
         
 
-        console.log(props.currentState);
-        const winner = props.checkWin(props.currentState, props.currentState[props.boardPos], false)
+        console.log(props.boardState);
+        const winner = props.checkWin(props.boardState, props.boardState[props.boardPos], false)
         console.log(props.superTTTState)
         if ('None' !== winner) {
             //winner found
             console.log('Winner found')
             props.superTTTState[props.boardID] = winner;
             console.log('superState: ')
-            //props.superTTTState[props.boardID] = props.currentState
+            //props.superTTTState[props.boardID] = props.boardState
             console.log(props.superTTTState)
         }
 
@@ -111,16 +107,18 @@ export default function BoardSquare(props) {
             console.log(`Error! superTTTState[${props.boardPos}] value is invalid: `);
         }
 
-        if ('None' !== props.checkWin(props.superTTTState, props.currentState[props.boardPos], true)) {
-            console.log(`${props.currentState[props.boardPos]} wins!`);
+        if ('None' !== props.checkWin(props.superTTTState, props.boardState[props.boardPos], true)) {
+            console.log(`${props.boardState[props.boardPos]} wins!`);
         }
 
     };
 
   return(
     <Box sx={{padding: '5px'}}>
-        <IconButton onClick={handleClick}>
-            {displayIcon(flag)}
+        <IconButton onClick={() => {
+            handleClick()
+            }}>
+            {displayIcon(props.boardState[props.boardPos])}
         </IconButton>
     </Box>
   );
@@ -128,6 +126,7 @@ export default function BoardSquare(props) {
 }
 
 function displayIcon(flag) {
+    
     if (flag === 'O') {
         //return <RadioButtonUncheckedIcon />
         return <RadioButtonUncheckedIcon sx={{color: 'red'}}/>

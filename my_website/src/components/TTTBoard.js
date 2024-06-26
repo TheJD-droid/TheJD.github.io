@@ -5,6 +5,7 @@ import { Grid, colors } from "@mui/material";
 import TTTState from "./TTTState";
 import {checkWin} from "./TicTacToeLogic";
 
+import { useCallback } from "react";
 
 //const BORDER_COLOR = 'black';
 const BORDER_SIZE = '2px';
@@ -12,14 +13,13 @@ const BORDER_STYLE = 'solid';
 const SELECTED_BORDER_COLOR = 'black';
 const BORDER_COLOR = colors.blueGrey[300];
 
+    
+
 export default function TTTBoard(props) {
 
-    const [currentState, setState] = React.useState(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
-    //console.log(currentState);
-    //setState({topLeft : 'X'})
-    //currentState.topLeft = 'X'
-    //console.log(currentState)
-    //checkWin(currentState)
+    //const [boardState, setBoardState] = React.useState(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
+
+
     return(
 <Grid item>
           {/* First row */}
@@ -27,16 +27,16 @@ export default function TTTBoard(props) {
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.topLeftSelected : styles.topLeft}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'topLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'topLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.topMiddleSeleceted : styles.topMiddle}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'topMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'topMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.topRightSelceted : styles.topRight}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'topRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'topRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
             </Grid>
@@ -46,15 +46,15 @@ export default function TTTBoard(props) {
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.middleLeftSelected : styles.middleLeft}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'middleLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'middleLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.middleMiddleSelected : styles.middleMiddle}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'middleMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'middleMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.middleRightSelected : styles.middleRight}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'middleRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'middleRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
         </Grid> 
             </Grid>
@@ -64,15 +64,15 @@ export default function TTTBoard(props) {
         <Grid container spacing={0} direction='row' bgcolor={'white'}>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.bottomLeftSelected : styles.bottomLeft}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'bottomLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'bottomLeft'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.bottomMiddleSelected : styles.bottomMiddle}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'bottomMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'bottomMiddle'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               <Grid item sx={(props.superTTTState.winner === 'None' && props.superTTTState['prevMove'] === props.boardID) || (props.superTTTState.winner === 'None' && props.superTTTState.prevMove === 'None' && props.superTTTState[props.boardID] === 'blank') || (props.superTTTState.winningCombo.includes(props.boardID)) ? styles.bottomRightSelected : styles.bottomRight}>
                   <BoardSquare boardID={props.boardID} superTTTState={props.superTTTState} setSuperTTTState={props.setSuperTTTState} 
-                  currentState = {currentState} boardPos = {'bottomRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
+                  boardState = {props.boardState} boardPos = {'bottomRight'} checkWin={checkWin} playerTurn={props.playerTurn} setPlayerTurn={props.setPlayerTurn}/>
               </Grid>
               
         </Grid>
@@ -83,7 +83,11 @@ export default function TTTBoard(props) {
 
           </Grid>
     );
+
+
 }
+
+
 
 export const styles = {
     topLeft : {
