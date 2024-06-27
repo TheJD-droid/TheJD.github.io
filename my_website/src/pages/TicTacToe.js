@@ -5,17 +5,21 @@ import Box from '@mui/material/Box';
 import TTTBoard from '../components/TTTBoard';
 import ClearIcon from '@mui/icons-material/Clear';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-
+import YoutubeEmbed from '../components/YoutubeEmbed';
 
 import './TicTacToe.css';
 //import TicTacToeLogic from '../TicTacToeLogic';
 import TTTState from '../components/TTTState';
 import zIndex from '@mui/material/styles/zIndex';
+import TempDrawer from '../components/TempDrawer';
 
 const SELECTED_BORDER_COLOR = 'black';
 const BORDER_SIZE = '5px';
 const BORDER_STYLE = 'solid';
 const BORDER_COLOR = colors.blueGrey[300];
+
+
+  
 
 //initial state
 //{topLeft: 'blank', topMiddle: 'blank', topRight: 'blank', middleLeft: 'blank', middleMiddle: 'blank', middleRight: 'blank', bottomLeft: 'blank', bottomMiddle: 'blank', bottomRight: 'blank'}
@@ -57,18 +61,15 @@ function TicTacToe() {
 
 
     return (
-        <Grid container direction='column' sx={{minWidth: '0px', width: '100%', height: '100%'}}>
-          <Box sx={{padding: '0px'}}>
-            Tic tac Toe
-          </Box>
+        <Grid container direction='row' minWidth='765px'>
 
+            
 
-
-
-            <Grid container minWidth='850px' direction='row' spacing={0}>
-                <Grid item minWidth='0vw' width='20vw' height='0vh'></Grid>
-
-                <Grid item minWidth='520px' sx={{ padding: '0px'}}>
+            {/*item containing the tictactoe board*/}
+            <Grid item minWidth='500px' marginLeft='10vw'>
+                <Grid container direction='column'>
+                <Grid item sx={{padding: '20px'}}>Tic Tac Toe</Grid>
+            
                     {/*Tic tac toe board*/}
                     <Grid container direction='row'>
 
@@ -180,20 +181,47 @@ function TicTacToe() {
 
 
                 </Grid>
-                <Grid item>
-                    <Grid item sx={{height: '60vh'}}>
+                </Grid>
+                
+                {/*Item containing the reset button*/}
+                <Grid item marginLeft='40px'>
+                <Grid container direction='column'>
+                    <Grid item sx={{height: '480px', maxHeight:'480px'}}>
                         
                     </Grid>
                     <Grid item sx={{padding: '0px'}}>
-                        <Button sx={{padding: '0px'}} variant='contained' onClick={() => {
+                        <Button variant='contained' onClick={() => {
                             //console.log("Are you still there?")
                             restartGame(superTTTState, setSuperTTTState, initialState, playerTurn, setPlayerTurn, setBoardState1, setBoardState2, setBoardState3, setBoardState4, setBoardState5, setBoardState6, setBoardState7, setBoardState8, setBoardState9)
                         }}>Reset</Button>
                     </Grid>
+                    <Grid item sx={{marginTop: '5px'}}>
+                        {/*
+                        
+                        <Button onClick={() => {console.log(content.props)}}>BUTTON</Button>
+                          
+                        */}
+                        <TempDrawer DrawerContent={
+                            <Box role='presentation' sx={{backgroundColor: '#333842', height: '100%', padding: '10px'}}>
+                                <YoutubeEmbed embedId='_Na3a1ZrX7c' />
+                            </Box>
+                            }
+                        bttnText={'How to play'}
+                        anchorTo={'right'} />
+                          
+                    </Grid>
                 </Grid>
-                
-            </Grid>
+                </Grid>
 
+                
+
+                {/*Embedded Youtube video*/}
+                {/* 
+                <Grid item>
+                    <YoutubeEmbed embedId='_Na3a1ZrX7c'></YoutubeEmbed>
+
+                </Grid>
+                */}
             
 
         </Grid>
@@ -205,10 +233,8 @@ function restartGame(superTTTState, setSuperTTTState, initialState, playerTurn, 
 
 ) {
     setSuperTTTState(initialState);
-    console.log(superTTTState);
     setPlayerTurn('X');
-    console.log(playerTurn);
-
+    
     setBoardState1(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
     setBoardState2(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
     setBoardState3(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
@@ -219,8 +245,6 @@ function restartGame(superTTTState, setSuperTTTState, initialState, playerTurn, 
     setBoardState8(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
     setBoardState9(new TTTState('blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank', 'blank'));
 
-    //setResetFlag(false);
-    //console.log("HELLLLLLO!")
 }
 
 

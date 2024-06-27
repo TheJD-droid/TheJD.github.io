@@ -15,8 +15,9 @@ export default function BoardSquare(props) {
         
 
     const handleClick = () => {
-        console.log(props.boardState)
-        console.log(props.superTTTState)
+        // console.log(props.boardState)
+        // console.log(props.superTTTState)
+
         //selected board doesn't have a winner, but maybe there already is an overall winner:
         if ('None' !== props.superTTTState['winner']) {
             console.log(`${props.superTTTState['winner']} has already won.`);
@@ -25,7 +26,6 @@ export default function BoardSquare(props) {
 
         //space might be empty, but there could already be a winner for that board, which would make it an invalid move
         if ('None' !== props.boardState['winner']) {
-            console.log('winner winner!')
             console.log(`${props.boardState['winner']} has already won on this board.`);
             return;
         }
@@ -53,13 +53,13 @@ export default function BoardSquare(props) {
             else if (props.boardID !== props.superTTTState['prevMove']) {
                 //we aren't on that board, so we simply return
                 console.log('error: selected board does not match previous move');
-                console.log(props.boardID);
-                console.log(props.superTTTState['prevMove']);
+                // console.log(props.boardID);
+                // console.log(props.superTTTState['prevMove']);
                 return;
 
             }
 
-            console.log(props.playerTurn);
+            // console.log(props.playerTurn);
             props.boardState[props.boardPos] = props.playerTurn
             if (props.playerTurn === 'X') {
                 props.setPlayerTurn('O');
@@ -76,24 +76,20 @@ export default function BoardSquare(props) {
         }
         
 
-        console.log(props.boardState);
+        // console.log(props.boardState);
         const winner = props.checkWin(props.boardState, props.boardState[props.boardPos], false)
-        console.log(props.superTTTState)
+        // console.log(props.superTTTState)
         if ('None' !== winner) {
             //winner found
-            console.log('Winner found')
+            // console.log('Winner found')
             props.superTTTState[props.boardID] = winner;
-            console.log('superState: ')
-            //props.superTTTState[props.boardID] = props.boardState
-            console.log(props.superTTTState)
+            // console.log('superState: ')
+            // console.log(props.superTTTState)
         }
 
+        
         //important that we do this whether a winner is found or not, but for now, we can do it after we check
         
-        console.log(props.superTTTState['prevMove'])
-        console.log(props.superTTTState[props.boardPos])
-        console.log(props.boardPos)
-
         //if the board corresponding to the chosen square has a winner, then we set the 'prevMove' to None:
         if (props.superTTTState[props.boardPos] !== 'blank') {
             props.superTTTState['prevMove'] = 'None';

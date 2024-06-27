@@ -1,23 +1,7 @@
 import React from "react";
 
 
-//export function track_style(currentStyle, setCurrentStyle) {
-    
 
-
-//}
-/*
-export function getStyle() {
-    //console.log(current_style);
-    
-    return currentStyle;
-}
-
-export function setStyle(styleName) {
-    current_style = retrieveStyle(styleName);
-    return current_style;
-}
-*/
 export function retrieveStyle(styleName) {
     switch(styleName) {
         case 'default': 

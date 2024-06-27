@@ -1,31 +1,11 @@
-import React, { useState } from "react";
-import TTTState from "./TTTState";
 
-//const [boardState, setBoardState] = React.useState(createBoard())
-/*
-function createBoard() {
-    var superBoard = {'top-L': {}, 'top-M': {}, 'top-R': {},
-              'mid-L': {}, 'mid-M': {}, 'mid-R': {},
-              'low-L': {}, 'low-M': {}, 'low-R': {}};
-    var defaultBoard = {'top-L': ' ', 'top-M': ' ', 'top-R': ' ',
-                'mid-L': ' ', 'mid-M': ' ', 'mid-R': ' ',
-                'low-L': ' ', 'low-M': ' ', 'low-R': ' ',};
-
-    for (const [keys, value] of Object.entries(superBoard) ) {
-        superBoard[keys] = Object.create(defaultBoard)
-        
-    }
-
-    return superBoard;
-}
-*/
 
 export function checkWin(currentState, player, isSuper) {
-    console.log(isSuper)
     
-    console.log('checkwin called:')
-    console.log(currentState)
-    console.log(player)
+    // console.log('checkwin called:')
+    // console.log(currentState)
+    // console.log(player)
+
     if (currentState.winner !== 'None') {
         console.log('invalid move')
     }
@@ -168,7 +148,7 @@ export function checkWin(currentState, player, isSuper) {
                 currentState.winner = 'cat';
                 if (isSuper) {
                     currentState.winningCombo.push('cat');
-                    console.log(currentState.winningCombo)
+                    // console.log(currentState.winningCombo)
 
                 }
                 return currentState.winner;
