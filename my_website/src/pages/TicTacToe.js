@@ -23,7 +23,6 @@ const modalStyle = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    // bgcolor: 'background.paper',
     color: 'white',
     backgroundColor: '#333842',
     border: '2px solid',
