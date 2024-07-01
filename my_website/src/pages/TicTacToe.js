@@ -12,14 +12,9 @@ import zIndex from '@mui/material/styles/zIndex';
 import TempDrawer from '../components/TempDrawer';
 import WinnerAnimation from './WinnerAnimation';
 import CropFreeOutlinedIcon from '@mui/icons-material/CropFreeOutlined';
-import CopyrightIcon from '@mui/icons-material/Copyright';
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
-import RecommendOutlinedIcon from '@mui/icons-material/RecommendOutlined';
 import CheckIcon from '@mui/icons-material/Check';
 import CopyrightTwoToneIcon from '@mui/icons-material/CopyrightTwoTone';
-import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
-import SquareTwoToneIcon from '@mui/icons-material/SquareTwoTone';
-import PanoramaHorizontalSelectTwoToneIcon from '@mui/icons-material/PanoramaHorizontalSelectTwoTone';
+import DeblurTwoToneIcon from '@mui/icons-material/DeblurTwoTone';
 
 const SELECTED_BORDER_COLOR = 'black';
 const BORDER_SIZE = '5px';
@@ -82,7 +77,7 @@ function TicTacToe() {
     return (<>
 
     {/* Fireworks animation, only occurs when the Modal is open. */}
-    {openModal ? <WinnerAnimation /> : <></>}
+    {openModal && superTTTState.winner !== 'cat' ? <WinnerAnimation /> : <></>}
     {/* Modal to indicate who won */}
     <Modal
         open={openModal}
@@ -125,7 +120,7 @@ function TicTacToe() {
                             {(superTTTState.winningCombo.includes('topLeft') && (superTTTState['topLeft'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
                             {(superTTTState.winningCombo.includes('topLeft') && (superTTTState['topLeft'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
                             {superTTTState['topLeft'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
-                            {(!superTTTState.winningCombo.includes('topLeft') && superTTTState.winner !== 'None' && superTTTState['topLeft'] === 'blank') ? <PanoramaHorizontalSelectTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('topLeft') && superTTTState.winner !== 'None' && superTTTState['topLeft'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'topLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topLeft'] === 'blank') || (superTTTState.winningCombo.includes('topLeft')) ? styles.topLeftSelected : styles.topLeft
                                 }>
@@ -139,7 +134,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['topMiddle'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['topMiddle'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('topMiddle') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('topMiddle') && (superTTTState['topMiddle'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('topMiddle') && (superTTTState['topMiddle'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['topMiddle'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('topMiddle') && superTTTState.winner !== 'None' && superTTTState['topMiddle'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'topMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topMiddle'] === 'blank') || (superTTTState.winningCombo.includes('topMiddle')) ? styles.topMiddleSelected : styles.topMiddle
                                 }>
@@ -152,7 +150,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['topRight'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['topRight'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('topRight') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('topRight') && (superTTTState['topRight'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('topRight') && (superTTTState['topRight'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['topRight'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('topRight') && superTTTState.winner !== 'None' && superTTTState['topRight'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'topRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['topRight'] === 'blank') || (superTTTState.winningCombo.includes('topRight')) ? styles.topRightSelected : styles.topRight
                                 }>
@@ -172,7 +173,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['middleLeft'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['middleLeft'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('middleLeft') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('middleLeft') && (superTTTState['middleLeft'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('middleLeft') && (superTTTState['middleLeft'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['middleLeft'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('middleLeft') && superTTTState.winner !== 'None' && superTTTState['middleLeft'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'middleLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleLeft'] === 'blank') || (superTTTState.winningCombo.includes('middleLeft')) ? styles.middleLeftSelected : styles.middleLeft
                                 }>
@@ -186,7 +190,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['middleMiddle'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['middleMiddle'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('middleMiddle') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('middleMiddle') && (superTTTState['middleMiddle'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('middleMiddle') && (superTTTState['middleMiddle'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['middleMiddle'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('middleMiddle') && superTTTState.winner !== 'None' && superTTTState['middleMiddle'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'middleMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleMiddle'] === 'blank') || (superTTTState.winningCombo.includes('middleMiddle')) ? styles.middleMiddleSelected : styles.middleMiddle
                                 }>
@@ -199,7 +206,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['middleRight'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['middleRight'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('middleRight') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('middleRight') && (superTTTState['middleRight'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('middleRight') && (superTTTState['middleRight'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['middleRight'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('middleRight') && superTTTState.winner !== 'None' && superTTTState['middleRight'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'middleRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['middleRight'] === 'blank') || (superTTTState.winningCombo.includes('middleRight')) ? styles.middleRightSelected : styles.middleRight
                                 }>
@@ -218,7 +228,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['bottomLeft'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['bottomLeft'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('bottomLeft') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('bottomLeft') && (superTTTState['bottomLeft'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('bottomLeft') && (superTTTState['bottomLeft'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['bottomLeft'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('bottomLeft') && superTTTState.winner !== 'None' && superTTTState['bottomLeft'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomLeft') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomLeft'] === 'blank') || (superTTTState.winningCombo.includes('bottomLeft')) ? styles.bottomLeftSelected : styles.bottomLeft
                                 }>
@@ -231,7 +244,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['bottomMiddle'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['bottomMiddle'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('bottomMiddle') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('bottomMiddle') && (superTTTState['bottomMiddle'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('bottomMiddle') && (superTTTState['bottomMiddle'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['bottomMiddle'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('bottomMiddle') && superTTTState.winner !== 'None' && superTTTState['bottomMiddle'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomMiddle') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomMiddle'] === 'blank') || (superTTTState.winningCombo.includes('bottomMiddle')) ? styles.bottomMiddleSelected : styles.bottomMiddle
                                 }>
@@ -245,7 +261,10 @@ function TicTacToe() {
                         <Grid container>
                             {superTTTState['bottomRight'] === 'O' ? <RadioButtonUncheckedIcon sx={styles.overlayImage1} /> : <></>}
                             {superTTTState['bottomRight'] === 'X' ? <ClearIcon sx={styles.overlayImage2} /> : <></>}
-                            {superTTTState.winningCombo.includes('bottomRight') ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('bottomRight') && (superTTTState['bottomRight'] === 'O')) ? <CheckIcon sx={styles.overlayImage3} /> : <></>}
+                            {(superTTTState.winningCombo.includes('bottomRight') && (superTTTState['bottomRight'] === 'X')) ? <CropFreeOutlinedIcon sx={styles.overlayImage3} /> : <></>}
+                            {superTTTState['bottomRight'] === 'cat' ? <CopyrightTwoToneIcon sx={styles.overlayImage4} /> : <></>}
+                            {(!superTTTState.winningCombo.includes('bottomRight') && superTTTState.winner !== 'None' && superTTTState['bottomRight'] === 'blank') ? <DeblurTwoToneIcon sx={styles.overlayImage4} /> : <></>}
                             <Grid item sx={
                                 (superTTTState.winner === 'None' && superTTTState.prevMove === 'bottomRight') || (superTTTState.winner === 'None' && superTTTState.prevMove === 'None' && superTTTState['bottomRight'] === 'blank') || (superTTTState.winningCombo.includes('bottomRight')) ? styles.bottomRightSelected : styles.bottomRight
                                 }>
