@@ -7,8 +7,9 @@ import TicTacToe from './pages/TicTacToe';
 import Layout from './pages/Layout';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Winner from './pages/WinnerAnimation';
+import Winner from './pages/BalloonPage';
 import React, { useCallback, useEffect, useContext } from 'react';
+import BalloonPage from './pages/BalloonPage';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
             
               <Route index element={<Home />} />
               <Route path='TicTacToe' element={<TicTacToe />} />
-              <Route path='WinnerAnimation' element={<Winner />} />
+              <Route path='BalloonPage' element={<BalloonPage />} />
             
           </Routes>        
         </div>

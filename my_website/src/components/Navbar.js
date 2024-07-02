@@ -14,7 +14,7 @@ function Navbar() {
                     <Button variant='contained' href='/'>Home</Button>
                     <Divider orientation='vertical' />
                     <Button variant='contained' href='/TicTacToe'>Tic Tac Toe</Button>
-                    <Button variant='contained' href='/WinnerAnimation'>Explosion</Button>
+                    <Button variant='contained' href='/BalloonPage'>Balloon Game</Button>
 
                 </ButtonGroup>
             </nav>
