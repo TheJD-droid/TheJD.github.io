@@ -6,7 +6,7 @@ import '../CSSFiles/bubble.css';
 import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-
+import { Slider } from "@mui/material";
 
 export default function BalloonPage() {
     
@@ -19,23 +19,20 @@ export default function BalloonPage() {
     //         popSound.play();
     //     });
     // });
-    const [poppingSoundNow, setPoppingSoundNow] = React.useState(false);
+    //const [poppingSoundNow, setPoppingSoundNow] = React.useState(false);
     const [onReset, setOnReset] = React.useState(false)
     const [onPopped, setOnPopped] = React.useState(false)
-    const [toBePopped, setToBePopped] = useState(-1);
-    const numberOfBalloons = 10;
-/*
-    const states = new Array()
+    const [toBePopped, setToBePopped] = React.useState(-1);
+    //const numberOfBalloons = 10;
 
-    for (let i = 0; i < numberOfBalloons; i++) {
-        const [balloonState, setBalloonState] = React.useState('balloon');
-        states.concat({i: {'state': balloonState, 'setState': setBalloonState}})
+    const [numberOfBalloons, setNumberOfBalloons] = React.useState(10)
+
+    const [whichBalloonToPop, setWhichBalloonToPop] = React.useState(1);
+
+    const [gameState, setGameState] = React.useState(new Array())
+    const handleChangeOfBalloons = (event, newValue) => {
+        setNumberOfBalloons(newValue)
     }
-*/
-    useEffect(() => {
-        setPoppingSoundNow(false);
-    }, [poppingSoundNow]);
-    
 
 
     useEffect(() => {
@@ -43,64 +40,69 @@ export default function BalloonPage() {
             setOnReset(false)
             setToBePopped(-1)
         }
-        resetBalloons()
+        
     }, [onReset]);
 
-    useEffect(() => {
-        if(toBePopped != -1) {
-            popBalloon(toBePopped);
-            
-        }
-        // if (onPopped) {
-        //     setOnPopped(false)
-        // }
-    //}, [onPopped]);
-    }, [toBePopped]);
 
-    const popBalloon = (toBePopped) => {
-        console.log(toBePopped)
-        //setToBePopped(-1)
-        //setBalloonState('balloon popped')
-      }
-      
-      const resetBalloons = () => {
-        console.log('resetBalloons')
-        setToBePopped(-1)
-        
+     
+
+
+      const handlePop = (x) => {
+        setToBePopped(x)
       }
 
-
-      
+    
 
     return(
-        <>
-            <div className="pageContainer">
-            <Grid container>
+        <><Grid container direction='column'>
+            <Grid item>
+            {/* <div className="pageContainer" style={{marginLeft: '5vw', marginRight: '5vw', width: 'fit-content', justifyContent: 'center'}}> */}
+            <Grid container style={{ marginLeft:'5vw', marginRight: '5vw', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', justifyContent: 'center'}}>
                 {/* <Grid item>
                     <Balloon className={balloonState} onReset={onReset} setOnReset={setOnReset}></Balloon>
                 </Grid> */}
 
                 {/* {console.log(createBalloons(numberOfBalloons, balloonState, onReset, setOnReset))} */}
-                {createBalloons(numberOfBalloons, 'balloon', onReset, setOnReset, toBePopped, setToBePopped)}
+                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop)}
                 
                 
             </Grid>
-            </div>
-            <div>
-                <Button onClick={() => {
-                    setToBePopped(5);
-                    console.log(toBePopped);
-                    //setPoppingSoundNow(true)
-
-                }}>Pop</Button>
-                <Button onClick={() => {
-                    
-                        setOnReset(true)
-                    
-                    }}>Reset</Button>
-            </div>
-
             
+            
+            {/* </div> */}
+            </Grid>
+            <Grid item>
+            <Grid container direction='column' style={{maxWidth: '80vw'}}>
+                <Grid item style={{maxWidth: '80vw'}}>
+                    <div>
+                        <Button onClick={() => {
+                            // setToBePopped(5);
+                            setToBePopped(whichBalloonToPop);
+                            setWhichBalloonToPop(((whichBalloonToPop % 10) + 1))
+                            console.log(toBePopped);
+                            //setPoppingSoundNow(true)
+
+                        }}>Pop</Button>
+                        <Button onClick={() => {
+                            
+                                setOnReset(true)
+                            
+                            }}>Reset</Button>
+                    </div>
+                </Grid>
+                <Grid item style={{width: '80vw', maxWidth: '60vw', border: '2px solid red', marginLeft: '20vw', marginRight: '20vw'}}>
+                    <Grid container direction='row'>
+                        {/* <Grid item style={{width: '20vw', border:'2px solid green'}} /> */}
+                        {/* <Grid item style={{width: '80vw', border: '2px solid red'}}> */}
+                         
+                                <Slider defaultValue={10} aria-label="Default" valueLabelDisplay="auto" value={numberOfBalloons} onChange={handleChangeOfBalloons} style={{width: '80vw', maxWidth: '1058px'}}/>
+                          
+                        {/* </Grid> */}
+                    </Grid>
+                </Grid>
+                </Grid>
+            </Grid>
+            </Grid>
         </>
     );
 }
@@ -120,11 +122,11 @@ export default function BalloonPage() {
 // }
 
 
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, setToBePopped) {
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop) {
     // let list = new ArrayList[];
     let result = new Array()
     for (let i = 0; i < numberOfBalloons; i++) {
-        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} setToBePopped={setToBePopped}></Balloon></Grid>));
+        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop}></Balloon></Grid>));
     }
     return result;
 }

@@ -1,4 +1,4 @@
-body {
+/* body {
     display: grid;
     place-content: center;
     height: 100vh;
@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
   }
-  
+
   .ball {
     display: inline-block;
     width: 100%;
@@ -133,4 +133,4 @@ body {
   
     97%, 100% {
       -webkit-transform: scale(1);
-      transform: scale(1); } }
+      transform: scale(1); } } */

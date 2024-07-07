@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import '../../CSSFiles/balloons.css'
 import React, { useEffect, useRef } from 'react';
+import balloonPopSound from '../../assets/balloonpop-83760.mp3';
 
 export default function Balloon(props) {
 
@@ -9,6 +10,13 @@ export default function Balloon(props) {
     const [chosenColor, setChosenColor] = React.useState(randomColor());
 //    const chosenColor = randomColor();
     const [chosenDuration, setChosenDuration] = React.useState(randomAnimationDuration());
+
+
+
+    function playSound() {
+        new Audio(balloonPopSound).play()
+    }
+
 
     useEffect(()=> {
         if (props.onReset) {
@@ -20,28 +28,38 @@ export default function Balloon(props) {
         }
     }, [props.onReset])
 
+    
     useEffect(() => {
-        console.log(balloonState);
-        console.log('is popping an instrument?')
-        if (props.toBePopped != -1) {
-            console.log('will I pop?')
-
+        if (balloonState === 'balloon popped') {
+            playSound()
         }
-        console.log(props.setToBePopped)
-        if (props.toBePopped == props.idNum) {
-            console.log('I will pop!')
-            setBalloonState('balloon popped');
-            console.log(props.toBePopped)
-            console.log(balloonState)
-        }
-
-    }, [props.toBePopped])
-
+    }, [balloonState])
     
 
     const handleClick = () => {
-        console.log(props);
+        if (balloonState === 'balloon') {
+            props.handlePop(props.idNum)
+            console.log(props)
+            console.log("but do we reset?")
+            //playSound()
+        }
+        else if (balloonState === 'balloon popped') {
+            setBalloonState('balloon')
+        }
     };
+
+    useEffect(() => {
+        if((props.toBePopped === props.idNum) && (balloonState != 'balloon popped')) {
+            setBalloonState('balloon popped')
+            //playSound()
+            props.handlePop(-1)
+            console.log(props.toBePopped)
+        }
+        
+
+    }, [props.toBePopped])
+
+
 
     const style = {
         
@@ -95,9 +113,9 @@ export default function Balloon(props) {
             ▲
             </div>
         </div>
-        <Button onClick={() => {
+        {/* <Button onClick={() => {
             handleClick();
-            }}>THIS BUTTON</Button>
+            }}>THIS BUTTON</Button> */}
         </>
 
     );
