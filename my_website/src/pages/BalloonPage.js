@@ -7,6 +7,7 @@ import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
 //import { useState } from "react";
 import { Slider } from "@mui/material";
+import BalloonGameState from "../components/BalloonGame/BalloonGameState";
 
 export default function BalloonPage() {
     
@@ -28,51 +29,66 @@ export default function BalloonPage() {
     const [numberOfBalloons, setNumberOfBalloons] = React.useState(10)
 
     //const [whichBalloonToPop, setWhichBalloonToPop] = React.useState(1);
-
-    //const [gameState, setGameState] = React.useState(new Array())
+    const [triggerReset, setTriggerReset] = React.useState(false)
+    const [gameState, setGameState] = React.useState(new BalloonGameState(true, 0, 10))
 
 
     const handleChangeOfBalloons = (event, newValue) => {
         setNumberOfBalloons(newValue)
-        triggerReset()
+        //gameState.numberOfBalloons = numberOfBalloons
+        setOnReset(true)
         //setOnReset(true)
         //setOnReset(false)
         //setOnReset(false)
 
     }
 
-    function triggerReset() {
-        console.log('triggerReset called')
-        if (onReset) {
-            setOnReset(false)
-        }
-        if (!onReset) {
-            setOnReset(true)
-        }
-        if (onReset) {
-            setOnReset(false)
-        }
-        
-    }
+    useEffect(() => {
 
+        setOnReset(false)
+
+    }, [triggerReset]) 
     
+    
+    // function triggerReset() {
+    //     console.log('triggerReset called')
+    //     if (onReset) {
+    //         setOnReset(false)
+    //     }
+    //     if (!onReset) {
+    //         setOnReset(true)
+    //     }
+    //     if (onReset) {
+    //         setOnReset(false)
+    //     }
+    //     setGameState(new BalloonGameState(true, 0, numberOfBalloons))
+    //     //console.log(gameState)
+    // }
+
+
 
     useEffect(() => {
         console.log('onReset change registered')
         if (onReset) {
             console.log('reset triggered')
-            setOnReset(false)
             setToBePopped(-1)
+            setGameState(new BalloonGameState(true, 0, numberOfBalloons))
+            setTriggerReset(true)
+            
         }
 
-        setOnReset(false)
+        if (!onReset) {
+            setTriggerReset(false)
+        }
         
         
-    }, [onReset]);
+    }, [onReset, gameState, numberOfBalloons]);
 
     useEffect(() => {
         console.log('numberOfBalloons change detected')
         console.log(numberOfBalloons)
+        //setGameState(new BalloonGameState(gameState.ongoing, gameState.balloonsPopped, numberOfBalloons))
+        //console.log(gameState)
         //triggerReset()
     }, [numberOfBalloons])
 
@@ -99,7 +115,7 @@ export default function BalloonPage() {
             <Grid container direction='row' justifyContent='center' style={{ marginLeft:'5vw', marginRight: '5vw', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '80vw'}}>
                 
 
-                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop)}
+                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState)}
                 
                 
             </Grid>
@@ -127,6 +143,9 @@ export default function BalloonPage() {
                             if (trialOutcome !== 0) {
                                 setToBePopped(trialOutcome)
                             }
+                            else if (trialOutcome === 0) {
+                                setOnReset(true)
+                            }
 
 
                         }}>Pop</Button>
@@ -144,7 +163,8 @@ export default function BalloonPage() {
                             console.log(toBePopped);
                             console.log('numberOfBalloons')
                             console.log(numberOfBalloons)
-                            
+                            console.log('gameState:')
+                            console.log(gameState)
                         }}>Print State</Button>
                     </div>
                 </Grid>
@@ -180,14 +200,14 @@ export default function BalloonPage() {
 // }
 
 
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop) {
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState) {
     // let list = new ArrayList[];
     let result = []
     //let row = new Array()
     //result = wrapWithRow(result)
     for (let i = 0; i < numberOfBalloons; i++) {
         //console.log(i)
-        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop}></Balloon></Grid>));
+        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState}></Balloon></Grid>));
         
         //result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop}></Balloon></Grid>));
         // row = row.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop}></Balloon></Grid>));

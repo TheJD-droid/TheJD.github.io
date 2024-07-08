@@ -2,6 +2,7 @@
 import '../../CSSFiles/balloons.css'
 import React, { useEffect } from 'react';
 import balloonPopSound from '../../assets/balloonpop-83760.mp3';
+import ClearIcon from '@mui/icons-material/Clear';
 
 export default function Balloon(props) {
 
@@ -32,8 +33,9 @@ export default function Balloon(props) {
     useEffect(() => {
         if (balloonState === 'balloon popped') {
             playSound()
+            props.gameState.balloonsPopped = props.gameState.balloonsPopped + 1
         }
-    }, [balloonState])
+    }, [balloonState, props.gameState])
     
 
     // const handleClick = () => {
@@ -49,6 +51,9 @@ export default function Balloon(props) {
     // };
 
     useEffect(() => {
+        if (props.toBePopped) {
+
+        }
         if((props.toBePopped === props.idNum) && (balloonState !== 'balloon popped')) {
             setBalloonState('balloon popped')
             //playSound()
@@ -63,29 +68,22 @@ export default function Balloon(props) {
 
     const style = {
         
-    default: {
-        display: 'inline-block',
-        width: '60px',
-        height: '72px',
-        background: chosenColor,
-        borderRadius:'80%',
-        position:'relative',
-        boxShadow:'inset -10px -10px 0 rgba(0,0,0,0.07)',
-        margin:'20px 0px',
-        transition: 'transform 0.5s ease',
-        zIndex: 10,
-        animation: 'balloons 10s ease-in-out infinite',
-        transformOrigin: 'bottom center',
-        animationDuration: chosenDuration,
-    },
+        default: {
+            display: 'inline-block',
+            width: '60px',
+            height: '72px',
+            background: chosenColor,
+            borderRadius:'80%',
+            position:'relative',
+            boxShadow:'inset -10px -10px 0 rgba(0,0,0,0.07)',
+            margin:'20px 0px',
+            transition: 'transform 0.5s ease',
+            zIndex: 10,
+            animation: 'balloons 10s ease-in-out infinite',
+            transformOrigin: 'bottom center',
+            animationDuration: chosenDuration,
+        },
 
-
-        // default: {
-            
-        //     background: chosenColor, 
-        //     animationDuration: chosenDuration,
-
-        // },
         balloonAfter: {
             
             //content:"▲",
@@ -97,17 +95,37 @@ export default function Balloon(props) {
             position:'absolute',
             bottom:'-12px',
             zIndex:-100,
-    
-    },
+        },
         
         popped: {
             background: chosenColor,
             animation: 'pop 0.5s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards',
         },
+
+        notShowing: {
+            position: 'absolute',
+            zIndex: '11',
+            color: 'red',
+            fontSize: 60,
+            opacity: 0,
+            
+        },
+
+        onHit: {
+            position: 'absolute',
+            zIndex: '11',
+            color: 'red',
+            fontSize: 60,
+            opacity: 1,
+            animation: 'spotHit 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
+            
+        },
     }
 
     return (
         <>
+        <ClearIcon style={props.toBePopped === props.idNum ? style.onHit : style.notShowing} />
+        {/* <ClearIcon style={style.onHit} /> */}
         <div className={balloonState} style={balloonState === 'balloon popped' ? style.popped : style.default}>
             <div style={style.balloonAfter}>
             ▲
