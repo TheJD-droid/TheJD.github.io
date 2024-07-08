@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
+//import { Button } from '@mui/material';
 import '../../CSSFiles/balloons.css'
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import balloonPopSound from '../../assets/balloonpop-83760.mp3';
 
 export default function Balloon(props) {
@@ -10,7 +10,7 @@ export default function Balloon(props) {
     const [chosenColor, setChosenColor] = React.useState(randomColor());
 //    const chosenColor = randomColor();
     const [chosenDuration, setChosenDuration] = React.useState(randomAnimationDuration());
-
+    //const [hitAnimation, setHitAnimation] = React.useState(false);
 
 
     function playSound() {
@@ -23,7 +23,7 @@ export default function Balloon(props) {
             setChosenColor(randomColor())
             setChosenDuration(randomAnimationDuration());
             setBalloonState('balloon');
-            console.log(balloonState)
+            //console.log(balloonState)
             
         }
     }, [props.onReset])
@@ -36,20 +36,20 @@ export default function Balloon(props) {
     }, [balloonState])
     
 
-    const handleClick = () => {
-        if (balloonState === 'balloon') {
-            props.handlePop(props.idNum)
-            console.log(props)
-            console.log("but do we reset?")
-            //playSound()
-        }
-        else if (balloonState === 'balloon popped') {
-            setBalloonState('balloon')
-        }
-    };
+    // const handleClick = () => {
+    //     if (balloonState === 'balloon') {
+    //         handlePop(idNum)
+    //         //console.log(props)
+    //         console.log("but do we reset?")
+    //         //playSound()
+    //     }
+    //     else if (balloonState === 'balloon popped') {
+    //         setBalloonState('balloon')
+    //     }
+    // };
 
     useEffect(() => {
-        if((props.toBePopped === props.idNum) && (balloonState != 'balloon popped')) {
+        if((props.toBePopped === props.idNum) && (balloonState !== 'balloon popped')) {
             setBalloonState('balloon popped')
             //playSound()
             props.handlePop(-1)
@@ -57,7 +57,7 @@ export default function Balloon(props) {
         }
         
 
-    }, [props.toBePopped])
+    }, [props, balloonState])
 
 
 

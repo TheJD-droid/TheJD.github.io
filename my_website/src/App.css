@@ -38,8 +38,9 @@
   background-color: #333842;
   min-height: 80vh;
   min-width: fit-content;
-  max-width: 100vw;
-  max-height: 100vh;
+  /* max-width: 100vw; */
+  /* max-height: 100vh; */
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
