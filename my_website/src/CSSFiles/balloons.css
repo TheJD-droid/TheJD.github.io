@@ -89,16 +89,36 @@ div.pageContainer { margin:0px; background:hsl(70, 31%, 85%); text-align:center;
 
   @keyframes spotHit {
     
-    0%,100%{
+    0%{
         opacity: 0;
-        transform: translateZ(0) scale(1.5, 1.5) rotate(-4deg);
+        transform: translateZ(0) scale(5, 5) rotate(-10deg);
         
       }
-    50%{
+      /* 25%{
         opacity: 1;
-        transform: translateZ(0) scale(1, 1);
+        transform: translateZ(0) scale(1, 1) rotate(-8deg);
+        
+      } */
+      50%{
+        opacity: 1;
+        transform: translateZ(0) scale(1, 1) rotate(-270deg);
         
       }
+      /* 75%{
+        opacity: 1;
+        transform: translateZ(0) scale(1, 1) rotate(-8deg);
+        
+      } */
+      100%{
+        /* opacity: 0;
+        transform: translateZ(0) scale(1, 1) rotate(-270deg);
+         */
+        opacity: 0;
+        transform: translateZ(0) scale(1, 1) rotate(-270deg);
+        
+      }
+      
+      
   }
 
   .balloon.popped {

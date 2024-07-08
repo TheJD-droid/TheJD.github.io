@@ -107,12 +107,12 @@ export default function BalloonPage() {
     
 
     return(
-        <Grid container direction='column' alignItems='center' style={{border: '2px solid green', margin:'10px'}}>
+        <Grid container direction='column' alignItems='center' style={{border: '2px solid green', margin: '5px'}}>
             
             
-            <Grid item>
+            <Grid item style={{marginLeft: '5vw', marginRight: '5vw'}}>
             
-            <Grid container direction='row' justifyContent='center' style={{ marginLeft:'5vw', marginRight: '5vw', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '80vw'}}>
+            <Grid container direction='row' justifyContent='center' style={{ marginLeft:'150px', marginRight: '150px', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '600px'}}>
                 
 
                 {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState)}
@@ -144,8 +144,9 @@ export default function BalloonPage() {
                                 setToBePopped(trialOutcome)
                             }
                             else if (trialOutcome === 0) {
-                                setOnReset(true)
+                                //setOnReset(true)
                             }
+                            //console.log(window)
 
 
                         }}>Pop</Button>

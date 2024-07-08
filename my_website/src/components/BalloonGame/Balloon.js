@@ -11,8 +11,8 @@ export default function Balloon(props) {
     const [chosenColor, setChosenColor] = React.useState(randomColor());
 //    const chosenColor = randomColor();
     const [chosenDuration, setChosenDuration] = React.useState(randomAnimationDuration());
-    //const [hitAnimation, setHitAnimation] = React.useState(false);
-
+    const [hitAnimation, setHitAnimation] = React.useState(false);
+    const [animationFlag, setAnimationFlag] = React.useState(false);
 
     function playSound() {
         new Audio(balloonPopSound).play()
@@ -51,8 +51,8 @@ export default function Balloon(props) {
     // };
 
     useEffect(() => {
-        if (props.toBePopped) {
-
+        if (props.toBePopped === props.idNum) {
+            setHitAnimation(true)
         }
         if((props.toBePopped === props.idNum) && (balloonState !== 'balloon popped')) {
             setBalloonState('balloon popped')
@@ -63,6 +63,7 @@ export default function Balloon(props) {
         
 
     }, [props, balloonState])
+
 
 
 
@@ -107,14 +108,14 @@ export default function Balloon(props) {
             zIndex: '11',
             color: 'red',
             fontSize: 60,
-            opacity: 0,
+            opacity: 1,
             
         },
 
         onHit: {
             position: 'absolute',
             zIndex: '11',
-            color: 'red',
+            color: 'black',
             fontSize: 60,
             opacity: 1,
             animation: 'spotHit 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
@@ -122,9 +123,23 @@ export default function Balloon(props) {
         },
     }
 
+    // useEffect(() => {
+    //     if (hitAnimation) {
+    //         setAnimationFlag(true)
+    //     }
+    //     else if (hitAnimation) {
+    //         handleAnimationFlag()
+    //     }
+    // }, [hitAnimation, props.toBePopped])
+
+    // const handleAnimationFlag = () => {
+    //     setAnimationFlag(false)
+    // }
+
     return (
         <>
-        <ClearIcon style={props.toBePopped === props.idNum ? style.onHit : style.notShowing} />
+        {/* <ClearIcon style={(animationFlag) ? style.onHit : style.notShowing} /> */}
+        <ClearIcon style={(props.toBePopped === props.idNum) || (balloonState === 'balloon popped') ? style.onHit : style.notShowing} />
         {/* <ClearIcon style={style.onHit} /> */}
         <div className={balloonState} style={balloonState === 'balloon popped' ? style.popped : style.default}>
             <div style={style.balloonAfter}>
