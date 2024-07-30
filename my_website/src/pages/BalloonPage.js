@@ -31,9 +31,8 @@ export default function BalloonPage() {
     //const [whichBalloonToPop, setWhichBalloonToPop] = React.useState(1);
     const [triggerReset, setTriggerReset] = React.useState(false)
     const [gameState, setGameState] = React.useState(new BalloonGameState(true, 0, 10))
-    const [animationResetFlag, setAnimationResetFlag] = React.useState(false);
-
-
+    const [resetGame, setResetGame] = React.useState(false)
+    const [probability, setProbability] = React.useState(0)
     const handleChangeOfBalloons = (event, newValue) => {
         setNumberOfBalloons(newValue)
         //gameState.numberOfBalloons = numberOfBalloons
@@ -46,7 +45,9 @@ export default function BalloonPage() {
 
     useEffect(() => {
 
+        
         setOnReset(false)
+        setResetGame(false)
 
     }, [triggerReset]) 
     
@@ -69,21 +70,31 @@ export default function BalloonPage() {
 
 
     useEffect(() => {
+        if (resetGame) {
+            //setResetGame(false)
+            setGameState(new BalloonGameState(true, 0, numberOfBalloons))
+        }
+
+    }, [resetGame, numberOfBalloons])
+
+    useEffect(() => {
         console.log('onReset change registered')
         if (onReset) {
             console.log('reset triggered')
             setToBePopped(-1)
-            setGameState(new BalloonGameState(true, 0, numberOfBalloons))
             setTriggerReset(true)
+            setResetGame(true)
+            
             
         }
 
         if (!onReset) {
             setTriggerReset(false)
+            setResetGame(false)
         }
         
         
-    }, [onReset, gameState, numberOfBalloons]);
+    }, [onReset, gameState, numberOfBalloons, resetGame]);
 
     useEffect(() => {
         console.log('numberOfBalloons change detected')
@@ -103,12 +114,14 @@ export default function BalloonPage() {
       const handlePop = (x) => {
         setToBePopped(x)
       }
-      const handleAnimationReset = (x) => {
-        console.log('handleAnimationReset called with value:')
-        console.log(x)
-        setAnimationResetFlag(x)
-      }
 
+    //   const trackBalloonsPopped = () => {
+    //     gameState.balloonsPopped = gameState.balloonsPopped + 1;
+    //   }
+    
+      useEffect(() => {
+        setProbability(probabilityOfOutcome(gameState.numberOfBalloons, gameState.balloonsPopped))
+      }, [gameState.numberOfBalloons, gameState.balloonsPopped, toBePopped])
 
     
 
@@ -121,7 +134,7 @@ export default function BalloonPage() {
             <Grid container direction='row' justifyContent='center' style={{ marginLeft:'150px', marginRight: '150px', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '600px'}}>
                 
 
-                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, animationResetFlag, handleAnimationReset)}
+                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState)}
                 
                 
             </Grid>
@@ -139,21 +152,6 @@ export default function BalloonPage() {
                 <Grid item style={{maxWidth: '80vw'}}>
                     <div>
                     <Button onClick={() => {
-                            // setToBePopped(whichBalloonToPop);
-                            // setWhichBalloonToPop(((whichBalloonToPop % 10) + 1))
-                            //handlePop(-1);
-                            console.log('handle animation reset called by line 146:')
-                            handleAnimationReset(true)
-                            //handleAnimationReset(true)
-                            console.log('animationResetFlag as seen by balloonPage:')
-                            if (animationResetFlag) {
-                                console.log(`true: ${animationResetFlag}`)
-                            }
-                            if (!animationResetFlag) {
-                                console.log(`false: ${animationResetFlag}`)
-                            }
-                            // setToBePopped(-1)
-                            console.log('toBePopped as seen by balloonPage:')
                             console.log(toBePopped)
                             if (onReset) {
                                 setOnReset(false)
@@ -164,7 +162,8 @@ export default function BalloonPage() {
                                 setToBePopped(trialOutcome)
                             }
                             else if (trialOutcome === 0) {
-                                //setOnReset(true)
+                                setOnReset(true)
+                                //gameState.ongoing = false;
                             }
                             //console.log(window)
 
@@ -187,6 +186,7 @@ export default function BalloonPage() {
                             console.log('gameState:')
                             console.log(gameState)
                         }}>Print State</Button>
+                        <div>{probability}</div>
                     </div>
                 </Grid>
                 <Grid item style={{width: '80vw', maxWidth: '60vw'}}>
@@ -221,27 +221,15 @@ export default function BalloonPage() {
 // }
 
 
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, animationResetFlag, handleAnimationReset) {
-    // let list = new ArrayList[];
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState) {
     let result = []
-    //let row = new Array()
-    //result = wrapWithRow(result)
+    
     for (let i = 0; i < numberOfBalloons; i++) {
         //console.log(i)
-        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} animationResetFlag={animationResetFlag} handleAnimationReset={handleAnimationReset}></Balloon></Grid>));
+        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState}></Balloon></Grid>));
         
-        //result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop}></Balloon></Grid>));
-        // row = row.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop}></Balloon></Grid>));
-        // if (i % 20 == 0 || i == numberOfBalloons - 1) {
-        //     result = result.concat(wrapWithRow(row))
-        //     row = []
-        // }
     }
-    // console.log('result:')
-    // console.log(result)
-    // if (numberOfBalloons <= 20) {
-    //     result = wrapWithRow(result)
-    // }
+    
     return result;
 }
 
@@ -273,13 +261,16 @@ function trial(numberOfBalloons) {
     //Tails
     else if (coinFlip === 0) {
         console.log('tails')
-        // return 0;
-        return 1;
-
+        return 0;
+        
     }
     //Impossible
     else {
         console.log('Error, coinFlip did not come up heads or tails')
     }
 
+}
+
+function probabilityOfOutcome(numberOfBalloons, balloonsPopped) {
+    return (numberOfBalloons + balloonsPopped)
 }

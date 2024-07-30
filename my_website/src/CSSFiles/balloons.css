@@ -87,7 +87,41 @@ div.pageContainer { margin:0px; background:hsl(70, 31%, 85%); text-align:center;
       }
   }
 
-  @keyframes spotHit {
+  @keyframes spotHit1 {
+    
+    0%{
+        opacity: 0;
+        transform: translateZ(0) scale(5, 5) rotate(-10deg);
+        
+      }
+      /* 25%{
+        opacity: 1;
+        transform: translateZ(0) scale(1, 1) rotate(-8deg);
+        
+      } */
+      50%{
+        opacity: 1;
+        transform: translateZ(0) scale(1, 1) rotate(-270deg);
+        
+      }
+      /* 75%{
+        opacity: 1;
+        transform: translateZ(0) scale(1, 1) rotate(-8deg);
+        
+      } */
+      100%{
+        /* opacity: 0;
+        transform: translateZ(0) scale(1, 1) rotate(-270deg);
+         */
+        opacity: 0;
+        transform: translateZ(0) scale(1, 1) rotate(-270deg);
+        
+      }
+      
+      
+  }
+
+  @keyframes spotHit2 {
     
     0%{
         opacity: 0;

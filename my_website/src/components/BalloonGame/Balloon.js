@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+// import { Button } from '@mui/material';
 import '../../CSSFiles/balloons.css'
 import React, { useEffect } from 'react';
 import balloonPopSound from '../../assets/balloonpop-83760.mp3';
@@ -11,8 +11,8 @@ export default function Balloon(props) {
     const [chosenColor, setChosenColor] = React.useState(randomColor());
 //    const chosenColor = randomColor();
     const [chosenDuration, setChosenDuration] = React.useState(randomAnimationDuration());
-    const [hitAnimation, setHitAnimation] = React.useState(false);
-    const [animationFlag, setAnimationFlag] = React.useState(false);
+    const [hitAnimation, setHitAnimation] = React.useState(0);
+    //const [animationFlag, setAnimationFlag] = React.useState(false);
 
     function playSound() {
         new Audio(balloonPopSound).play()
@@ -21,10 +21,11 @@ export default function Balloon(props) {
 
     useEffect(()=> {
         if (props.onReset) {
-            setChosenColor(randomColor())
+            setChosenColor(randomColor());
             setChosenDuration(randomAnimationDuration());
             setBalloonState('balloon');
             //console.log(balloonState)
+            setHitAnimation(0);
             
         }
     }, [props.onReset])
@@ -33,116 +34,52 @@ export default function Balloon(props) {
     useEffect(() => {
         if (balloonState === 'balloon popped') {
             playSound()
+            //props.trackBalloonsPopped()
             props.gameState.balloonsPopped = props.gameState.balloonsPopped + 1
         }
     }, [balloonState, props.gameState])
     
 
-    const handleClick = () => {
-        console.log('balloonState')
-        console.log(balloonState)
-        console.log('toBePopped')
-        console.log(props.toBePopped)
-        console.log('idNum')
-        console.log(props.idNum)
-        console.log('hitAnimation')
-        console.log(hitAnimation)
-    };
+    // const handleClick = () => {
+    //     console.log('balloonState')
+    //     console.log(balloonState)
+    //     console.log('toBePopped')
+    //     console.log(props.toBePopped)
+    //     console.log('idNum')
+    //     console.log(props.idNum)
+    //     console.log('hitAnimation')
+    //     console.log(hitAnimation)
+    // };
 
     useEffect(() => {
         
         if((props.toBePopped === props.idNum) && (balloonState !== 'balloon popped')) {
             setBalloonState('balloon popped')
-            //playSound()
-            // props.handlePop(-1)
-            console.log(props.toBePopped)
+            //console.log(props.toBePopped)
         }
         
 
     }, [props, balloonState])
 
-    // useEffect(() => {
-
-    //     console.log(`toBePopped as seen by balloon ${props.idNum}: ${props.toBePopped}`)
-    //     // console.log(props.toBePopped)
-    //     // if (props.toBePopped === -1) {
-    //     //     console.log('props.toBePopped === -1 registered')
-    //     //     setHitAnimation(false)
-    //     // }
-    //     if ((props.toBePopped === props.idNum) && (hitAnimation)) {
-    //         console.log('setAnimationFlag to true')
-    //         setAnimationFlag(true)
-    //         //props.handlePop(-1)
-    //     }
-    //     if (props.idNum === props.toBePopped) {
-    //         setHitAnimation(true)
-    //         // setHitAnimation(false)
-    //     }
-    //     // if ((props.toBePopped === props.idNum) && (hitAnimation)) {
-    //     //     setHitAnimation(false)
-    //     //     setHitAnimation(true)
-    //     // }
-    //     // else if (props.toBePopped === props.idNum) {
-    //     //     setHitAnimation(true)
-    //     // }
-
-    // }, [props, props.toBePopped, hitAnimation, props.idNum])
 
 
 
     useEffect(() => {
-        if ((props.toBePopped === props.idNum) && props.animationResetFlag) {
-            setHitAnimation(true)
+        if ((props.toBePopped === props.idNum)) {
+            if (hitAnimation === 0) {
+                setHitAnimation(1)
+            }
+            else if (hitAnimation === 1) {
+                setHitAnimation(2)
+            }
+            else if (hitAnimation === 2) {
+                setHitAnimation(1)
+            }
             props.handlePop(-1)
         }
-    }, [props.toBePopped, props.animationResetFlag, props.idNum, props])
+    }, [props.toBePopped, props.idNum, props, hitAnimation])
 
-    useEffect(() => {
-        if (props.toBePopped === -1) {
-            props.handleAnimationReset(false)
-        }
-    }, [props.toBePopped, props])
-
-    useEffect(() => {
-        if (props.animationResetFlag) {
-            setHitAnimation(false)
-        }
-    }, [props.animationResetFlag])
-
-
-
-    // useEffect(() => {
-    //     if (animationFlag) {
-    //         console.log('hitAnimation set to true')
-    //         setHitAnimation(true)
-    //     }
-    //     else {
-    //         setHitAnimation(false)
-    //     }
-    // }, [animationFlag])
-
-    // useEffect(() => {
-    //     if (props.toBepopped === props.idNum) {
-    //         console.log('setAnimationFlag to true')
-    //         setAnimationFlag(true)
-    //     }
-    // }, [props.toBePopped, props.idNum])
-    // useEffect(() => {
-    //     console.log('props.toBePopped change detected')
-    //     if (props.animationResetFlag) {
-    //         console.log('set hit animation to false')
-    //         setAnimationFlag(false)
-    //         props.handleAnimationReset(false)
-    //     }
-    //     else if (props.toBePopped === props.idNum) {
-    //         setAnimationFlag(true)
-    //     }
-    // }, [props.toBePopped])
-
-    // useEffect(() => {
-    //     props.handlePop(-1)
-    // }, [props.animationResetFlag])
-
+    
 
     const style = {
         
@@ -180,22 +117,31 @@ export default function Balloon(props) {
             animation: 'pop 0.5s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards',
         },
 
-        notShowing: {
-            position: 'absolute',
-            zIndex: '11',
-            color: 'red',
-            fontSize: 60,
-            opacity: 1,
+        // notShowing: {
+        //     position: 'absolute',
+        //     zIndex: '11',
+        //     color: 'red',
+        //     fontSize: 60,
+        //     opacity: 1,
             
-        },
+        // },
 
-        onHit: {
+        onHit1: {
             position: 'absolute',
             zIndex: '11',
             color: 'black',
             fontSize: 60,
             opacity: 1,
-            animation: 'spotHit 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
+            animation: 'spotHit1 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
+            
+        },
+        onHit2: {
+            position: 'absolute',
+            zIndex: '11',
+            color: 'black',
+            fontSize: 60,
+            opacity: 1,
+            animation: 'spotHit2 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
             
         },
     }
@@ -216,16 +162,16 @@ export default function Balloon(props) {
     return (
         <>
         {/* <ClearIcon style={(animationFlag) ? style.onHit : style.notShowing} /> */}
-        <ClearIcon style={(hitAnimation) ? style.onHit : style.notShowing} />
+        <ClearIcon style={isHit(hitAnimation)} />
         {/* <ClearIcon style={style.onHit} /> */}
         <div className={balloonState} style={balloonState === 'balloon popped' ? style.popped : style.default}>
             <div style={style.balloonAfter}>
             ▲
             </div>
         </div>
-        <Button onClick={() => {
+        {/* <Button onClick={() => {
             handleClick();
-            }}>THIS BUTTON</Button>
+            }}>THIS BUTTON</Button> */}
         </>
 
     );
@@ -245,3 +191,52 @@ function randomAnimationDuration() {
     return (`${duration}s`);
 }
 
+
+function isHit(hitMarker) {
+    
+        if (hitMarker === 1) {
+            return style_outer.onHit1;
+        }
+        else if (hitMarker === 2) {
+            return style_outer.onHit2;
+        }
+        else {
+            return style_outer.notShowing
+        }
+
+
+}
+
+
+const style_outer = {
+        
+    
+
+    notShowing: {
+            position: 'absolute',
+            zIndex: '11',
+            color: 'red',
+            fontSize: 60,
+            opacity: 0,
+            
+        },
+
+    onHit1: {
+        position: 'absolute',
+        zIndex: '11',
+        color: 'black',
+        fontSize: 60,
+        opacity: 1,
+        animation: 'spotHit1 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
+        
+    },
+    onHit2: {
+        position: 'absolute',
+        zIndex: '11',
+        color: 'black',
+        fontSize: 60,
+        opacity: 1,
+        animation: 'spotHit2 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
+        
+    },
+}
