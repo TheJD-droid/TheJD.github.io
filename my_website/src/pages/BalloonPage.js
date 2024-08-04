@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import '../CSSFiles/balloons.css';
 import { Button } from "@mui/material";
 //import Bubble from "../components/BalloonGame/Bubble";
@@ -11,35 +11,30 @@ import BalloonGameState from "../components/BalloonGame/BalloonGameState";
 
 export default function BalloonPage() {
     
-      //let popSound = new Audio('../../assets/balloonpop-83760.mp3');
-
-    //   document.addEventListener("DOMContentLoaded",() => {
-    //     let bubbleWrap = document.getElementById("balloon"),
-    //         popSound = new Audio('../../assets/balloonpop-83760.mp3')
-    //     bubbleWrap.addEventListener("change",() => {
-    //         popSound.play();
-    //     });
-    // });
-    //const [poppingSoundNow, setPoppingSoundNow] = React.useState(false);
+    
     const [onReset, setOnReset] = React.useState(false)
-    //const [onPopped, setOnPopped] = React.useState(false)
     const [toBePopped, setToBePopped] = React.useState(-1);
-    //const numberOfBalloons = 10;
-
+    
     const [numberOfBalloons, setNumberOfBalloons] = React.useState(10)
 
-    //const [whichBalloonToPop, setWhichBalloonToPop] = React.useState(1);
     const [triggerReset, setTriggerReset] = React.useState(false)
     const [gameState, setGameState] = React.useState(new BalloonGameState(true, 0, 10))
     const [resetGame, setResetGame] = React.useState(false)
-    const [probability, setProbability] = React.useState(0)
+    const [probability, setProbability] = React.useState(probabilityOfOutcome(numberOfBalloons, 0))
     const handleChangeOfBalloons = (event, newValue) => {
-        setNumberOfBalloons(newValue)
-        //gameState.numberOfBalloons = numberOfBalloons
-        setOnReset(true)
+        //setNumberOfBalloons(newValue)
         //setOnReset(true)
-        //setOnReset(false)
-        //setOnReset(false)
+        callResetGame(newValue)
+    }
+
+
+    function callResetGame(numberOfBalloons) {
+
+        setOnReset(true)
+        setNumberOfBalloons(numberOfBalloons)
+        gameState.numberOfBalloons = numberOfBalloons
+        gameState.balloonsPopped = 0
+
 
     }
 
@@ -52,30 +47,50 @@ export default function BalloonPage() {
     }, [triggerReset]) 
     
     
-    // function triggerReset() {
-    //     console.log('triggerReset called')
-    //     if (onReset) {
-    //         setOnReset(false)
-    //     }
-    //     if (!onReset) {
-    //         setOnReset(true)
-    //     }
-    //     if (onReset) {
-    //         setOnReset(false)
-    //     }
-    //     setGameState(new BalloonGameState(true, 0, numberOfBalloons))
-    //     //console.log(gameState)
-    // }
+   function probabilityOfOutcome(numBalloons, popped) {
+
+    let result = 0;
 
 
+    return numBalloons + popped;
+   }
+
+    const handleGameState = useCallback(() => {
+        
+
+        //let result = gameState.numberOfBalloons + gameState.balloonsPopped
+        let result = probabilityOfOutcome(gameState.numberOfBalloons, gameState.balloonsPopped)
+        return result
+
+    },[gameState.balloonsPopped, gameState.numberOfBalloons])
+
+
+    useEffect(() => {
+        setProbability(handleGameState())
+    }, [gameState.balloonsPopped, gameState.numberOfBalloons, handleGameState])
+
+    useEffect(() => {
+        handleGameState()
+    }, [handleGameState])
+
+   
 
     useEffect(() => {
         if (resetGame) {
             //setResetGame(false)
-            setGameState(new BalloonGameState(true, 0, numberOfBalloons))
+            //setGameState(new BalloonGameState(true, 0, numberOfBalloons))
+            gameState.ongoing = true
+            gameState.balloonsPopped = 0
+            gameState.numberOfBalloons = numberOfBalloons
+            // console.log(gameState)
+            // console.log('probability before handleGameState')
+            // console.log(probability)
+            handleGameState()
+            // console.log('probability after handleGameState')
+            // console.log(probability)
         }
 
-    }, [resetGame, numberOfBalloons])
+    }, [resetGame, numberOfBalloons, gameState, handleGameState])
 
     useEffect(() => {
         console.log('onReset change registered')
@@ -96,6 +111,8 @@ export default function BalloonPage() {
         
     }, [onReset, gameState, numberOfBalloons, resetGame]);
 
+
+    
     useEffect(() => {
         console.log('numberOfBalloons change detected')
         console.log(numberOfBalloons)
@@ -115,15 +132,64 @@ export default function BalloonPage() {
         setToBePopped(x)
       }
 
-    //   const trackBalloonsPopped = () => {
-    //     gameState.balloonsPopped = gameState.balloonsPopped + 1;
-    //   }
     
-      useEffect(() => {
-        setProbability(probabilityOfOutcome(gameState.numberOfBalloons, gameState.balloonsPopped))
-      }, [gameState.numberOfBalloons, gameState.balloonsPopped, toBePopped])
+    // const probabilityOfOutcome = useCallback(() => {
+    //     let result = gameState.numberOfBalloons + gameState.balloonsPopped;
+    
+    //     if (gameState.balloonsPopped === 0) {
+    //         return 50;
+    //     }
+    //     else {
+    //         //n = numberOfBalloons
+    //         //x = balloonsPopped
+    //         for (let i = 0; i < gameState.numberOfBalloons; i++) {
+    //             console.log(i);
+    //         }
+    //         console.log('end of function')
+    //         // for (let i = numberOfBalloons; i >= (numberOfBalloons + 1 - (balloonsPopped)); i--) {
+    //         //     console.log(i)
+    //         //     if (i > 100) {
+    //         //         return -1;
+    //         //     }
+    //         // }
+    //     }
+    
+    //     return result;
+    // }, [gameState.numberOfBalloons, gameState.balloonsPopped])
+
+
+
+    // const probabilityOfOutcome = useCallback(() => {
+    //     return gameState.numberOfBalloons + gameState.balloonsPopped;
+    // }, [gameState.numberOfBalloons, gameState.balloonsPopped])
+
+
+
+    //How does one useCallBack in a way that actually works?
+    // const probabilityOfOutcome = useCallback((numberOfBalloons, balloonsPopped) => {
+    //     let result = numberOfBalloons + balloonsPopped
+    //     console.log('result:')
+    //     console.log(result)
+    //     console.log('numberOfBalloons')
+    //     console.log(numberOfBalloons)
+    //     console.log('balloonsPopped')
+    //     console.log(balloonsPopped)
+    //     setProbability(result)
+    // },[])
+
+    // const probabilityOfOutcome = useCallback(() => {
+    //     let result = gameState.numberOfBalloons + gameState.balloonsPopped
+    //     setProbability(result)
+    // }, [gameState.numberOfBalloons, gameState.balloonsPopped])
+
+    // useEffect(() => {
+    //     probabilityOfOutcome()
+    // }, [probabilityOfOutcome, toBePopped])
+
 
     
+
+        
 
     return(
         <Grid container direction='column' alignItems='center' style={{border: '2px solid green', margin: '5px'}}>
@@ -134,7 +200,7 @@ export default function BalloonPage() {
             <Grid container direction='row' justifyContent='center' style={{ marginLeft:'150px', marginRight: '150px', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '600px'}}>
                 
 
-                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState)}
+                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState)}
                 
                 
             </Grid>
@@ -185,8 +251,10 @@ export default function BalloonPage() {
                             console.log(numberOfBalloons)
                             console.log('gameState:')
                             console.log(gameState)
+                            console.log('probability: ')
+                            console.log(probability)
                         }}>Print State</Button>
-                        <div>{probability}</div>
+                        <div>{probability}%</div>
                     </div>
                 </Grid>
                 <Grid item style={{width: '80vw', maxWidth: '60vw'}}>
@@ -221,12 +289,12 @@ export default function BalloonPage() {
 // }
 
 
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState) {
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState) {
     let result = []
     
     for (let i = 0; i < numberOfBalloons; i++) {
         //console.log(i)
-        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState}></Balloon></Grid>));
+        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState}></Balloon></Grid>));
         
     }
     
@@ -271,6 +339,3 @@ function trial(numberOfBalloons) {
 
 }
 
-function probabilityOfOutcome(numberOfBalloons, balloonsPopped) {
-    return (numberOfBalloons + balloonsPopped)
-}

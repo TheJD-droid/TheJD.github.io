@@ -35,9 +35,9 @@ export default function Balloon(props) {
         if (balloonState === 'balloon popped') {
             playSound()
             //props.trackBalloonsPopped()
-            props.gameState.balloonsPopped = props.gameState.balloonsPopped + 1
+            
         }
-    }, [balloonState, props.gameState])
+    }, [balloonState])
     
 
     // const handleClick = () => {
@@ -55,6 +55,8 @@ export default function Balloon(props) {
         
         if((props.toBePopped === props.idNum) && (balloonState !== 'balloon popped')) {
             setBalloonState('balloon popped')
+            props.gameState.balloonsPopped = props.gameState.balloonsPopped + 1
+            props.handleGameState()
             //console.log(props.toBePopped)
         }
         
