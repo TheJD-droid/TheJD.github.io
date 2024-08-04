@@ -30,6 +30,7 @@ export default function BalloonPage() {
 
     function callResetGame(numberOfBalloons) {
 
+        console.log('callResetGame')
         setOnReset(true)
         setNumberOfBalloons(numberOfBalloons)
         gameState.numberOfBalloons = numberOfBalloons
@@ -44,34 +45,31 @@ export default function BalloonPage() {
         setOnReset(false)
         setResetGame(false)
 
-    }, [triggerReset]) 
+    }, [triggerReset])
     
     
-   function probabilityOfOutcome(numBalloons, popped) {
-
-    let result = 0;
-
-
-    return numBalloons + popped;
-   }
 
     const handleGameState = useCallback(() => {
         
 
         //let result = gameState.numberOfBalloons + gameState.balloonsPopped
+        console.log('handleGameState called')
+        console.log(gameState.numberOfBalloons)
+        console.log(gameState.balloonsPopped)
         let result = probabilityOfOutcome(gameState.numberOfBalloons, gameState.balloonsPopped)
+
         return result
 
-    },[gameState.balloonsPopped, gameState.numberOfBalloons])
+    },[gameState.numberOfBalloons, gameState.balloonsPopped])
 
 
     useEffect(() => {
         setProbability(handleGameState())
-    }, [gameState.balloonsPopped, gameState.numberOfBalloons, handleGameState])
-
-    useEffect(() => {
-        handleGameState()
     }, [handleGameState])
+
+    // useEffect(() => {
+    //     handleGameState()
+    // }, [handleGameState])
 
    
 
@@ -79,18 +77,20 @@ export default function BalloonPage() {
         if (resetGame) {
             //setResetGame(false)
             //setGameState(new BalloonGameState(true, 0, numberOfBalloons))
-            gameState.ongoing = true
-            gameState.balloonsPopped = 0
-            gameState.numberOfBalloons = numberOfBalloons
+            // gameState.ongoing = true
+            // gameState.balloonsPopped = 0
+            // gameState.numberOfBalloons = numberOfBalloons
+            setGameState({ongoing: true, balloonsPopped: 0, numberOfBalloons: numberOfBalloons})
             // console.log(gameState)
             // console.log('probability before handleGameState')
             // console.log(probability)
-            handleGameState()
+            // handleGameState()
             // console.log('probability after handleGameState')
             // console.log(probability)
+            setResetGame(false)
         }
 
-    }, [resetGame, numberOfBalloons, gameState, handleGameState])
+    }, [resetGame, numberOfBalloons])
 
     useEffect(() => {
         console.log('onReset change registered')
@@ -105,11 +105,11 @@ export default function BalloonPage() {
 
         if (!onReset) {
             setTriggerReset(false)
-            setResetGame(false)
+            //setResetGame(false)
         }
         
         
-    }, [onReset, gameState, numberOfBalloons, resetGame]);
+    }, [onReset, gameState, numberOfBalloons]);
 
 
     
@@ -131,61 +131,6 @@ export default function BalloonPage() {
       const handlePop = (x) => {
         setToBePopped(x)
       }
-
-    
-    // const probabilityOfOutcome = useCallback(() => {
-    //     let result = gameState.numberOfBalloons + gameState.balloonsPopped;
-    
-    //     if (gameState.balloonsPopped === 0) {
-    //         return 50;
-    //     }
-    //     else {
-    //         //n = numberOfBalloons
-    //         //x = balloonsPopped
-    //         for (let i = 0; i < gameState.numberOfBalloons; i++) {
-    //             console.log(i);
-    //         }
-    //         console.log('end of function')
-    //         // for (let i = numberOfBalloons; i >= (numberOfBalloons + 1 - (balloonsPopped)); i--) {
-    //         //     console.log(i)
-    //         //     if (i > 100) {
-    //         //         return -1;
-    //         //     }
-    //         // }
-    //     }
-    
-    //     return result;
-    // }, [gameState.numberOfBalloons, gameState.balloonsPopped])
-
-
-
-    // const probabilityOfOutcome = useCallback(() => {
-    //     return gameState.numberOfBalloons + gameState.balloonsPopped;
-    // }, [gameState.numberOfBalloons, gameState.balloonsPopped])
-
-
-
-    //How does one useCallBack in a way that actually works?
-    // const probabilityOfOutcome = useCallback((numberOfBalloons, balloonsPopped) => {
-    //     let result = numberOfBalloons + balloonsPopped
-    //     console.log('result:')
-    //     console.log(result)
-    //     console.log('numberOfBalloons')
-    //     console.log(numberOfBalloons)
-    //     console.log('balloonsPopped')
-    //     console.log(balloonsPopped)
-    //     setProbability(result)
-    // },[])
-
-    // const probabilityOfOutcome = useCallback(() => {
-    //     let result = gameState.numberOfBalloons + gameState.balloonsPopped
-    //     setProbability(result)
-    // }, [gameState.numberOfBalloons, gameState.balloonsPopped])
-
-    // useEffect(() => {
-    //     probabilityOfOutcome()
-    // }, [probabilityOfOutcome, toBePopped])
-
 
     
 
@@ -217,7 +162,7 @@ export default function BalloonPage() {
                 }>
                 <Grid item style={{maxWidth: '80vw'}}>
                     <div>
-                    <Button onClick={() => {
+                    <Button variant='contained' onClick={() => {
                             console.log(toBePopped)
                             if (onReset) {
                                 setOnReset(false)
@@ -228,13 +173,15 @@ export default function BalloonPage() {
                                 setToBePopped(trialOutcome)
                             }
                             else if (trialOutcome === 0) {
-                                setOnReset(true)
-                                //gameState.ongoing = false;
+
+                                //On flipping tails, reset? or give some kind of message?
+                                //setOnReset(true)
+                                callResetGame(numberOfBalloons)
                             }
-                            //console.log(window)
+                            
 
 
-                        }}>Pop</Button>
+                        }}>Throw Dart</Button>
                         <Button onClick={() => {
                             
                             setOnReset(true)
@@ -254,6 +201,7 @@ export default function BalloonPage() {
                             console.log('probability: ')
                             console.log(probability)
                         }}>Print State</Button>
+                        <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
                         <div>{probability}%</div>
                     </div>
                 </Grid>
@@ -339,3 +287,39 @@ function trial(numberOfBalloons) {
 
 }
 
+function probabilityOfOutcome(numBalloons, popped) {
+    console.log('calculating probability')
+    console.log(numBalloons, popped)
+    let numerator = 1;
+    let denominator = 2;
+    for (let i = numBalloons; i > numBalloons - popped; i--) {
+        numerator = numerator * i;
+    }
+    console.log('numerator:')
+    console.log(numerator)
+    let twoNumBalloons = 2*numBalloons
+    for (let i = twoNumBalloons; i > twoNumBalloons - popped; i--) {
+        denominator = denominator * (i-1)
+    }
+    console.log('denominator:')
+    console.log(denominator)
+
+    let result = (numerator / denominator) * 100
+    console.log('result < 50?:')
+    console.log(result < 50)
+    console.log()
+    if ((25 < result) && (result < 50)) {
+        result = result.toPrecision(4)
+    }
+    else if ((result > 3) && (result < 30)) {
+        result = result.toPrecision(6)
+    }
+    else if (result < 3) {
+        result = result.toPrecision(8)
+    }
+    else {
+        result = result.toPrecision(2)
+    }
+
+return result;
+}
