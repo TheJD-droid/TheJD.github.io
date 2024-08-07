@@ -14,23 +14,21 @@ export default function BalloonPage() {
     
     const [onReset, setOnReset] = React.useState(false)
     const [toBePopped, setToBePopped] = React.useState(-1);
-    
     const [numberOfBalloons, setNumberOfBalloons] = React.useState(10)
-
     const [triggerReset, setTriggerReset] = React.useState(false)
     const [gameState, setGameState] = React.useState(new BalloonGameState(true, 0, 10))
     const [resetGame, setResetGame] = React.useState(false)
     const [probability, setProbability] = React.useState(probabilityOfOutcome(numberOfBalloons, 0))
+    
+    
+    
     const handleChangeOfBalloons = (event, newValue) => {
-        //setNumberOfBalloons(newValue)
-        //setOnReset(true)
         callResetGame(newValue)
     }
 
 
     function callResetGame(numberOfBalloons) {
 
-        console.log('callResetGame')
         setOnReset(true)
         setNumberOfBalloons(numberOfBalloons)
         gameState.numberOfBalloons = numberOfBalloons
@@ -40,7 +38,6 @@ export default function BalloonPage() {
     }
 
     useEffect(() => {
-
         
         setOnReset(false)
         setResetGame(false)
@@ -52,10 +49,6 @@ export default function BalloonPage() {
     const handleGameState = useCallback(() => {
         
 
-        //let result = gameState.numberOfBalloons + gameState.balloonsPopped
-        console.log('handleGameState called')
-        console.log(gameState.numberOfBalloons)
-        console.log(gameState.balloonsPopped)
         let result = probabilityOfOutcome(gameState.numberOfBalloons, gameState.balloonsPopped)
 
         return result
@@ -67,26 +60,11 @@ export default function BalloonPage() {
         setProbability(handleGameState())
     }, [handleGameState])
 
-    // useEffect(() => {
-    //     handleGameState()
-    // }, [handleGameState])
-
-   
-
     useEffect(() => {
         if (resetGame) {
-            //setResetGame(false)
-            //setGameState(new BalloonGameState(true, 0, numberOfBalloons))
-            // gameState.ongoing = true
-            // gameState.balloonsPopped = 0
-            // gameState.numberOfBalloons = numberOfBalloons
+            
             setGameState({ongoing: true, balloonsPopped: 0, numberOfBalloons: numberOfBalloons})
-            // console.log(gameState)
-            // console.log('probability before handleGameState')
-            // console.log(probability)
-            // handleGameState()
-            // console.log('probability after handleGameState')
-            // console.log(probability)
+            
             setResetGame(false)
         }
 
@@ -100,26 +78,15 @@ export default function BalloonPage() {
             setTriggerReset(true)
             setResetGame(true)
             
-            
         }
 
         if (!onReset) {
             setTriggerReset(false)
-            //setResetGame(false)
         }
         
         
     }, [onReset, gameState, numberOfBalloons]);
 
-
-    
-    useEffect(() => {
-        console.log('numberOfBalloons change detected')
-        console.log(numberOfBalloons)
-        //setGameState(new BalloonGameState(gameState.ongoing, gameState.balloonsPopped, numberOfBalloons))
-        //console.log(gameState)
-        //triggerReset()
-    }, [numberOfBalloons])
 
     useEffect(() => {
         if (toBePopped > numberOfBalloons) {
@@ -132,9 +99,7 @@ export default function BalloonPage() {
         setToBePopped(x)
       }
 
-    
 
-        
 
     return(
         <Grid container direction='column' alignItems='center' style={{border: '2px solid green', margin: '5px'}}>
@@ -162,7 +127,7 @@ export default function BalloonPage() {
                 }>
                 <Grid item style={{maxWidth: '80vw'}}>
                     <div>
-                    <Button variant='contained' onClick={() => {
+                    <Button variant='contained' style={{margin: '5px'}} onClick={() => {
                             console.log(toBePopped)
                             if (onReset) {
                                 setOnReset(false)
@@ -182,12 +147,14 @@ export default function BalloonPage() {
 
 
                         }}>Throw Dart</Button>
-                        <Button onClick={() => {
+                        <Button variant='contained' style={{margin: '5px'}} onClick={() => {
                             
                             setOnReset(true)
                             
                             }}>Reset</Button>
-                    <Button onClick={() => {
+
+                            {/* Print State button, used for testing */}
+                    {/* <Button onClick={() => {
                             // setToBePopped(5);
                             console.log('current state:')
                             console.log('onReset')
@@ -200,19 +167,17 @@ export default function BalloonPage() {
                             console.log(gameState)
                             console.log('probability: ')
                             console.log(probability)
-                        }}>Print State</Button>
+                        }}>Print State</Button> */}
+
                         <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
                         <div>{probability}%</div>
                     </div>
                 </Grid>
                 <Grid item style={{width: '80vw', maxWidth: '60vw'}}>
                     <Grid container direction='row'>
-                        {/* <Grid item style={{width: '20vw', border:'2px solid green'}} /> */}
-                        {/* <Grid item style={{width: '80vw', border: '2px solid red'}}> */}
                          
                                 <Slider defaultValue={10} aria-label="Default" valueLabelDisplay="auto" value={numberOfBalloons} onChange={handleChangeOfBalloons}/>
                           
-                        {/* </Grid> */}
                     </Grid>
                 </Grid>
                 </Grid>
@@ -223,25 +188,11 @@ export default function BalloonPage() {
 }
 
 
-// function randomColor() {
-//     let firstNum = Math.floor(255 * Math.random())
-//     let secondNum = Math.floor(100 * Math.random())
-//     let thirdNum = Math.floor(60 * Math.random()) + 20
-
-//     return (`hsl(${firstNum.toString()},${secondNum.toString()}%,${thirdNum.toString()}%)`);
-// }
-
-// function randomAnimationDuration() {
-//     let duration = Math.floor(16 * Math.random()) + 4
-//     return (`${duration}s`);
-// }
-
 
 function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState) {
     let result = []
     
     for (let i = 0; i < numberOfBalloons; i++) {
-        //console.log(i)
         result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState}></Balloon></Grid>));
         
     }
@@ -250,21 +201,7 @@ function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handl
 }
 
 
-// function wrapWithRow(toBeWrapped) {
-//     let result = []
-//     result = result.concat(<Grid container direction='row' alignItems='center' children={toBeWrapped} style={{border:'2px solid red', textAlign: 'center'}}></Grid>)
-//     return result;
-// }
 
-/*
-function createBalloonStates(numberOfBalloons) {
-    let result = new Array()
-    for (let i = 0; i < numberOfBalloons; i++) {
-        const [balloonState, setBalloonState] = React.useState('balloon');
-        result.concat({i: {balloonState, setBalloonState}});
-    }
-}
-*/
 function trial(numberOfBalloons) {
     let coinFlip = Math.floor(2 * Math.random())
 
@@ -308,7 +245,10 @@ function probabilityOfOutcome(numBalloons, popped) {
     console.log('result < 50?:')
     console.log(result < 50)
     console.log()
-    if ((25 < result) && (result < 50)) {
+    if (result % 1 === 0) {
+        //no precision needed
+    }
+    else if ((25 < result) && (result < 50)) {
         result = result.toPrecision(4)
     }
     else if ((result > 3) && (result < 30)) {
