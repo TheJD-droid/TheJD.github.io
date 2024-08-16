@@ -24,7 +24,8 @@ export default function BalloonPage() {
     const [probability, setProbability] = React.useState(probabilityOfOutcome(numberOfBalloons, 0))
     
     const [coinState, setCoinState] = React.useState({result: "", nader: "nader"})
-    //const [coinState, setCoinState] = React.useState('heads');
+    
+    const [throwDart, setThrowDart] = React.useState(false)
 
 
 
@@ -119,11 +120,58 @@ export default function BalloonPage() {
     }
 
     function coinToss() {
-        console.log('what do you mean undefined?')
+        console.log(coinState)
+        let outcome = () => {
+
+            if (Math.random() < 0.5) {
+                console.log("heads");
+                return "heads";
+            } 
+            else {
+                console.log("tails");
+                return "tails";
+            }
+            
+        }
+        setCoinState({ nader: "", result: outcome()});
+        console.log(coinState);
+
+                
 
     }
 
-      
+    const handleThrowDartState = (x) => {
+        setThrowDart(x)
+        console.log(throwDart)
+    }
+
+    
+    const triggerDartThrow = useCallback(() => {
+        if (throwDart) {
+            setThrowDart(false)
+            let trialOutcome = (Math.floor(numberOfBalloons * Math.random()) + 1)
+            console.log(trialOutcome)
+            setToBePopped(trialOutcome)
+            // let trialOutcome = trial(numberOfBalloons)
+            // console.log(trialOutcome)
+            // if (trialOutcome !== 0) {
+            //     setToBePopped(trialOutcome)
+            // }
+            // else if (trialOutcome === 0) {
+            // //On flipping tails, reset? or give some kind of message?
+            // //setOnReset(true)
+            // console.log(trialOutcome);
+            // }
+            }
+    }, [throwDart, numberOfBalloons])
+
+
+    useEffect(() => {
+        if (throwDart) {
+            triggerDartThrow()
+            setThrowDart(false)
+        }
+    }, [throwDart, triggerDartThrow])
 
 
 
@@ -157,25 +205,17 @@ export default function BalloonPage() {
                         <Grid item>
                             <Grid container direction='column'>
                                 <Button variant='contained' style={{margin: '5px'}} onClick={() => {
-                                    let tossResult = coinToss()
-                                    if (tossResult) {
-                                        setCoinState(tossResult)
-                                    }
+                                    // let tossResult = coinToss()
+                                    // if (tossResult) {
+                                    //     setCoinState(tossResult)
+                                    // }
+                                    coinToss()
                                     console.log(coinState.result)
                                     console.log(toBePopped)
                                     if (onReset) {
                                         setOnReset(false)
                                     }
-                                    let trialOutcome = trial(numberOfBalloons)
-                                    console.log(trialOutcome)
-                                    if (trialOutcome !== 0) {
-                                        setToBePopped(trialOutcome)
-                                    }
-                                    else if (trialOutcome === 0) {
-                                    //On flipping tails, reset? or give some kind of message?
-                                    //setOnReset(true)
-                                    callResetGame(numberOfBalloons)
-                                    }
+                                    
                                 }}>Throw Dart</Button>
                                 <Button variant='contained' style={{margin: '5px'}} onClick={() => {
                                     
@@ -192,7 +232,7 @@ export default function BalloonPage() {
                                     {/* Coin being flipped here */}
                                     {/* <div>!{coinState ? (coinState.result ? coinState.result : console.log(coinState)) : console.log(coinState)}!</div> */}
                                     <div>!{coinState.result}!</div>
-                                    <CoinFlip state={coinState} getCoinState={getCoinState} setCoinState={handleCoinState} callCoinToss={callCoinToss} coinToss={coinToss}></CoinFlip>
+                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState}></CoinFlip>
                                 </Grid>
                                 <Grid item minWidth='150px'>
                                     <div>{probability}</div>
