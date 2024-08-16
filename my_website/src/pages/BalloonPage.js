@@ -9,6 +9,9 @@ import { Grid } from "@mui/material";
 import { Slider } from "@mui/material";
 import BalloonGameState from "../components/BalloonGame/BalloonGameState";
 
+import CoinFlip from "../components/BalloonGame/CoinFlip";
+import './../CSSFiles/coinFlip.css';
+
 export default function BalloonPage() {
     
     
@@ -20,8 +23,12 @@ export default function BalloonPage() {
     const [resetGame, setResetGame] = React.useState(false)
     const [probability, setProbability] = React.useState(probabilityOfOutcome(numberOfBalloons, 0))
     
-    
-    
+    const [coinState, setCoinState] = React.useState({result: "", nader: "nader"})
+    //const [coinState, setCoinState] = React.useState('heads');
+
+
+
+
     const handleChangeOfBalloons = (event, newValue) => {
         callResetGame(newValue)
     }
@@ -93,11 +100,30 @@ export default function BalloonPage() {
             setToBePopped(-1)
         }
     }, [toBePopped, numberOfBalloons]);
-
-
-      const handlePop = (x) => {
+    
+    
+    const handlePop = (x) => {
         setToBePopped(x)
-      }
+    }
+    const handleCoinState = (x) => {
+        //setCoinState('tails')
+        setCoinState(x)
+    }
+    
+    const getCoinState = () => {
+        return coinState;
+    }
+
+    const callCoinToss = (x) => {
+        x()
+    }
+
+    function coinToss() {
+        console.log('what do you mean undefined?')
+
+    }
+
+      
 
 
 
@@ -118,62 +144,76 @@ export default function BalloonPage() {
             
             </Grid>
             <Grid item>
-            <Grid container direction='column' style={
+            <Grid container direction='column' alignItems='center' style={
                 {
-                    // border: '2px solid green', 
+                    border: '2px solid red', 
                     maxWidth: '80vw'
 
                 }
                 }>
                 <Grid item style={{maxWidth: '80vw'}}>
-                    <div>
-                    <Button variant='contained' style={{margin: '5px'}} onClick={() => {
-                            console.log(toBePopped)
-                            if (onReset) {
-                                setOnReset(false)
-                            }
-                            let trialOutcome = trial(numberOfBalloons)
-                            console.log(trialOutcome)
-                            if (trialOutcome !== 0) {
-                                setToBePopped(trialOutcome)
-                            }
-                            else if (trialOutcome === 0) {
+                    <Grid container direction='row' justifyContent='center' width='80vw'>
+                        {/* Grid item containing the game buttons */}
+                        <Grid item>
+                            <Grid container direction='column'>
+                                <Button variant='contained' style={{margin: '5px'}} onClick={() => {
+                                    let tossResult = coinToss()
+                                    if (tossResult) {
+                                        setCoinState(tossResult)
+                                    }
+                                    console.log(coinState.result)
+                                    console.log(toBePopped)
+                                    if (onReset) {
+                                        setOnReset(false)
+                                    }
+                                    let trialOutcome = trial(numberOfBalloons)
+                                    console.log(trialOutcome)
+                                    if (trialOutcome !== 0) {
+                                        setToBePopped(trialOutcome)
+                                    }
+                                    else if (trialOutcome === 0) {
+                                    //On flipping tails, reset? or give some kind of message?
+                                    //setOnReset(true)
+                                    callResetGame(numberOfBalloons)
+                                    }
+                                }}>Throw Dart</Button>
+                                <Button variant='contained' style={{margin: '5px'}} onClick={() => {
+                                    
+                                    setOnReset(true)
+                                    
+                                }}>Reset</Button>
+                            </Grid>
+                        </Grid>
+                        {/* Grid item containing game data */}
+                        <Grid item>
 
-                                //On flipping tails, reset? or give some kind of message?
-                                //setOnReset(true)
-                                callResetGame(numberOfBalloons)
-                            }
-                            
-
-
-                        }}>Throw Dart</Button>
-                        <Button variant='contained' style={{margin: '5px'}} onClick={() => {
-                            
-                            setOnReset(true)
-                            
-                            }}>Reset</Button>
-
-                            {/* Print State button, used for testing */}
-                    {/* <Button onClick={() => {
-                            // setToBePopped(5);
-                            console.log('current state:')
-                            console.log('onReset')
-                            console.log(onReset)
-                            console.log('toBePopped');
-                            console.log(toBePopped);
-                            console.log('numberOfBalloons')
-                            console.log(numberOfBalloons)
-                            console.log('gameState:')
-                            console.log(gameState)
-                            console.log('probability: ')
-                            console.log(probability)
-                        }}>Print State</Button> */}
-
-                        <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
-                        <div>{probability}%</div>
-                    </div>
+                            <Grid container direction='column' justifyItems='center' justifyContent='center' alignItems='center'>
+                                <Grid item>
+                                    {/* Coin being flipped here */}
+                                    {/* <div>!{coinState ? (coinState.result ? coinState.result : console.log(coinState)) : console.log(coinState)}!</div> */}
+                                    <div>!{coinState.result}!</div>
+                                    <CoinFlip state={coinState} getCoinState={getCoinState} setCoinState={handleCoinState} callCoinToss={callCoinToss} coinToss={coinToss}></CoinFlip>
+                                </Grid>
+                                <Grid item minWidth='150px'>
+                                    <div>{probability}</div>
+                                </Grid>
+                            </Grid>
+                            {/* <Grid container direction='column'>
+                                <Grid item>
+                                    <div>This</div>
+                                </Grid>
+                                <Grid item>
+                                    <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
+                                </Grid>
+                                <Grid item>
+                                    <div>{probability}%</div>
+                                </Grid>
+                            </Grid> */}
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item style={{width: '80vw', maxWidth: '60vw'}}>
+
+                <Grid item style={{width: '40vw', maxWidth: '40vw', border: 'solid green 2px'}}>
                     <Grid container direction='row'>
                          
                                 <Slider defaultValue={10} aria-label="Default" valueLabelDisplay="auto" value={numberOfBalloons} onChange={handleChangeOfBalloons}/>
