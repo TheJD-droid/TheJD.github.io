@@ -19,23 +19,26 @@ export default function CoinFlip(props) {
 
     return (
         <div className="CoinFlip">
-          <div>state.result: {state.result}</div>
+          {/* <div>state.result: {state.result}</div> */}
           <div id="coin" className={state.result} key={+new Date()}
           onAnimationEnd = {(e) => { 
             console.log('coin animation has ended')
             
 
             if ((props.coinState.result === 'tailsFromHeads') || (props.coinState.result === 'tailsFromTails')) {
-              console.log('fromTails registered')
               props.setCoinState({result: "stayTails"})
+              props.gameState.ongoing = false
+              props.handleOpenModal()
+              console.log(props.gameState)
             }
 
 
             if ((props.coinState.result === 'headsFromTails') || (props.coinState.result === 'headsFromHeads')) {
               props.setCoinState({result: "stayHeads"})
+              props.setThrowDart(true)
+            
             }
             console.log(props.coinState)
-            props.setThrowDart(true)
             
           }
         }>

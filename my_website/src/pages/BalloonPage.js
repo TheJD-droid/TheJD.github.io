@@ -1,18 +1,43 @@
 import React, { useCallback, useEffect } from "react";
 import '../CSSFiles/balloons.css';
-import { Button } from "@mui/material";
-//import Bubble from "../components/BalloonGame/Bubble";
+import { Button, ThemeProvider } from "@mui/material";
 import '../CSSFiles/bubble.css';
 import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
-//import { useState } from "react";
 import { Slider } from "@mui/material";
 import BalloonGameState from "../components/BalloonGame/BalloonGameState";
 
 import CoinFlip from "../components/BalloonGame/CoinFlip";
 import './../CSSFiles/coinFlip.css';
 
+import { createTheme } from "@mui/material";
 
+import { colors, Modal, Box, Typography } from "@mui/material";
+
+
+const theme = createTheme({
+    palette: {
+        action: {
+            disabledBackground: colors.grey[700],
+            disabled: colors.grey[400],
+        
+        }
+    }
+})
+
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    color: 'white',
+    backgroundColor: '#333842',
+    border: '2px solid',
+    borderColor: colors.grey[900],
+    boxShadow: 24,
+    p: 4,
+  };
 
 
 export default function BalloonPage() {
@@ -32,6 +57,11 @@ export default function BalloonPage() {
     const [triggerCoinToss, setTriggerCoinToss] = React.useState(false)
 
     const [loading, setLoading] = React.useState(true);
+
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
 
     useEffect(() => {
 
@@ -221,6 +251,31 @@ export default function BalloonPage() {
 
 
     return(
+    <>
+
+    <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        //Makes Backrop of modal transparent
+        //componentsProps={{ backdrop: { style: { backgroundColor: "transparent" } } }} 
+    >
+        <Box sx={modalStyle}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+                Game over!
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                You popped {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'}. 
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                The probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'} is {probability}%
+            </Typography>
+        </Box>
+    </Modal>
+
+
+
         <Grid container direction='column' alignItems='center' style={{border: '2px solid green', margin: '5px'}}>
             
             
@@ -249,7 +304,8 @@ export default function BalloonPage() {
                         {/* Grid item containing the game buttons */}
                         <Grid item>
                             <Grid container direction='column'>
-                                <Button disabled={loading} variant='contained' style={{margin: '5px'}} onClick={() => {
+                                <ThemeProvider theme={theme}>
+                                <Button disabled={loading || !(gameState.ongoing)} variant='contained' style={{margin: '5px'}} onClick={() => {
                                     // let tossResult = coinToss()
                                     // if (tossResult) {
                                     //     setCoinState(tossResult)
@@ -261,12 +317,13 @@ export default function BalloonPage() {
                                         setOnReset(false)
                                     }
                                     
-                                }}>Throw Dart</Button>
+                                }}>Flip</Button>
                                 <Button disabled={loading} variant='contained' style={{margin: '5px'}} onClick={() => {
                                     
                                     setOnReset(true)
                                     
                                 }}>Reset</Button>
+                                </ThemeProvider>
                                 <Button variant='contained' style={{margin: '5px'}} onClick={() => {
                                     
                                     setTriggerCoinToss(false)
@@ -278,16 +335,31 @@ export default function BalloonPage() {
                         {/* Grid item containing game data */}
                         <Grid item>
 
-                            <Grid container direction='column' justifyItems='center' justifyContent='center' alignItems='center'>
+                            <Grid container direction='column' justifyItems='center' justifyContent='center' alignItems='center' margin='5px'>
                                 <Grid item>
                                     {/* Coin being flipped here */}
-                                    {/* <div>!{coinState ? (coinState.result ? coinState.result : console.log(coinState)) : console.log(coinState)}!</div> */}
-                                    <div>!{coinState.result}!</div>
-                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState}></CoinFlip>
+                                    {/* <div>!{coinState.result}!</div> */}
+                                    
+                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState}></CoinFlip>
+                                
                                 </Grid>
-                                <Grid item minWidth='150px'>
-                                    <div>{probability}</div>
+
+
+                                {/* <Grid item minWidth='150px'>
+                                    <div>{probability}%</div>
+                                </Grid> */}
+
+                                <Grid container direction='column' minWidth='150px'>
+                                    
+                                    <Grid item>
+                                        <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
+                                    </Grid>
+                                    <Grid item>
+                                        <div>{probability}%</div>
+                                    </Grid>
                                 </Grid>
+
+
                             </Grid>
                             {/* <Grid container direction='column'>
                                 <Grid item>
@@ -314,8 +386,8 @@ export default function BalloonPage() {
                 </Grid>
             </Grid>
             </Grid>
-        
-    );
+
+    </>);
 }
 
 
