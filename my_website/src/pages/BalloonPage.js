@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import '../CSSFiles/balloons.css';
-import { Button, ThemeProvider } from "@mui/material";
+import { Button, Tabs, Tab, ThemeProvider, AppBar } from "@mui/material";
 import '../CSSFiles/bubble.css';
 import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
@@ -13,6 +13,12 @@ import './../CSSFiles/coinFlip.css';
 import { createTheme } from "@mui/material";
 
 import { colors, Modal, Box, Typography } from "@mui/material";
+
+
+
+import Pdf from '../assets/TheBalloonProblem.pdf';
+
+
 
 
 const theme = createTheme({
@@ -40,8 +46,49 @@ const modalStyle = {
   };
 
 
+
+//   interface TabPanelProps {
+//     children?: React.ReactNode;
+//     index: number;
+//     value: number;
+//   }
+  
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      </div>
+    );
+  }
+  
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
+
+
+
 export default function BalloonPage() {
     
+    const [selected, setselected] = React.useState(0)
+    const handleSelectedChange = (event, newValue) => {
+        setselected(newValue)
+    }
+
+
+
+
     
     const [onReset, setOnReset] = React.useState(false)
     const [toBePopped, setToBePopped] = React.useState(-1);
@@ -161,19 +208,11 @@ export default function BalloonPage() {
 
 
     const handleCoinState = (x) => {
-        //setCoinState('tails')
         setCoinState(x)
     }
     
-    const getCoinState = () => {
-        return coinState;
-    }
-
-    const callCoinToss = (x) => {
-        x()
-    }
-
-    function coinToss() {
+    
+    const coinToss = useCallback(() => {
         console.log(coinState)
         let outcome = () => {
 
@@ -202,9 +241,7 @@ export default function BalloonPage() {
         setCoinState({ result: outcome()});
         console.log(coinState);
 
-                
-
-    }
+    }, [coinState])
 
     const handleThrowDartState = (x) => {
         console.log(`throwDart: ${throwDart}`)
@@ -217,16 +254,15 @@ export default function BalloonPage() {
     }
 
 
-
-    const triggerDartThrow = () => {
-        console.log(throwDart)
+    const triggerDartThrow = useCallback(() => {
         if (throwDart) {
             setThrowDart(false)
             let trialOutcome = (Math.floor(numberOfBalloons * Math.random()) + 1)
-            console.log(trialOutcome)
             setToBePopped(trialOutcome)
         }
-    }
+    }, [throwDart, numberOfBalloons])
+
+
 
 
 
@@ -237,7 +273,7 @@ export default function BalloonPage() {
             triggerDartThrow()
             
         }
-    }, [throwDart])
+    }, [throwDart, triggerDartThrow])
 
 
 
@@ -247,7 +283,7 @@ export default function BalloonPage() {
             setTriggerCoinToss(false)
             coinToss()
         }
-    }, [triggerCoinToss])
+    }, [triggerCoinToss, coinToss])
 
 
     return(
@@ -258,8 +294,6 @@ export default function BalloonPage() {
         onClose={handleCloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        //Makes Backrop of modal transparent
-        //componentsProps={{ backdrop: { style: { backgroundColor: "transparent" } } }} 
     >
         <Box sx={modalStyle}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -275,6 +309,21 @@ export default function BalloonPage() {
     </Modal>
 
 
+
+    <div>
+        <Tabs value={selected} onChange={handleSelectedChange} variant="fullWidth" >
+            <Tab label="Explanation" {...a11yProps(0)} sx={{color: 'white'}}/>
+            
+            <Tab label="Game" {...a11yProps(1)} sx={{color: 'white'}}/>
+
+        </Tabs>
+    </div>
+    <TabPanel value={selected} index={0}>
+        <h3>The Balloon Game:</h3>
+        <p>In this game you flip a coin and throw a dart randomly at balloons on a dartboard. At the start of the game the dartboard is filled with balloons. If the flipped coin lands on heads then you get to throw a dart at the dartboard. However, if the coin lands tails then the game is over, and your score is however many balloons you managed to pop. It is possible to hit the same spot on the dartboard multiple times, resulting in only one popped balloon for multiple throws.</p>
+    </TabPanel>
+    <TabPanel value={selected} index={1}>
+        
 
         <Grid container direction='column' alignItems='center' style={{border: '2px solid green', margin: '5px'}}>
             
@@ -324,11 +373,7 @@ export default function BalloonPage() {
                                     
                                 }}>Reset</Button>
                                 </ThemeProvider>
-                                <Button variant='contained' style={{margin: '5px'}} onClick={() => {
-                                    
-                                    setTriggerCoinToss(false)
-                                    
-                                }}>STOP</Button>
+                                <Button variant='contained' style={{margin: '5px'}} href={Pdf} target="_blank">The Math</Button>
 
                             </Grid>
                         </Grid>
@@ -351,9 +396,9 @@ export default function BalloonPage() {
 
                                 <Grid container direction='column' minWidth='150px'>
                                     
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item>
                                         <div>{probability}%</div>
                                     </Grid>
@@ -386,6 +431,8 @@ export default function BalloonPage() {
                 </Grid>
             </Grid>
             </Grid>
+    
+    </TabPanel>
 
     </>);
 }
@@ -404,28 +451,6 @@ function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handl
 }
 
 
-
-function trial(numberOfBalloons) {
-    let coinFlip = Math.floor(2 * Math.random())
-
-    //Heads
-    if (coinFlip === 1) {
-        console.log('heads')
-        return (Math.floor(numberOfBalloons * Math.random()) + 1);
-
-    }
-    //Tails
-    else if (coinFlip === 0) {
-        console.log('tails')
-        return 0;
-        
-    }
-    //Impossible
-    else {
-        console.log('Error, coinFlip did not come up heads or tails')
-    }
-
-}
 
 function probabilityOfOutcome(numBalloons, popped) {
     // console.log('calculating probability')
