@@ -47,8 +47,6 @@
     z-index: 100;
     -webkit-transform: rotateX(0deg);
     transform: rotateX(0deg);
-    /* transform: rotateY(180deg); */
-    transform: rotateZ(-180deg);
   }
   .side-b {
     -webkit-transform: rotateX(-180deg);
@@ -92,7 +90,6 @@
   #coin.stayTails {
     -webkit-transform: rotateX(0deg);
     transform: rotateX(0deg);
-    transform: rotateZ(0deg);
   }
 
 
