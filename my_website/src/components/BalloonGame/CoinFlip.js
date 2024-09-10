@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function CoinFlip(props) {
 
 
-    const [state, setState] = React.useState({result: "", nader: "nader"});
+    const [state, setState] = React.useState({result: "stayTails"});
 
     
 
@@ -23,7 +23,20 @@ export default function CoinFlip(props) {
           <div id="coin" className={state.result} key={+new Date()}
           onAnimationEnd = {(e) => { 
             console.log('coin animation has ended')
+            
+
+            if ((props.coinState.result === 'tailsFromHeads') || (props.coinState.result === 'tailsFromTails')) {
+              console.log('fromTails registered')
+              props.setCoinState({result: "stayTails"})
+            }
+
+
+            if ((props.coinState.result === 'headsFromTails') || (props.coinState.result === 'headsFromHeads')) {
+              props.setCoinState({result: "stayHeads"})
+            }
+            console.log(props.coinState)
             props.setThrowDart(true)
+            
           }
         }>
             <div className="side-a">
@@ -39,31 +52,5 @@ export default function CoinFlip(props) {
 
 
 }
-
-//   coinToss() {
-//     this.setState({ nader: "" }, () => {
-//       if (Math.random() < 0.5) {
-//         //this.setState({ result: "heads" });
-//         this.setCoinState( { result: "heads" });
-//         //this.setCoinState('heads'); //changes the coin state on the balloonPage, but not in the component
-//         //this.coinState = 'heads'; //changes the coin state here in the component, but not on the balloonPage
-//         console.log("heads");
-//       } else {
-//         //this.setState({ result: "tails" });
-//         this.setCoinState( { result: "tails" });
-//         //this.setCoinState('tails'); 
-//         //this.coinState = 'tails';
-//         console.log("tails");
-//       }
-    
-//     });
-//     //this.props.setCoinState(this.state);
-//     return this.state;
-//   }
-
-  
-//   render() {
-    
-//   }
 
 

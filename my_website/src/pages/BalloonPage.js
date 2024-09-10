@@ -12,6 +12,9 @@ import BalloonGameState from "../components/BalloonGame/BalloonGameState";
 import CoinFlip from "../components/BalloonGame/CoinFlip";
 import './../CSSFiles/coinFlip.css';
 
+
+
+
 export default function BalloonPage() {
     
     
@@ -23,10 +26,26 @@ export default function BalloonPage() {
     const [resetGame, setResetGame] = React.useState(false)
     const [probability, setProbability] = React.useState(probabilityOfOutcome(numberOfBalloons, 0))
     
-    const [coinState, setCoinState] = React.useState({result: "", nader: "nader"})
+    const [coinState, setCoinState] = React.useState({result: "stayTails"})
     
     const [throwDart, setThrowDart] = React.useState(false)
+    const [triggerCoinToss, setTriggerCoinToss] = React.useState(false)
 
+    const [loading, setLoading] = React.useState(true);
+
+    useEffect(() => {
+
+        if (coinState.result === 'stayTails') {
+            setLoading(false)
+        }
+        else if (coinState.result === 'stayHeads') {
+            setLoading(false)
+        }
+        else {
+            setLoading(true)
+        }
+
+    }, [coinState])
 
 
 
@@ -82,6 +101,7 @@ export default function BalloonPage() {
         console.log('onReset change registered')
         if (onReset) {
             console.log('reset triggered')
+            setTriggerCoinToss(false)
             setToBePopped(-1)
             setTriggerReset(true)
             setResetGame(true)
@@ -106,6 +126,10 @@ export default function BalloonPage() {
     const handlePop = (x) => {
         setToBePopped(x)
     }
+
+
+
+
     const handleCoinState = (x) => {
         //setCoinState('tails')
         setCoinState(x)
@@ -124,16 +148,28 @@ export default function BalloonPage() {
         let outcome = () => {
 
             if (Math.random() < 0.5) {
-                console.log("heads");
-                return "heads";
+                if (coinState.result === 'stayTails') {
+                    console.log("headsFromTails");
+                    return "headsFromTails";    
+                }
+                else {
+                    return "headsFromHeads";
+                }
             } 
             else {
-                console.log("tails");
-                return "tails";
+
+                if (coinState.result === 'stayHeads') {
+                    console.log("tailsFromHeads");
+                    return "tailsFromHeads";    
+                }
+                else {
+                    console.log('tailsFromTails')
+                    return "tailsFromTails";
+                }
             }
             
         }
-        setCoinState({ nader: "", result: outcome()});
+        setCoinState({ result: outcome()});
         console.log(coinState);
 
                 
@@ -141,38 +177,47 @@ export default function BalloonPage() {
     }
 
     const handleThrowDartState = (x) => {
-        setThrowDart(x)
-        console.log(throwDart)
+        console.log(`throwDart: ${throwDart}`)
+        if (throwDart === false) {
+            setThrowDart(x)
+        }
+        else {
+            setThrowDart(false)
+        }
     }
 
-    
-    const triggerDartThrow = useCallback(() => {
+
+
+    const triggerDartThrow = () => {
+        console.log(throwDart)
         if (throwDart) {
             setThrowDart(false)
             let trialOutcome = (Math.floor(numberOfBalloons * Math.random()) + 1)
             console.log(trialOutcome)
             setToBePopped(trialOutcome)
-            // let trialOutcome = trial(numberOfBalloons)
-            // console.log(trialOutcome)
-            // if (trialOutcome !== 0) {
-            //     setToBePopped(trialOutcome)
-            // }
-            // else if (trialOutcome === 0) {
-            // //On flipping tails, reset? or give some kind of message?
-            // //setOnReset(true)
-            // console.log(trialOutcome);
-            // }
-            }
-    }, [throwDart, numberOfBalloons])
+        }
+    }
+
 
 
     useEffect(() => {
+        console.log(`throwDart value in useEffect that triggers dart throw: ${throwDart}`)
         if (throwDart) {
-            triggerDartThrow()
             setThrowDart(false)
+            triggerDartThrow()
+            
         }
-    }, [throwDart, triggerDartThrow])
+    }, [throwDart])
 
+
+
+    useEffect(() => {
+        console.log(`triggerCoinToss: ${triggerCoinToss}`)
+        if (triggerCoinToss) {
+            setTriggerCoinToss(false)
+            coinToss()
+        }
+    }, [triggerCoinToss])
 
 
     return(
@@ -204,12 +249,12 @@ export default function BalloonPage() {
                         {/* Grid item containing the game buttons */}
                         <Grid item>
                             <Grid container direction='column'>
-                                <Button variant='contained' style={{margin: '5px'}} onClick={() => {
+                                <Button disabled={loading} variant='contained' style={{margin: '5px'}} onClick={() => {
                                     // let tossResult = coinToss()
                                     // if (tossResult) {
                                     //     setCoinState(tossResult)
                                     // }
-                                    coinToss()
+                                    setTriggerCoinToss(true)
                                     console.log(coinState.result)
                                     console.log(toBePopped)
                                     if (onReset) {
@@ -217,11 +262,17 @@ export default function BalloonPage() {
                                     }
                                     
                                 }}>Throw Dart</Button>
-                                <Button variant='contained' style={{margin: '5px'}} onClick={() => {
+                                <Button disabled={loading} variant='contained' style={{margin: '5px'}} onClick={() => {
                                     
                                     setOnReset(true)
                                     
                                 }}>Reset</Button>
+                                <Button variant='contained' style={{margin: '5px'}} onClick={() => {
+                                    
+                                    setTriggerCoinToss(false)
+                                    
+                                }}>STOP</Button>
+
                             </Grid>
                         </Grid>
                         {/* Grid item containing game data */}
@@ -305,26 +356,26 @@ function trial(numberOfBalloons) {
 }
 
 function probabilityOfOutcome(numBalloons, popped) {
-    console.log('calculating probability')
-    console.log(numBalloons, popped)
+    // console.log('calculating probability')
+    // console.log(numBalloons, popped)
     let numerator = 1;
     let denominator = 2;
     for (let i = numBalloons; i > numBalloons - popped; i--) {
         numerator = numerator * i;
     }
-    console.log('numerator:')
-    console.log(numerator)
+    // console.log('numerator:')
+    // console.log(numerator)
     let twoNumBalloons = 2*numBalloons
     for (let i = twoNumBalloons; i > twoNumBalloons - popped; i--) {
         denominator = denominator * (i-1)
     }
-    console.log('denominator:')
-    console.log(denominator)
+    // console.log('denominator:')
+    // console.log(denominator)
 
     let result = (numerator / denominator) * 100
-    console.log('result < 50?:')
-    console.log(result < 50)
-    console.log()
+    // console.log('result < 50?:')
+    // console.log(result < 50)
+    // console.log()
     if (result % 1 === 0) {
         //no precision needed
     }

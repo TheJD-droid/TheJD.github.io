@@ -51,20 +51,47 @@
     transform: rotateY(-180deg);
   }
   
-  #coin.heads {
-    -webkit-animation: flipHeads 2s ease-out forwards;
-    -moz-animation: flipHeads 2s ease-out forwards;
-    -o-animation: flipHeads 2s ease-out forwards;
-    animation: flipHeads 2s ease-out forwards;
+  #coin.headsFromTails {
+    -webkit-animation: flipHeadsFromTails 2s ease-out forwards;
+    -moz-animation: flipHeadsFromTails 2s ease-out forwards;
+    -o-animation: flipHeadsFromTails 2s ease-out forwards;
+    animation: flipHeadsFromTails 2s ease-out forwards;
   }
-  #coin.tails {
-    -webkit-animation: flipTails 2s ease-out forwards;
-    -moz-animation: flipTails 2s ease-out forwards;
-    -o-animation: flipTails 2s ease-out forwards;
-    animation: flipTails 2s ease-out forwards;
+  #coin.tailsFromTails {
+    -webkit-animation: flipTailsFromTails 2s ease-out forwards;
+    -moz-animation: flipTailsFromTails 2s ease-out forwards;
+    -o-animation: flipTailsFromTails 2s ease-out forwards;
+    animation: flipTailsFromTails 2s ease-out forwards;
+  }
+
+  #coin.headsFromHeads {
+    -webkit-animation: flipHeadsFromHeads 2s ease-out forwards;
+    -moz-animation: flipHeadsFromHeads 2s ease-out forwards;
+    -o-animation: flipHeadsFromHeads 2s ease-out forwards;
+    animation: flipHeadsFromHeads 2s ease-out forwards;
+
+  }
+
+  #coin.tailsFromHeads {
+    -webkit-animation: flipTailsFromHeads 2s ease-out forwards;
+    -moz-animation: flipTailsFromHeads 2s ease-out forwards;
+    -o-animation: flipTailsFromHeads 2s ease-out forwards;
+    animation: flipTailsFromHeads 2s ease-out forwards;
+
+  }
+
+  #coin.stayHeads {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
   }
   
-  @-webkit-keyframes flipHeads {
+  #coin.stayTails {
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+  }
+
+
+  @-webkit-keyframes flipHeadsFromTails {
     from {
       -webkit-transform: rotateY(0);
       -moz-transform: rotateY(0);
@@ -76,7 +103,7 @@
       transform: rotateY(540deg);
     }
   }
-  @-webkit-keyframes flipTails {
+  @-webkit-keyframes flipTailsFromTails {
     from {
       -webkit-transform: rotateY(0);
       -moz-transform: rotateY(0);
@@ -89,7 +116,42 @@
     }
   }
 
-  @keyframes flipHeads {
+
+
+
+  @-webkit-keyframes flipHeadsFromHeads {
+    from {
+      -webkit-transform: rotateY(-180);
+      -moz-transform: rotateY(-180);
+      transform: rotateY(-180);
+    }
+    to {
+      -webkit-transform: rotateY(540deg);
+      -moz-transform: rotateY(540deg);
+      transform: rotateY(540deg);
+    }
+  }
+  @-webkit-keyframes flipTailsFromHeads {
+    from {
+      -webkit-transform: rotateY(-180);
+      -moz-transform: rotateY(-180);
+      transform: rotateY(-180);
+    }
+    to {
+      -webkit-transform: rotateY(720deg);
+      -moz-transform: rotateY(720deg);
+      transform: rotateY(720deg);
+    }
+  }
+
+
+
+
+
+
+
+
+  @keyframes flipHeadsFromTails {
     from {
       -webkit-transform: rotateY(0);
       -moz-transform: rotateY(0);
@@ -101,7 +163,7 @@
       transform: rotateY(540deg);
     }
   }
-  @keyframes flipTails {
+  @keyframes flipTailsFromTails {
     from {
       -webkit-transform: rotateY(0);
       -moz-transform: rotateY(0);
@@ -114,3 +176,28 @@
     }
   }
   
+
+  @keyframes flipHeadsFromHeads {
+    from {
+      -webkit-transform: rotateY(-180);
+      -moz-transform: rotateY(-180);
+      transform: rotateY(-180);
+    }
+    to {
+      -webkit-transform: rotateY(540deg);
+      -moz-transform: rotateY(540deg);
+      transform: rotateY(540deg);
+    }
+  }
+  @keyframes flipTailsFromHeads {
+    from {
+      -webkit-transform: rotateY(-180);
+      -moz-transform: rotateY(-180);
+      transform: rotateY(-180);
+    }
+    to {
+      -webkit-transform: rotateY(720deg);
+      -moz-transform: rotateY(720deg);
+      transform: rotateY(720deg);
+    }
+  }
