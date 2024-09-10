@@ -212,36 +212,36 @@ export default function BalloonPage() {
     }
     
     
-    const coinToss = useCallback(() => {
-        console.log(coinState)
-        let outcome = () => {
+    // const coinToss = useCallback(() => {
+    //     console.log(coinState)
+    //     let outcome = () => {
 
-            if (Math.random() < 0.5) {
-                if (coinState.result === 'stayTails') {
-                    console.log("headsFromTails");
-                    return "headsFromTails";    
-                }
-                else {
-                    return "headsFromHeads";
-                }
-            } 
-            else {
+    //         if (Math.random() < 0.5) {
+    //             if (coinState.result === 'stayTails') {
+    //                 console.log("headsFromTails");
+    //                 return "headsFromTails";    
+    //             }
+    //             else {
+    //                 return "headsFromHeads";
+    //             }
+    //         } 
+    //         else {
 
-                if (coinState.result === 'stayHeads') {
-                    console.log("tailsFromHeads");
-                    return "tailsFromHeads";    
-                }
-                else {
-                    console.log('tailsFromTails')
-                    return "tailsFromTails";
-                }
-            }
+    //             if (coinState.result === 'stayHeads') {
+    //                 console.log("tailsFromHeads");
+    //                 return "tailsFromHeads";    
+    //             }
+    //             else {
+    //                 console.log('tailsFromTails')
+    //                 return "tailsFromTails";
+    //             }
+    //         }
             
-        }
-        setCoinState({ result: outcome()});
-        console.log(coinState);
+    //     }
+    //     setCoinState({ result: outcome()});
+    //     console.log(coinState);
 
-    }, [coinState])
+    // }, [coinState])
 
     const handleThrowDartState = (x) => {
         console.log(`throwDart: ${throwDart}`)
@@ -281,9 +281,36 @@ export default function BalloonPage() {
         console.log(`triggerCoinToss: ${triggerCoinToss}`)
         if (triggerCoinToss) {
             setTriggerCoinToss(false)
-            coinToss()
+
+        let outcome = () => {
+
+            if (Math.random() < 0.5) {
+                if (coinState.result === 'stayTails') {
+                    console.log("headsFromTails");
+                    return "headsFromTails";    
+                }
+                else {
+                    return "headsFromHeads";
+                }
+            } 
+            else {
+
+                if (coinState.result === 'stayHeads') {
+                    console.log("tailsFromHeads");
+                    return "tailsFromHeads";    
+                }
+                else {
+                    console.log('tailsFromTails')
+                    return "tailsFromTails";
+                }
+            }
+            
         }
-    }, [triggerCoinToss, coinToss])
+        setCoinState({ result: outcome()});
+        console.log(coinState);
+
+    }
+    }, [triggerCoinToss, coinState])
 
 
     return(

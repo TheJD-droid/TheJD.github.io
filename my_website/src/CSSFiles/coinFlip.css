@@ -91,9 +91,10 @@
     transform: rotateX(-180deg);
   }
   
+  /* There's a "flicker" when I have this set, it seems. If I leave it commented out, so it's not "transforming" to the start, then there doesn't seem to be a "flicker" on the coin. Weird. */
   #coin.stayTails {
-    -webkit-transform: rotateX(0deg);
-    transform: rotateX(0deg);
+    /* -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg); */
   }
 
 
