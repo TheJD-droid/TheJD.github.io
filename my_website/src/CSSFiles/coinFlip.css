@@ -9,7 +9,7 @@
     width: 100px;
     height: 100px;
   }
-  #coin div {
+  #coin img {
     width: 100%;
     height: 100%;
     -webkit-border-radius: 50%;
@@ -23,13 +23,13 @@
       0 12px 20px -10px rgba(0, 0, 0, 0.4);
   }
   .side-a {
-    background-color: #bb0000;
-    color: white;
+    /* background-color: #bb0000; */
+    /* color: white; */
     text-align: center;
   }
   .side-b {
-    background-color: #2e00fc;
-    color: white;
+    /* background-color: #2e00fc;
+    color: white; */
     text-align: center;
   }
   
@@ -38,19 +38,21 @@
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
   }
-  #coin div {
+  #coin img {
     position: absolute;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
   .side-a {
     z-index: 100;
-    -webkit-transform: rotateY(0deg);
-    transform: rotateY(0deg);
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    /* transform: rotateY(180deg); */
+    transform: rotateZ(-180deg);
   }
   .side-b {
-    -webkit-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
+    -webkit-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
   }
   
   #coin.headsFromTails {
@@ -83,38 +85,39 @@
   }
 
   #coin.stayHeads {
-    -webkit-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
+    -webkit-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
   }
   
   #coin.stayTails {
-    -webkit-transform: rotateY(0deg);
-    transform: rotateY(0deg);
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    transform: rotateZ(0deg);
   }
 
 
   @-webkit-keyframes flipHeadsFromTails {
     from {
-      -webkit-transform: rotateY(0deg);
-      -moz-transform: rotateY(0deg);
-      transform: rotateY(0deg);
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
     }
     to {
-      -webkit-transform: rotateY(540deg);
-      -moz-transform: rotateY(540deg);
-      transform: rotateY(540deg);
+      -webkit-transform: rotateX(540deg);
+      -moz-transform: rotateX(540deg);
+      transform: rotateX(540deg);
     }
   }
   @-webkit-keyframes flipTailsFromTails {
     from {
-      -webkit-transform: rotateY(0deg);
-      -moz-transform: rotateY(0deg);
-      transform: rotateY(0deg);
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
     }
     to {
-      -webkit-transform: rotateY(720deg);
-      -moz-transform: rotateY(720deg);
-      transform: rotateY(720deg);
+      -webkit-transform: rotateX(720deg);
+      -moz-transform: rotateX(720deg);
+      transform: rotateX(720deg);
     }
   }
 
@@ -123,26 +126,26 @@
 
   @-webkit-keyframes flipHeadsFromHeads {
     from {
-      -webkit-transform: rotateY(-180deg);
-      -moz-transform: rotateY(-180deg);
-      transform: rotateY(-180deg);
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
     }
     to {
-      -webkit-transform: rotateY(540deg);
-      -moz-transform: rotateY(540deg);
-      transform: rotateY(540deg);
+      -webkit-transform: rotateX(540deg);
+      -moz-transform: rotateX(540deg);
+      transform: rotateX(540deg);
     }
   }
   @-webkit-keyframes flipTailsFromHeads {
     from {
-      -webkit-transform: rotateY(-180deg);
-      -moz-transform: rotateY(-180deg);
-      transform: rotateY(-180deg);
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
     }
     to {
-      -webkit-transform: rotateY(720deg);
-      -moz-transform: rotateY(720deg);
-      transform: rotateY(720deg);
+      -webkit-transform: rotateX(720deg);
+      -moz-transform: rotateX(720deg);
+      transform: rotateX(720deg);
     }
   }
 
@@ -155,51 +158,51 @@
 
   @keyframes flipHeadsFromTails {
     from {
-      -webkit-transform: rotateY(0deg);
-      -moz-transform: rotateY(0deg);
-      transform: rotateY(0deg);
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
     }
     to {
-      -webkit-transform: rotateY(540deg);
-      -moz-transform: rotateY(540deg);
-      transform: rotateY(540deg);
+      -webkit-transform: rotateX(540deg);
+      -moz-transform: rotateX(540deg);
+      transform: rotateX(540deg);
     }
   }
   @keyframes flipTailsFromTails {
     from {
-      -webkit-transform: rotateY(0deg);
-      -moz-transform: rotateY(0deg);
-      transform: rotateY(0deg);
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
     }
     to {
-      -webkit-transform: rotateY(720deg);
-      -moz-transform: rotateY(720deg);
-      transform: rotateY(720deg);
+      -webkit-transform: rotateX(720deg);
+      -moz-transform: rotateX(720deg);
+      transform: rotateX(720deg);
     }
   }
   
 
   @keyframes flipHeadsFromHeads {
     from {
-      -webkit-transform: rotateY(-180deg);
-      -moz-transform: rotateY(-180deg);
-      transform: rotateY(-180deg);
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
     }
     to {
-      -webkit-transform: rotateY(540deg);
-      -moz-transform: rotateY(540deg);
-      transform: rotateY(540deg);
+      -webkit-transform: rotateX(540deg);
+      -moz-transform: rotateX(540deg);
+      transform: rotateX(540deg);
     }
   }
   @keyframes flipTailsFromHeads {
     from {
-      -webkit-transform: rotateY(-180deg);
-      -moz-transform: rotateY(-180deg);
-      transform: rotateY(-180deg);
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
     }
     to {
-      -webkit-transform: rotateY(720deg);
-      -moz-transform: rotateY(720deg);
-      transform: rotateY(720deg);
+      -webkit-transform: rotateX(720deg);
+      -moz-transform: rotateX(720deg);
+      transform: rotateX(720deg);
     }
   }

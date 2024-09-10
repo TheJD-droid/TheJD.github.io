@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-
-
+import heads from './../../assets/heads.jpg';
+import tails from './../../assets/tails.jpg';
 
 export default function CoinFlip(props) {
 
@@ -42,13 +42,20 @@ export default function CoinFlip(props) {
             
           }
         }>
-            <div className="side-a">
+
+          <img src={tails} className="side-a">
+          </img>
+            {/* <div className="side-a">
           
               <h2>TAIL</h2>
-            </div>
-            <div className="side-b">
+
+            </div> */}
+
+          <img src={heads} className="side-b">
+          </img>
+            {/* <div className="side-b">
               <h2>HEAD</h2>
-            </div>
+            </div> */}
           </div>
         </div>
       );
