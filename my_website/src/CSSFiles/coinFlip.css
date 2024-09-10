@@ -45,6 +45,8 @@
   }
   .side-a {
     z-index: 100;
+    -webkit-transform: rotateY(0deg);
+    transform: rotateY(0deg);
   }
   .side-b {
     -webkit-transform: rotateY(-180deg);
