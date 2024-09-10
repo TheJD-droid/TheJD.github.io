@@ -394,15 +394,15 @@ export default function BalloonPage() {
                                     <div>{probability}%</div>
                                 </Grid> */}
 
-                                <Grid container direction='column' minWidth='150px'>
+                                
                                     
                                     {/* <Grid item>
                                         <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
                                     </Grid> */}
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <div>{probability}%</div>
-                                    </Grid>
-                                </Grid>
+                                    </Grid> */}
+                                
 
 
                             </Grid>

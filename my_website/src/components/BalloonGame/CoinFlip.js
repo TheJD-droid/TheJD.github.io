@@ -42,20 +42,15 @@ export default function CoinFlip(props) {
             
           }
         }>
-
-          <img src={tails} className="side-a">
-          </img>
-            {/* <div className="side-a">
-          
-              <h2>TAIL</h2>
-
-            </div> */}
-
-          <img src={heads} className="side-b">
-          </img>
-            {/* <div className="side-b">
-              <h2>HEAD</h2>
-            </div> */}
+            <div className="side-a">
+            {/* <img src={tails} className="side-a">
+            </img> */}
+            </div>
+            
+            <div className="side-b">
+            {/* <img src={heads} className="side-b">
+            </img> */}
+            </div>
           </div>
         </div>
       );

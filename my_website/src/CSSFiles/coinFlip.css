@@ -5,11 +5,11 @@
   
   #coin {
     position: relative;
-    margin: 0 auto;
+    margin: 20px auto;
     width: 100px;
     height: 100px;
   }
-  #coin img {
+  #coin div {
     width: 100%;
     height: 100%;
     -webkit-border-radius: 50%;
@@ -23,14 +23,16 @@
       0 12px 20px -10px rgba(0, 0, 0, 0.4);
   }
   .side-a {
+    background: url(../assets/tails.jpg)
     /* background-color: #bb0000; */
     /* color: white; */
-    text-align: center;
+    /* text-align: center; */
   }
   .side-b {
+    background: url(../assets/heads.jpg)
     /* background-color: #2e00fc;
     color: white; */
-    text-align: center;
+    /* text-align: center; */
   }
   
   #coin {
@@ -38,7 +40,7 @@
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
   }
-  #coin img {
+  #coin div {
     position: absolute;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -47,10 +49,12 @@
     z-index: 100;
     -webkit-transform: rotateX(0deg);
     transform: rotateX(0deg);
+    transform-style: preserve-3d;
   }
   .side-b {
     -webkit-transform: rotateX(-180deg);
     transform: rotateX(-180deg);
+    transform-style: preserve-3d;
   }
   
   #coin.headsFromTails {
