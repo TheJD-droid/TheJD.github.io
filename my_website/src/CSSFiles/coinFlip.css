@@ -54,31 +54,31 @@
   }
   
   #coin.headsFromTails {
-    -webkit-animation: flipHeadsFromTails 2.3s ease-out forwards;
-    -moz-animation: flipHeadsFromTails 2.3s ease-out forwards;
-    -o-animation: flipHeadsFromTails 2.3s ease-out forwards;
-    animation: flipHeadsFromTails 2.3s ease-out forwards;
+    -webkit-animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
   }
   #coin.tailsFromTails {
-    -webkit-animation: flipTailsFromTails 2.3s ease-out forwards;
-    -moz-animation: flipTailsFromTails 2.3s ease-out forwards;
-    -o-animation: flipTailsFromTails 2.3s ease-out forwards;
-    animation: flipTailsFromTails 2.3s ease-out forwards;
+    -webkit-animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
   }
 
   #coin.headsFromHeads {
-    -webkit-animation: flipHeadsFromHeads 2.3s ease-out forwards;
-    -moz-animation: flipHeadsFromHeads 2.3s ease-out forwards;
-    -o-animation: flipHeadsFromHeads 2.3s ease-out forwards;
-    animation: flipHeadsFromHeads 2.3s ease-out forwards;
+    -webkit-animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
 
   }
 
   #coin.tailsFromHeads {
-    -webkit-animation: flipTailsFromHeads 2.3s ease-out forwards;
-    -moz-animation: flipTailsFromHeads 2.3s ease-out forwards;
-    -o-animation: flipTailsFromHeads 2.3s ease-out forwards;
-    animation: flipTailsFromHeads 2.3s ease-out forwards;
+    -webkit-animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
 
   }
 
