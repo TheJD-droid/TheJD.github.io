@@ -18,9 +18,6 @@ export default function CoinFlip(props) {
       coinFlickAudio.play()
     }
 
-    // function playCoinDropSound() {
-    //   new Audio(coinDropSound).play()
-    // }
 
     
     useEffect(() => {
@@ -35,18 +32,16 @@ export default function CoinFlip(props) {
           <div id="coin" className={state.result} key={+new Date()}
           onAnimationStart={(e) => {
             playCoinSound()
-            // playCoinFlickSound()
-            // playCoinDropSound()
             
           }}
           onAnimationEnd = {(e) => { 
-            console.log('coin animation has ended')
+            // console.log('coin animation has ended')
             
             if ((props.coinState.result === 'tailsFromHeads') || (props.coinState.result === 'tailsFromTails')) {
               props.setCoinState({result: "stayTails"})
               props.gameState.ongoing = false
               props.handleOpenModal()
-              console.log(props.gameState)
+              // console.log(props.gameState)
             }
 
 
@@ -55,18 +50,14 @@ export default function CoinFlip(props) {
               props.setThrowDart(true)
             
             }
-            console.log(props.coinState)
+            // console.log(props.coinState)
             
           }
         }>
             <div className="side-a">
-            {/* <img src={tails} className="side-a">
-            </img> */}
             </div>
             
             <div className="side-b">
-            {/* <img src={heads} className="side-b">
-            </img> */}
             </div>
           </div>
         </div>

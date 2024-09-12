@@ -174,9 +174,9 @@ export default function BalloonPage() {
     }, [resetGame, numberOfBalloons])
 
     useEffect(() => {
-        console.log('onReset change registered')
+        // console.log('onReset change registered')
         if (onReset) {
-            console.log('reset triggered')
+            // console.log('reset triggered')
             setTriggerCoinToss(false)
             setToBePopped(-1)
             setTriggerReset(true)
@@ -210,7 +210,7 @@ export default function BalloonPage() {
     
     //Used to 
     const handleThrowDartState = (x) => {
-        console.log(`throwDart: ${throwDart}`)
+        // console.log(`throwDart: ${throwDart}`)
         if (throwDart === false) {
             setThrowDart(x)
         }
@@ -231,7 +231,7 @@ export default function BalloonPage() {
 
     //When a change is made to the throwDart flag, triggers a dart throw, while setting the throwDart flag back to false
     useEffect(() => {
-        console.log(`throwDart value in useEffect that triggers dart throw: ${throwDart}`)
+        // console.log(`throwDart value in useEffect that triggers dart throw: ${throwDart}`)
         if (throwDart) {
             setThrowDart(false)
             triggerDartThrow()
@@ -242,7 +242,7 @@ export default function BalloonPage() {
 
 
     useEffect(() => {
-        console.log(`triggerCoinToss: ${triggerCoinToss}`)
+        // console.log(`triggerCoinToss: ${triggerCoinToss}`)
         if (triggerCoinToss) {
             setTriggerCoinToss(false)
 
@@ -250,7 +250,7 @@ export default function BalloonPage() {
 
             if (Math.random() < 0.5) {
                 if (coinState.result === 'stayTails') {
-                    console.log("headsFromTails");
+                    // console.log("headsFromTails");
                     return "headsFromTails";    
                 }
                 else {
@@ -260,18 +260,18 @@ export default function BalloonPage() {
             else {
 
                 if (coinState.result === 'stayHeads') {
-                    console.log("tailsFromHeads");
+                    // console.log("tailsFromHeads");
                     return "tailsFromHeads";    
                 }
                 else {
-                    console.log('tailsFromTails')
+                    // console.log('tailsFromTails')
                     return "tailsFromTails";
                 }
             }
             
         }
         setCoinState({ result: outcome()});
-        console.log(coinState);
+        // console.log(coinState);
 
     }
     }, [triggerCoinToss, coinState])
@@ -316,7 +316,7 @@ export default function BalloonPage() {
     <TabPanel value={selected} index={1}>
         
 
-        <Grid container direction='column' alignItems='center' style={{border: '2px solid green', margin: '5px'}}>
+        <Grid container direction='column' alignItems='center' style={{margin: '5px'}}>
             
             
             <Grid item style={{marginLeft: '5vw', marginRight: '5vw'}}>
@@ -332,13 +332,7 @@ export default function BalloonPage() {
             
             </Grid>
             <Grid item>
-            <Grid container direction='column' alignItems='center' style={
-                {
-                    border: '2px solid red', 
-                    maxWidth: '80vw'
-
-                }
-                }>
+            <Grid container direction='column' alignItems='center' style={{ maxWidth: '80vw' }}>
                 <Grid item style={{maxWidth: '80vw'}}>
                     <Grid container direction='row' justifyContent='center' width='80vw'>
                         {/* Grid item containing the game buttons */}
@@ -348,8 +342,8 @@ export default function BalloonPage() {
                                 <Button disabled={loading || !(gameState.ongoing)} variant='contained' style={{margin: '5px'}} onClick={() => {
                                     
                                     setTriggerCoinToss(true)
-                                    console.log(coinState.result)
-                                    console.log(toBePopped)
+                                    // console.log(coinState.result)
+                                    // console.log(toBePopped)
                                     if (onReset) {
                                         setOnReset(false)
                                     }
