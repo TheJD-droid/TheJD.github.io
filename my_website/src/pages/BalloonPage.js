@@ -88,7 +88,6 @@ export default function BalloonPage() {
 
 
 
-
     
     const [onReset, setOnReset] = React.useState(false)
     const [toBePopped, setToBePopped] = React.useState(-1);
@@ -388,6 +387,11 @@ export default function BalloonPage() {
                </Grid>
 
                 <Grid container direction={'row'} justifyContent={"center"}>
+
+                <Grid item>
+                    {/* <div style={{fontSize: '35px'}}>#</div> */}
+                    <p style={{fontSize: '35px', margin: '2px', paddingRight: '5px'}}>Number of</p>
+                </Grid>
                 <Grid item>
                 
                     <Balloon key={'sliderBalloon'} idNum={-2} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState}></Balloon>
@@ -395,10 +399,11 @@ export default function BalloonPage() {
                 </Grid>
                 
                 <Grid item>
-                    <>'s</>
+                    {/* <div style={{fontSize: '35px'}}>'s</div> */}
+                    <p style={{fontSize: '35px', margin: '2px'}}>'s:</p>
                 </Grid>
                                 
-                <Grid item style={{width: '40vw', maxWidth: '40vw', border: 'solid green 2px', height: '30px', margin: '10px'}}>
+                <Grid item style={{width: '40vw', maxWidth: '40vw', height: '30px', margin: '15px'}}>
                     {/* <Grid container direction='row'> */}
                                 {/* <Grid item width='40vw'> */}
                                 <Slider disabled={loading} defaultValue={10} aria-label="Default" valueLabelDisplay="auto" value={numberOfBalloons} onChange={handleChangeOfBalloons}/>
