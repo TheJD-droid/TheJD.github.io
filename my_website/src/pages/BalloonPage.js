@@ -387,12 +387,24 @@ export default function BalloonPage() {
                     </Grid>
                </Grid>
 
-                <Grid item style={{width: '40vw', maxWidth: '40vw', border: 'solid green 2px'}}>
-                    <Grid container direction='row'>
-                         
+                <Grid container direction={'row'} justifyContent={"center"}>
+                <Grid item>
+                
+                    <Balloon key={'sliderBalloon'} idNum={-2} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState}></Balloon>
+                
+                </Grid>
+                
+                <Grid item>
+                    <>'s</>
+                </Grid>
+                                
+                <Grid item style={{width: '40vw', maxWidth: '40vw', border: 'solid green 2px', height: '30px', margin: '10px'}}>
+                    {/* <Grid container direction='row'> */}
+                                {/* <Grid item width='40vw'> */}
                                 <Slider disabled={loading} defaultValue={10} aria-label="Default" valueLabelDisplay="auto" value={numberOfBalloons} onChange={handleChangeOfBalloons}/>
-                          
-                    </Grid>
+                                {/* </Grid> */}
+                    {/* </Grid> */}
+                </Grid>
                 </Grid>
                 </Grid>
             </Grid>
