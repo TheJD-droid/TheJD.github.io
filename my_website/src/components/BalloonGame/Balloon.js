@@ -1,7 +1,7 @@
 // import { Button } from '@mui/material';
 import '../../CSSFiles/balloons.css'
 import React, { useEffect } from 'react';
-import balloonPopSound from '../../assets/balloonpop-83760.mp3';
+import balloonPopSound from '../../assets/balloonpop.mp3';
 import ClearIcon from '@mui/icons-material/Clear';
 
 export default function Balloon(props) {
@@ -9,10 +9,9 @@ export default function Balloon(props) {
     const [balloonState, setBalloonState] = React.useState('balloon');
 
     const [chosenColor, setChosenColor] = React.useState(randomColor());
-//    const chosenColor = randomColor();
     const [chosenDuration, setChosenDuration] = React.useState(randomAnimationDuration());
     const [hitAnimation, setHitAnimation] = React.useState(0);
-    //const [animationFlag, setAnimationFlag] = React.useState(false);
+    const [popDuration, setPopDuration] = React.useState(randomPopDuration());
 
     function playSound() {
         new Audio(balloonPopSound).play()
@@ -23,8 +22,8 @@ export default function Balloon(props) {
         if (props.onReset) {
             setChosenColor(randomColor());
             setChosenDuration(randomAnimationDuration());
+            setPopDuration(randomPopDuration());
             setBalloonState('balloon');
-            //console.log(balloonState)
             setHitAnimation(0);
             
         }
@@ -34,22 +33,10 @@ export default function Balloon(props) {
     useEffect(() => {
         if (balloonState === 'balloon popped') {
             playSound()
-            //props.trackBalloonsPopped()
             
         }
     }, [balloonState])
     
-
-    // const handleClick = () => {
-    //     console.log('balloonState')
-    //     console.log(balloonState)
-    //     console.log('toBePopped')
-    //     console.log(props.toBePopped)
-    //     console.log('idNum')
-    //     console.log(props.idNum)
-    //     console.log('hitAnimation')
-    //     console.log(hitAnimation)
-    // };
 
     useEffect(() => {
         
@@ -57,7 +44,6 @@ export default function Balloon(props) {
             setBalloonState('balloon popped')
             props.gameState.balloonsPopped = props.gameState.balloonsPopped + 1
             props.handleGameState()
-            //console.log(props.toBePopped)
         }
         
 
@@ -114,19 +100,12 @@ export default function Balloon(props) {
             zIndex:-100,
         },
         
+        // Not sure if I should make the animation 1s or 0.75s?
         popped: {
             background: chosenColor,
-            animation: 'pop 0.5s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards',
+            animation: 'pop ' + popDuration + ' cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards',
         },
 
-        // notShowing: {
-        //     position: 'absolute',
-        //     zIndex: '11',
-        //     color: 'red',
-        //     fontSize: 60,
-        //     opacity: 1,
-            
-        // },
 
         onHit1: {
             position: 'absolute',
@@ -148,18 +127,6 @@ export default function Balloon(props) {
         },
     }
 
-    // useEffect(() => {
-    //     if (hitAnimation) {
-    //         setAnimationFlag(true)
-    //     }
-    //     else if (hitAnimation) {
-    //         handleAnimationFlag()
-    //     }
-    // }, [hitAnimation, props.toBePopped])
-
-    // const handleAnimationFlag = () => {
-    //     setAnimationFlag(false)
-    // }
 
     return (
         <>
@@ -191,6 +158,11 @@ function randomColor() {
 function randomAnimationDuration() {
     let duration = Math.floor(19 * Math.random()) + 1
     return (`${duration}s`);
+}
+
+function randomPopDuration() {
+    let duration = ((0.25 * Math.random()) + 0.75)
+    return (`${duration}s`)
 }
 
 

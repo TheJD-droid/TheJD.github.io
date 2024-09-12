@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import '../CSSFiles/balloons.css';
-import { Button, Tabs, Tab, ThemeProvider, AppBar } from "@mui/material";
+import { Button, Tabs, Tab, ThemeProvider } from "@mui/material";
 import '../CSSFiles/bubble.css';
 import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
@@ -199,50 +199,17 @@ export default function BalloonPage() {
         }
     }, [toBePopped, numberOfBalloons]);
     
-    
+    //Used to pass the setToBePopped function into relevant components
     const handlePop = (x) => {
         setToBePopped(x)
     }
 
-
-
-
+    //Used to pass the setCoinState function into relevant components
     const handleCoinState = (x) => {
         setCoinState(x)
     }
     
-    
-    // const coinToss = useCallback(() => {
-    //     console.log(coinState)
-    //     let outcome = () => {
-
-    //         if (Math.random() < 0.5) {
-    //             if (coinState.result === 'stayTails') {
-    //                 console.log("headsFromTails");
-    //                 return "headsFromTails";    
-    //             }
-    //             else {
-    //                 return "headsFromHeads";
-    //             }
-    //         } 
-    //         else {
-
-    //             if (coinState.result === 'stayHeads') {
-    //                 console.log("tailsFromHeads");
-    //                 return "tailsFromHeads";    
-    //             }
-    //             else {
-    //                 console.log('tailsFromTails')
-    //                 return "tailsFromTails";
-    //             }
-    //         }
-            
-    //     }
-    //     setCoinState({ result: outcome()});
-    //     console.log(coinState);
-
-    // }, [coinState])
-
+    //Used to 
     const handleThrowDartState = (x) => {
         console.log(`throwDart: ${throwDart}`)
         if (throwDart === false) {
@@ -253,7 +220,7 @@ export default function BalloonPage() {
         }
     }
 
-
+    //Throws a dart by randomly picking a balloon, and setting toBePopped to that number
     const triggerDartThrow = useCallback(() => {
         if (throwDart) {
             setThrowDart(false)
@@ -263,9 +230,7 @@ export default function BalloonPage() {
     }, [throwDart, numberOfBalloons])
 
 
-
-
-
+    //When a change is made to the throwDart flag, triggers a dart throw, while setting the throwDart flag back to false
     useEffect(() => {
         console.log(`throwDart value in useEffect that triggers dart throw: ${throwDart}`)
         if (throwDart) {
@@ -382,10 +347,7 @@ export default function BalloonPage() {
                             <Grid container direction='column'>
                                 <ThemeProvider theme={theme}>
                                 <Button disabled={loading || !(gameState.ongoing)} variant='contained' style={{margin: '5px'}} onClick={() => {
-                                    // let tossResult = coinToss()
-                                    // if (tossResult) {
-                                    //     setCoinState(tossResult)
-                                    // }
+                                    
                                     setTriggerCoinToss(true)
                                     console.log(coinState.result)
                                     console.log(toBePopped)
@@ -409,49 +371,26 @@ export default function BalloonPage() {
 
                             <Grid container direction='column' justifyItems='center' justifyContent='center' alignItems='center' margin='5px'>
                                 <Grid item>
+
                                     {/* Coin being flipped here */}
-                                    {/* <div>!{coinState.result}!</div> */}
-                                    
                                     <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState}></CoinFlip>
                                 
                                 </Grid>
 
-
                                 {/* <Grid item minWidth='150px'>
                                     <div>{probability}%</div>
-                                </Grid> */}
-
-                                
-                                    
-                                    {/* <Grid item>
-                                        <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
-                                    </Grid> */}
-                                    {/* <Grid item>
-                                        <div>{probability}%</div>
-                                    </Grid> */}
-                                
+                                </Grid>  */}
 
 
                             </Grid>
-                            {/* <Grid container direction='column'>
-                                <Grid item>
-                                    <div>This</div>
-                                </Grid>
-                                <Grid item>
-                                    <div>Probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? ':' : 's:'}</div>
-                                </Grid>
-                                <Grid item>
-                                    <div>{probability}%</div>
-                                </Grid>
-                            </Grid> */}
                         </Grid>
                     </Grid>
-                </Grid>
+               </Grid>
 
                 <Grid item style={{width: '40vw', maxWidth: '40vw', border: 'solid green 2px'}}>
                     <Grid container direction='row'>
                          
-                                <Slider defaultValue={10} aria-label="Default" valueLabelDisplay="auto" value={numberOfBalloons} onChange={handleChangeOfBalloons}/>
+                                <Slider disabled={loading} defaultValue={10} aria-label="Default" valueLabelDisplay="auto" value={numberOfBalloons} onChange={handleChangeOfBalloons}/>
                           
                     </Grid>
                 </Grid>
@@ -465,7 +404,7 @@ export default function BalloonPage() {
 }
 
 
-
+//function being used to create each the balloon component
 function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState) {
     let result = []
     
@@ -478,30 +417,23 @@ function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handl
 }
 
 
-
+//Where the magic happens bay-bee!
 function probabilityOfOutcome(numBalloons, popped) {
-    // console.log('calculating probability')
-    // console.log(numBalloons, popped)
     let numerator = 1;
     let denominator = 2;
     for (let i = numBalloons; i > numBalloons - popped; i--) {
         numerator = numerator * i;
     }
-    // console.log('numerator:')
-    // console.log(numerator)
     let twoNumBalloons = 2*numBalloons
     for (let i = twoNumBalloons; i > twoNumBalloons - popped; i--) {
         denominator = denominator * (i-1)
     }
-    // console.log('denominator:')
-    // console.log(denominator)
-
+    
     let result = (numerator / denominator) * 100
-    // console.log('result < 50?:')
-    // console.log(result < 50)
-    // console.log()
+    
+    //Controlling level of precision to display
     if (result % 1 === 0) {
-        //no precision needed
+        //Already precise enough, no need to truncate
     }
     else if ((25 < result) && (result < 50)) {
         result = result.toPrecision(4)

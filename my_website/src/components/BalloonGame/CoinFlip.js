@@ -1,14 +1,26 @@
 import React from "react";
 import { useEffect } from "react";
-import heads from './../../assets/heads.jpg';
-import tails from './../../assets/tails.jpg';
-
+// import heads from './../../assets/heads.jpg';
+// import tails from './../../assets/tails.jpg';
+import coinFlickSound from '../../assets/coin-flick.mp3';
+import coinDropSound from '../../assets/coin-drop.wav';
 export default function CoinFlip(props) {
 
 
     const [state, setState] = React.useState({result: "stayTails"});
 
-    
+    function playCoinSound() {
+      const coinFlickAudio = new Audio(coinFlickSound)
+      const coinDropAudio = new Audio(coinDropSound)
+      coinFlickAudio.addEventListener('ended', () => {
+        coinDropAudio.play()
+      })
+      coinFlickAudio.play()
+    }
+
+    // function playCoinDropSound() {
+    //   new Audio(coinDropSound).play()
+    // }
 
     
     useEffect(() => {
@@ -21,10 +33,15 @@ export default function CoinFlip(props) {
         <div className="CoinFlip">
           {/* <div>state.result: {state.result}</div> */}
           <div id="coin" className={state.result} key={+new Date()}
+          onAnimationStart={(e) => {
+            playCoinSound()
+            // playCoinFlickSound()
+            // playCoinDropSound()
+            
+          }}
           onAnimationEnd = {(e) => { 
             console.log('coin animation has ended')
             
-
             if ((props.coinState.result === 'tailsFromHeads') || (props.coinState.result === 'tailsFromTails')) {
               props.setCoinState({result: "stayTails"})
               props.gameState.ongoing = false
