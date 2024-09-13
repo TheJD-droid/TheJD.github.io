@@ -1,16 +1,46 @@
 import '../../CSSFiles/balloons.css'
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import balloonPopSound from '../../assets/balloonpop.mp3';
 import ClearIcon from '@mui/icons-material/Clear';
 
+
 export default function Balloon(props) {
+
+
+    const randomColor = useCallback(() => {
+        // console.log('randomColor called')
+        let firstNum = Math.floor(255 * Math.random())
+        let secondNum = Math.floor(100 * Math.random())
+        if (props.idNum === -2) {
+            let thirdNum = Math.floor(30 * Math.random()) + 40
+            return (`hsl(${firstNum.toString()},${secondNum.toString()}%,${thirdNum.toString()}%)`);
+        }
+        else {
+            let thirdNum = Math.floor(60 * Math.random()) + 20
+            return (`hsl(${firstNum.toString()},${secondNum.toString()}%,${thirdNum.toString()}%)`);
+        }
+    }, [props.idNum])
+    
+    
+    function randomAnimationDuration() {
+        let duration = Math.floor(19 * Math.random()) + 1
+        return (`${duration}s`);
+    }
+    
+    function randomPopDuration() {
+        let duration = ((0.25 * Math.random()) + 0.75)
+        return (`${duration}s`)
+    }
+
+
 
     const [balloonState, setBalloonState] = React.useState('balloon');
 
-    const [chosenColor, setChosenColor] = React.useState(randomColor());
-    const [chosenDuration, setChosenDuration] = React.useState(randomAnimationDuration());
+    const [chosenColor, setChosenColor] = React.useState(() => {return randomColor()});
+    const [chosenDuration, setChosenDuration] = React.useState(() => {return randomAnimationDuration()});
     const [hitAnimation, setHitAnimation] = React.useState(0);
-    const [popDuration, setPopDuration] = React.useState(randomPopDuration());
+    const [popDuration, setPopDuration] = React.useState(() => {return randomPopDuration()});
+
 
     function playSound() {
         new Audio(balloonPopSound).play()
@@ -19,6 +49,7 @@ export default function Balloon(props) {
 
     useEffect(()=> {
         if (props.onReset) {
+            //console.log('props.onReset === true')
             setChosenColor(randomColor());
             setChosenDuration(randomAnimationDuration());
             setPopDuration(randomPopDuration());
@@ -26,7 +57,7 @@ export default function Balloon(props) {
             setHitAnimation(0);
             
         }
-    }, [props.onReset])
+    }, [props.onReset, randomColor])
 
     
     useEffect(() => {
@@ -79,11 +110,7 @@ export default function Balloon(props) {
             position:'relative',
             boxShadow:'inset -10px -10px 0 rgba(0,0,0,0.07)',
             margin:'10px 0px',
-            // transition: 'transform 0.5s ease',
             zIndex: 10,
-            // animation: 'balloons 10s ease-in-out infinite',
-            // transformOrigin: 'bottom center',
-            // animationDuration: chosenDuration,
         },
 
         sliderBalloonAfter: {
@@ -175,24 +202,6 @@ export default function Balloon(props) {
     );
 }
 
-
-function randomColor() {
-    let firstNum = Math.floor(255 * Math.random())
-    let secondNum = Math.floor(100 * Math.random())
-    let thirdNum = Math.floor(60 * Math.random()) + 20
-
-    return (`hsl(${firstNum.toString()},${secondNum.toString()}%,${thirdNum.toString()}%)`);
-}
-
-function randomAnimationDuration() {
-    let duration = Math.floor(19 * Math.random()) + 1
-    return (`${duration}s`);
-}
-
-function randomPopDuration() {
-    let duration = ((0.25 * Math.random()) + 0.75)
-    return (`${duration}s`)
-}
 
 
 function isHit(hitMarker) {
