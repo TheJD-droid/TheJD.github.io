@@ -311,8 +311,8 @@ export default function BalloonPage() {
         </Tabs>
     </div>
     <TabPanel value={selected} index={0} style={{width: '80vw'}}>
-        <h3>The Balloon Game:</h3>
-        <p>In this game you flip a coin and throw a dart randomly at balloons on a dartboard. At the start of the game the dartboard is filled with balloons. If the flipped coin lands on heads then you get to throw a dart at the dartboard. However, if the coin lands tails then the game is over, and your score is however many balloons you managed to pop. It is possible to hit the same spot on the dartboard multiple times, resulting in only one popped balloon for multiple throws.</p>
+        <h3>Test your luck with the Balloon Game!</h3>
+        <p>In this game you flip a coin and throw a dart randomly at balloons on a dartboard. At the start of the game the dartboard is filled with balloons. If the flipped coin lands heads then you throw a dart at the dartboard. However, if the coin lands tails then the game is over. Your score is however many balloons you managed to pop. </p>
     </TabPanel>
     <TabPanel value={selected} index={1}>
         
