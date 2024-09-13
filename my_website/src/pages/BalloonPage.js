@@ -95,7 +95,7 @@ export default function BalloonPage() {
     const [triggerReset, setTriggerReset] = React.useState(false)
     const [gameState, setGameState] = React.useState(new BalloonGameState(true, 0, 10))
     const [resetGame, setResetGame] = React.useState(false)
-    const [probability, setProbability] = React.useState(probabilityOfOutcome(numberOfBalloons, 0))
+    const [probability, setProbability] = React.useState(() => {return probabilityOfOutcome(numberOfBalloons, 0)})
     
     const [coinState, setCoinState] = React.useState({result: "stayTails"})
     
@@ -294,8 +294,9 @@ export default function BalloonPage() {
                 You popped {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'}. 
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                The probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'} is {probability}%
+                The probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'} out of {gameState.numberOfBalloons} is {probability}%
             </Typography>
+            <Typography id="modal-modal-description" sx={{mt: 2}}>{probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that unlikely of an outcome. Could be worse, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, didn't you?`}</Typography>
         </Box>
     </Modal>
 
