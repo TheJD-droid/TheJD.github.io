@@ -8,15 +8,35 @@ export default function CoinFlip(props) {
 
 
     const [state, setState] = React.useState({result: "stayTails"});
+    //const [playingSound, setPlayingSound] = React.useState(false)
+    const coinFlickAudio = new Audio(coinFlickSound)
+    const coinDropAudio = new Audio(coinDropSound)
+    
+    coinDropAudio.addEventListener('ended', () => {
+      props.setSoundPlaying(false)
+      //setPlayingSound(false);
+      console.log(`coinAnimation1: ${props.coinAnimationInProgress}`)
+      props.setCoinAnimationInProgress(false)
+      console.log(`coinAnimation2: ${props.coinAnimationInProgress}`)
+    })
 
-    function playCoinSound() {
-      const coinFlickAudio = new Audio(coinFlickSound)
-      const coinDropAudio = new Audio(coinDropSound)
-      coinFlickAudio.addEventListener('ended', () => {
-        coinDropAudio.play()
-      })
-      coinFlickAudio.play()
-    }
+    coinFlickAudio.addEventListener('ended', () => {
+      coinDropAudio.play()
+    })
+
+    coinFlickAudio.addEventListener('play', () => {
+      props.setSoundPlaying(true)
+      //setPlayingSound(true)
+    })
+
+    // function playCoinSound() {
+    //   console.log('playSound')
+    //   if (!playingSound) {
+    //     coinFlickAudio.play()
+    //   }
+        
+      
+    // }
 
 
     
@@ -31,7 +51,15 @@ export default function CoinFlip(props) {
           {/* <div>state.result: {state.result}</div> */}
           <div id="coin" className={state.result} key={+new Date()}
           onAnimationStart={(e) => {
-            playCoinSound()
+            console.log('animationStart')
+            // playCoinSound()
+            // if (!playingSound) {
+            //       coinFlickAudio.play()
+            //     }
+            if (!(props.soundPlaying)) {
+              coinFlickAudio.play()
+            }
+            //coinFlickAudio.play()
             
           }}
           onAnimationEnd = {(e) => { 
@@ -51,9 +79,8 @@ export default function CoinFlip(props) {
               
             }
 
-            props.setCoinAnimationEndFlag(true);
+            //props.setCoinAnimationInProgress(false);
             
-            //props.setCoinAnimationEndFlag(false)
             
             // console.log(props.coinState)
             

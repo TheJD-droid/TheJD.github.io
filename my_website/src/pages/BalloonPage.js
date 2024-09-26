@@ -104,13 +104,13 @@ export default function BalloonPage() {
 
     const [loading, setLoading] = React.useState(true);
 
-    const [coinAnimationEndFlag, setCoinAnimationEndFlag] = React.useState(false);
+    const [coinAnimationInProgress, setCoinAnimationInProgress] = React.useState(false);
 
     const [hitAnimationEndFlag, setHitAnimationEndFlag] = React.useState(false);
 
     const [didWin, setDidWin] = React.useState(false);
 
-
+    const [soundPlaying, setSoundPlaying] = React.useState(false);
 
     const [openModal, setOpenModal] = React.useState(false);
     const handleOpenModal = () => setOpenModal(true);
@@ -119,21 +119,26 @@ export default function BalloonPage() {
 
     useEffect(() => {
 
-        
-        if (coinState.result === 'stayTails') {
-            setLoading(false)
-        }
-        else if (coinState.result === 'stayHeads' && hitAnimationEndFlag === true) {
-            setLoading(false)
-        }
-        else {
-            setLoading(true)
-        }    
+        // if (coinState.result === 'stayTails' && !coinAnimationInProgress && !soundPlaying) {
+        //     console.log('coinAnimationNoLongerInProgress')
+        //     setLoading(false)
+        // }
+        // else if (coinState.result === 'stayHeads' && !coinAnimationInProgress && !soundPlaying) {
+        //     console.log('coinAnimationNoLongerInProgress')
+        //     setLoading(false)
+        // }
+        // else {
+        //     setLoading(true)
+        // }    
+
+        // if (coinAnimationInProgress) {
+        //     setLoading(true)
+        // }
+
+        setLoading(coinAnimationInProgress)
 
 
-
-
-    }, [coinState, hitAnimationEndFlag])
+    }, [coinState, hitAnimationEndFlag, coinAnimationInProgress, soundPlaying])
 
 
 
@@ -291,37 +296,44 @@ export default function BalloonPage() {
 
 
     useEffect(() => {
-        console.log(gameState)
+        // console.log(gameState)
         if (gameState.balloonsPopped === gameState.numberOfBalloons && hitAnimationEndFlag) {
             setDidWin(true);
             gameState.ongoing = false;
-        }
-
-        if (gameState.ongoing === false && coinAnimationEndFlag === true) {
-            setCoinAnimationEndFlag(false)
             handleOpenModal()
         }
-        console.log(gameState)
-    }, [gameState, gameState.balloonsPopped, gameState.numberOfBalloons, toBePopped, coinAnimationEndFlag, hitAnimationEndFlag])
+
+        if (gameState.ongoing === false && coinAnimationInProgress === false) {
+            handleOpenModal()
+        }
+        // console.log(gameState)
+    }, [gameState, gameState.balloonsPopped, gameState.numberOfBalloons, toBePopped, coinAnimationInProgress, hitAnimationEndFlag])
 
 
-    const retrieveGameState = () => {
-        return gameState;
-    }
+    // const retrieveGameStateStatus = useCallback(() => {
+    //     return gameState.ongoing;
+    // }, [gameStatealksdj])
     // useEffect(() => {
     //     if (gameState.ongoing === false) {
             
     //     }
     // })
 
-    const handleCoinAnimationEndFlag = (x) => {
-        setCoinAnimationEndFlag(x)
+    const handleCoinAnimationInProgress = (x) => {
+        console.log(`coinAnimationInProgress: ${coinAnimationInProgress}`)
+        //setCoinAnimationInProgress(x)
+        setCoinAnimationInProgress(false)
+        console.log(`coinAnimationInProgress: ${coinAnimationInProgress}`)
     }
 
     const handleHitAnimationEndFlag = (x) => {
         setHitAnimationEndFlag(x);
     }
 
+
+    const handleSoundPlaying = (x) => {
+        setSoundPlaying(x)
+    }
 
 
     return(
@@ -349,7 +361,7 @@ export default function BalloonPage() {
             </Typography>
             {didWin ? 
             <Typography id="modal-modal-description" sx = {{mt: 2}}>
-                {`Congratulations! You popped them all.`}
+                {`Congratulations! You popped them all! You can increase the difficulty by increasing the number of balloons.`}
             </Typography> :
             <Typography id="modal-modal-description" sx={{mt: 2}}>
                 {probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that lucky. Could be worse. Not by much, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, didn't you?`}
@@ -399,15 +411,18 @@ export default function BalloonPage() {
                             <Grid container direction='column'>
                                 <ThemeProvider theme={theme}>
                                 <Button disabled={loading || !(gameState.ongoing)} variant='contained' style={{margin: '5px'}} onClick={() => {
+                                    if (!loading) {
+                                    setLoading(true)
                                     setHitAnimationEndFlag(false)
-                                    setCoinAnimationEndFlag(false)
+                                    console.log(`coinAnimationInProgress: ${coinAnimationInProgress}`)
+                                    setCoinAnimationInProgress(true)
                                     setTriggerCoinToss(true)
                                     // console.log(coinState.result)
                                     // console.log(toBePopped)
                                     if (onReset) {
                                         setOnReset(false)
                                     }
-                                    
+                                }
                                 }}>Flip</Button>
                                 <Button disabled={loading} variant='contained' style={{margin: '5px'}} onClick={() => {
                                     
@@ -426,7 +441,7 @@ export default function BalloonPage() {
                                 <Grid item>
 
                                     {/* Coin being flipped here */}
-                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState} coinAnimationEndFlag={coinAnimationEndFlag} setCoinAnimationEndFlag={handleCoinAnimationEndFlag}></CoinFlip>
+                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState} coinAnimationInProgress={coinAnimationInProgress} setCoinAnimationInProgress={handleCoinAnimationInProgress} soundPlaying={soundPlaying} setSoundPlaying={handleSoundPlaying}></CoinFlip>
                                 
                                 </Grid>
 
