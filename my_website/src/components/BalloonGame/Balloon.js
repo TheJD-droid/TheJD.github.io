@@ -187,7 +187,10 @@ export default function Balloon(props) {
     return (
         <>
         {/* <ClearIcon style={(animationFlag) ? style.onHit : style.notShowing} /> */}
-        {props.idNum === -2 ? <></> : <ClearIcon style={isHit(hitAnimation)} />}
+        {props.idNum === -2 ? <></> : <ClearIcon style={isHit(hitAnimation)} onAnimationEnd={() => {
+            console.log('hitAnimationEnded')
+            props.setHitAnimationEndFlag(true);
+        }}/>}
         {/* <ClearIcon style={style.onHit} /> */}
         <div className={props.idNum === -2 ? 'sliderBalloon' : balloonState} style={balloonState === 'balloon popped' ? style.popped : props.idNum === -2 ? style.sliderBalloon : style.default}>
             <div style={props.idNum === -2 ? style.sliderBalloonAfter : style.balloonAfter}>
@@ -239,7 +242,7 @@ const style_outer = {
         color: 'black',
         fontSize: 60,
         opacity: 1,
-        animation: 'spotHit1 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
+        animation: 'spotHit1 0.5s cubic-bezier(0.16, 0.5, 0.48, 0.99) forwards'
         
     },
     onHit2: {
@@ -248,7 +251,7 @@ const style_outer = {
         color: 'black',
         fontSize: 60,
         opacity: 1,
-        animation: 'spotHit2 1s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards'
+        animation: 'spotHit2 0.5s cubic-bezier(0.16, 0.5, 0.48, 0.99) forwards'
         
     },
 }

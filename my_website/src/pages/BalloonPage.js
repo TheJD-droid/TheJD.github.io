@@ -6,7 +6,7 @@ import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
 import { Slider } from "@mui/material";
 import BalloonGameState from "../components/BalloonGame/BalloonGameState";
-
+import WinnerAnimation from "../components/WinnerAnimation";
 import CoinFlip from "../components/BalloonGame/CoinFlip";
 import './../CSSFiles/coinFlip.css';
 
@@ -104,6 +104,14 @@ export default function BalloonPage() {
 
     const [loading, setLoading] = React.useState(true);
 
+    const [coinAnimationEndFlag, setCoinAnimationEndFlag] = React.useState(false);
+
+    const [hitAnimationEndFlag, setHitAnimationEndFlag] = React.useState(false);
+
+    const [didWin, setDidWin] = React.useState(false);
+
+
+
     const [openModal, setOpenModal] = React.useState(false);
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
@@ -111,17 +119,21 @@ export default function BalloonPage() {
 
     useEffect(() => {
 
+        
         if (coinState.result === 'stayTails') {
             setLoading(false)
         }
-        else if (coinState.result === 'stayHeads') {
+        else if (coinState.result === 'stayHeads' && hitAnimationEndFlag === true) {
             setLoading(false)
         }
         else {
             setLoading(true)
-        }
+        }    
 
-    }, [coinState])
+
+
+
+    }, [coinState, hitAnimationEndFlag])
 
 
 
@@ -177,6 +189,7 @@ export default function BalloonPage() {
         // console.log('onReset change registered')
         if (onReset) {
             // console.log('reset triggered')
+            setDidWin(false)
             setTriggerCoinToss(false)
             setToBePopped(-1)
             setTriggerReset(true)
@@ -191,7 +204,7 @@ export default function BalloonPage() {
         
     }, [onReset, gameState, numberOfBalloons]);
 
-
+    //Should never happen
     useEffect(() => {
         if (toBePopped > numberOfBalloons) {
             setToBePopped(-1)
@@ -277,14 +290,52 @@ export default function BalloonPage() {
     }, [triggerCoinToss, coinState])
 
 
+    useEffect(() => {
+        console.log(gameState)
+        if (gameState.balloonsPopped === gameState.numberOfBalloons && hitAnimationEndFlag) {
+            setDidWin(true);
+            gameState.ongoing = false;
+        }
+
+        if (gameState.ongoing === false && coinAnimationEndFlag === true) {
+            setCoinAnimationEndFlag(false)
+            handleOpenModal()
+        }
+        console.log(gameState)
+    }, [gameState, gameState.balloonsPopped, gameState.numberOfBalloons, toBePopped, coinAnimationEndFlag, hitAnimationEndFlag])
+
+
+    const retrieveGameState = () => {
+        return gameState;
+    }
+    // useEffect(() => {
+    //     if (gameState.ongoing === false) {
+            
+    //     }
+    // })
+
+    const handleCoinAnimationEndFlag = (x) => {
+        setCoinAnimationEndFlag(x)
+    }
+
+    const handleHitAnimationEndFlag = (x) => {
+        setHitAnimationEndFlag(x);
+    }
+
+
+
     return(
     <>
+
+
+    {openModal && didWin ? <WinnerAnimation /> : <></>}
 
     <Modal
         open={openModal}
         onClose={handleCloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        componentsProps={didWin ? { backdrop: { style: { backgroundColor: "transparent" } } } : {}}
     >
         <Box sx={modalStyle}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -296,7 +347,13 @@ export default function BalloonPage() {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 The probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'} out of {gameState.numberOfBalloons} is {probability}%
             </Typography>
-            <Typography id="modal-modal-description" sx={{mt: 2}}>{probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that lucky. Could be worse. Not by much, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, didn't you?`}</Typography>
+            {didWin ? 
+            <Typography id="modal-modal-description" sx = {{mt: 2}}>
+                {`Congratulations! You popped them all.`}
+            </Typography> :
+            <Typography id="modal-modal-description" sx={{mt: 2}}>
+                {probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that lucky. Could be worse. Not by much, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, didn't you?`}
+            </Typography>}
         </Box>
     </Modal>
 
@@ -313,6 +370,7 @@ export default function BalloonPage() {
     <TabPanel value={selected} index={0} style={{width: '80vw'}}>
         <h3>Test your luck with the Balloon Game!</h3>
         <p>In this game you flip a coin and throw a dart randomly at balloons on a dartboard. At the start of the game the dartboard is filled with balloons. If the flipped coin lands heads then you throw a dart at the dartboard. However, if the coin lands tails then the game is over. Your score is however many balloons you managed to pop. </p>
+        <p>Can you pop them all?</p>
     </TabPanel>
     <TabPanel value={selected} index={1}>
         
@@ -325,7 +383,7 @@ export default function BalloonPage() {
             <Grid container direction='row' justifyContent='center' style={{ marginLeft:'150px', marginRight: '150px', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '600px'}}>
                 
 
-                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState)}
+                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState, handleHitAnimationEndFlag)}
                 
                 
             </Grid>
@@ -341,7 +399,8 @@ export default function BalloonPage() {
                             <Grid container direction='column'>
                                 <ThemeProvider theme={theme}>
                                 <Button disabled={loading || !(gameState.ongoing)} variant='contained' style={{margin: '5px'}} onClick={() => {
-                                    
+                                    setHitAnimationEndFlag(false)
+                                    setCoinAnimationEndFlag(false)
                                     setTriggerCoinToss(true)
                                     // console.log(coinState.result)
                                     // console.log(toBePopped)
@@ -367,7 +426,7 @@ export default function BalloonPage() {
                                 <Grid item>
 
                                     {/* Coin being flipped here */}
-                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState}></CoinFlip>
+                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState} coinAnimationEndFlag={coinAnimationEndFlag} setCoinAnimationEndFlag={handleCoinAnimationEndFlag}></CoinFlip>
                                 
                                 </Grid>
 
@@ -417,11 +476,11 @@ export default function BalloonPage() {
 
 
 //function being used to create each the balloon component
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState) {
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState, handleHitAnimationEndFlag) {
     let result = []
     
     for (let i = 0; i < numberOfBalloons; i++) {
-        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState}></Balloon></Grid>));
+        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState} setHitAnimationEndFlag={handleHitAnimationEndFlag}></Balloon></Grid>));
         
     }
     

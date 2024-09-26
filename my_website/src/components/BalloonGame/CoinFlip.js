@@ -47,9 +47,14 @@ export default function CoinFlip(props) {
 
             if ((props.coinState.result === 'headsFromTails') || (props.coinState.result === 'headsFromHeads')) {
               props.setCoinState({result: "stayHeads"})
-              props.setThrowDart(true)
-            
+              props.setThrowDart(true);
+              
             }
+
+            props.setCoinAnimationEndFlag(true);
+            
+            //props.setCoinAnimationEndFlag(false)
+            
             // console.log(props.coinState)
             
           }
