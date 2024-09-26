@@ -1,0 +1,206 @@
+.CoinFlip {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  #coin {
+    position: relative;
+    margin: 20px auto;
+    width: 100px;
+    height: 100px;
+  }
+  #coin div {
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3),
+      0 12px 20px -10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3),
+      0 12px 20px -10px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3),
+      0 12px 20px -10px rgba(0, 0, 0, 0.4);
+  }
+  .side-a {
+    background: url(../assets/tails.jpg)
+    
+  }
+  .side-b {
+    background: url(../assets/heads.jpg)
+  
+  }
+  
+  #coin {
+    transition: -webkit-transform 1s ease-in;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+  #coin div {
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  .side-a {
+    z-index: 100;
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    transform-style: preserve-3d;
+  }
+  .side-b {
+    -webkit-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
+    transform-style: preserve-3d;
+  }
+  
+  #coin.headsFromTails {
+    -webkit-animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipHeadsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+  }
+  #coin.tailsFromTails {
+    -webkit-animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipTailsFromTails 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+  }
+
+  #coin.headsFromHeads {
+    -webkit-animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipHeadsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+
+  }
+
+  #coin.tailsFromHeads {
+    -webkit-animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -moz-animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    -o-animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+    animation: flipTailsFromHeads 2.3s cubic-bezier(0.16, 0.87, 0.48, 0.99) forwards;
+
+  }
+
+  #coin.stayHeads {
+    -webkit-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
+  }
+  
+  /* There's a "flicker" when I have this set, it seems. If I leave it commented out, so it's not "transforming" to the start, then there doesn't seem to be a "flicker" on the coin. Weird. */
+  #coin.stayTails {
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+  }
+
+
+  @-webkit-keyframes flipHeadsFromTails {
+    from {
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
+    }
+    to {
+      -webkit-transform: rotateX(1980deg);
+      -moz-transform: rotateX(1980deg);
+      transform: rotateX(1980deg);
+    }
+  }
+  @-webkit-keyframes flipTailsFromTails {
+    from {
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
+    }
+    to {
+      -webkit-transform: rotateX(1800deg);
+      -moz-transform: rotateX(1800deg);
+      transform: rotateX(1800deg);
+    }
+  }
+
+
+
+
+  @-webkit-keyframes flipHeadsFromHeads {
+    from {
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
+    }
+    to {
+      -webkit-transform: rotateX(2340deg);
+      -moz-transform: rotateX(2340deg);
+      transform: rotateX(2340deg);
+    }
+  }
+  @-webkit-keyframes flipTailsFromHeads {
+    from {
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
+    }
+    to {
+      -webkit-transform: rotateX(2160deg);
+      -moz-transform: rotateX(2160deg);
+      transform: rotateX(2160deg);
+    }
+  }
+
+
+
+
+
+
+
+
+  @keyframes flipHeadsFromTails {
+    from {
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
+    }
+    to {
+      -webkit-transform: rotateX(1980deg);
+      -moz-transform: rotateX(1980deg);
+      transform: rotateX(1980deg);
+    }
+  }
+  @keyframes flipTailsFromTails {
+    from {
+      -webkit-transform: rotateX(0deg);
+      -moz-transform: rotateX(0deg);
+      transform: rotateX(0deg);
+    }
+    to {
+      -webkit-transform: rotateX(1800deg);
+      -moz-transform: rotateX(1800deg);
+      transform: rotateX(1800deg);
+    }
+  }
+  
+
+  @keyframes flipHeadsFromHeads {
+    from {
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
+    }
+    to {
+      -webkit-transform: rotateX(2340deg);
+      -moz-transform: rotateX(2340deg);
+      transform: rotateX(2340deg);
+    }
+  }
+  @keyframes flipTailsFromHeads {
+    from {
+      -webkit-transform: rotateX(-180deg);
+      -moz-transform: rotateX(-180deg);
+      transform: rotateX(-180deg);
+    }
+    to {
+      -webkit-transform: rotateX(2160deg);
+      -moz-transform: rotateX(2160deg);
+      transform: rotateX(2160deg);
+    }
+  }
