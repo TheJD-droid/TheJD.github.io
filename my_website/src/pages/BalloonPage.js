@@ -12,6 +12,8 @@ import './../CSSFiles/coinFlip.css';
 
 import { createTheme } from "@mui/material";
 
+import WinnerAnimation from "../components/WinnerAnimation";
+
 import { colors, Modal, Box, Typography } from "@mui/material";
 
 
@@ -104,6 +106,8 @@ export default function BalloonPage() {
 
     const [loading, setLoading] = React.useState(true);
 
+    const [didWin, setDidWin] = React.useState(false);
+
     const [openModal, setOpenModal] = React.useState(false);
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
@@ -114,7 +118,7 @@ export default function BalloonPage() {
         if (coinState.result === 'stayTails') {
             setLoading(false)
         }
-        else if (coinState.result === 'stayHeads') {
+        else if ((coinState.result === 'stayHeads')) {
             setLoading(false)
         }
         else {
@@ -123,6 +127,20 @@ export default function BalloonPage() {
 
     }, [coinState])
 
+
+    useEffect(() => {
+        if (gameState.numberOfBalloons === gameState.balloonsPopped) {
+            setDidWin(true)
+            gameState.ongoing = false;
+        }
+    }, [gameState, gameState.numberOfBalloons, gameState.balloonsPopped, gameState.ongoing])
+
+
+    useEffect(() => {
+        if (gameState.ongoing === false) {
+            setOpenModal(true)
+        }
+    }, [gameState.ongoing])
 
 
     const handleChangeOfBalloons = (event, newValue) => {
@@ -177,6 +195,7 @@ export default function BalloonPage() {
         // console.log('onReset change registered')
         if (onReset) {
             // console.log('reset triggered')
+            setDidWin(false)
             setTriggerCoinToss(false)
             setToBePopped(-1)
             setTriggerReset(true)
@@ -280,25 +299,34 @@ export default function BalloonPage() {
     return(
     <>
 
-    <Modal
-        open={openModal}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-    >
-        <Box sx={modalStyle}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-                Game over!
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                You popped {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'}. 
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                The probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'} out of {gameState.numberOfBalloons} is {probability}%
-            </Typography>
-            <Typography id="modal-modal-description" sx={{mt: 2}}>{probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that lucky. Could be worse. Not by much, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, didn't you?`}</Typography>
-        </Box>
-    </Modal>
+{openModal && didWin ? <WinnerAnimation /> : <></>}
+
+<Modal
+    open={openModal}
+    onClose={handleCloseModal}
+    aria-labelledby="modal-modal-title"
+    aria-describedby="modal-modal-description"
+    componentsProps={didWin ? { backdrop: { style: { backgroundColor: "transparent" } } } : {}}
+>
+    <Box sx={modalStyle}>
+        <Typography id="modal-modal-title" variant="h6" component="h2">
+            Game over!
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            You popped {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'}. 
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            The probability of popping exactly {gameState.balloonsPopped} total balloon{gameState.balloonsPopped === 1 ? '' : 's'} out of {gameState.numberOfBalloons} is {probability}%
+        </Typography>
+        {didWin ? 
+        <Typography id="modal-modal-description" sx = {{mt: 2}}>
+            {`Congratulations! You popped them all! You can increase the difficulty by increasing the number of balloons.`}
+        </Typography> :
+        <Typography id="modal-modal-description" sx={{mt: 2}}>
+            {probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that lucky. Could be worse. Not by much, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, didn't you?`}
+        </Typography>}
+    </Box>
+</Modal>
 
 
 
