@@ -108,10 +108,17 @@ export default function BalloonPage() {
 
     const [didWin, setDidWin] = React.useState(false);
 
+    const [hitAnimationInProggess, setHitAnimationInProgress] = React.useState(false)
+
+
     const [openModal, setOpenModal] = React.useState(false);
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => setOpenModal(false);
 
+
+    const handleSetHitAnimationInProgress = (x) => {
+        setHitAnimationInProgress(x)
+    }
 
     useEffect(() => {
 
@@ -137,10 +144,10 @@ export default function BalloonPage() {
 
 
     useEffect(() => {
-        if (gameState.ongoing === false) {
+        if (!hitAnimationInProggess && gameState.ongoing === false) {
             setOpenModal(true)
         }
-    }, [gameState.ongoing])
+    }, [gameState.ongoing, hitAnimationInProggess])
 
 
     const handleChangeOfBalloons = (event, newValue) => {
@@ -353,7 +360,7 @@ export default function BalloonPage() {
             <Grid container direction='row' justifyContent='center' style={{ marginLeft:'150px', marginRight: '150px', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '600px'}}>
                 
 
-                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState)}
+                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState, handleSetHitAnimationInProgress)}
                 
                 
             </Grid>
@@ -445,11 +452,11 @@ export default function BalloonPage() {
 
 
 //function being used to create each the balloon component
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState) {
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState, handleSetHitAnimationInProgress) {
     let result = []
     
     for (let i = 0; i < numberOfBalloons; i++) {
-        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState}></Balloon></Grid>));
+        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState} handleSetHitAnimationInProgress={handleSetHitAnimationInProgress}></Balloon></Grid>));
         
     }
     
