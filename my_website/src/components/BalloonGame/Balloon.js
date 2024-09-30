@@ -187,10 +187,17 @@ export default function Balloon(props) {
     return (
         <>
         {/* <ClearIcon style={(animationFlag) ? style.onHit : style.notShowing} /> */}
-        {props.idNum === -2 ? <></> : <ClearIcon style={isHit(hitAnimation)} onAnimationEnd={() => {
-            // console.log('hitAnimationEnded')
-            props.setHitAnimationEndFlag(true);
-        }}/>}
+        {props.idNum === -2 ? <></> : <ClearIcon style={isHit(hitAnimation)} 
+        // onAnimationStart={(e) => {
+        //     // props.handleSetHitAnimationInProgress(true)
+        //     e.stopPropagation();
+        // }}
+
+        // onAnimationEnd={(e) => {
+        //     // props.handleSetHitAnimationInProgress(false)
+        //     e.stopPropagation();
+        // }} 
+        />}
         {/* <ClearIcon style={style.onHit} /> */}
         <div className={props.idNum === -2 ? 'sliderBalloon' : balloonState} style={balloonState === 'balloon popped' ? style.popped : props.idNum === -2 ? style.sliderBalloon : style.default}>
             <div style={props.idNum === -2 ? style.sliderBalloonAfter : style.balloonAfter}>
