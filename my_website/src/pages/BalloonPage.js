@@ -49,11 +49,7 @@ const modalStyle = {
 
 
 
-//   interface TabPanelProps {
-//     children?: React.ReactNode;
-//     index: number;
-//     value: number;
-//   }
+
   
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -108,7 +104,7 @@ export default function BalloonPage() {
 
     const [didWin, setDidWin] = React.useState(false);
 
-    const [hitAnimationInProggess, setHitAnimationInProgress] = React.useState(false)
+    //const [hitAnimationInProggess, setHitAnimationInProgress] = React.useState(false)
 
 
     const [openModal, setOpenModal] = React.useState(false);
@@ -116,9 +112,9 @@ export default function BalloonPage() {
     const handleCloseModal = () => setOpenModal(false);
 
 
-    const handleSetHitAnimationInProgress = (x) => {
-        setHitAnimationInProgress(x)
-    }
+    // const handleSetHitAnimationInProgress = (x) => {
+    //     setHitAnimationInProgress(x)
+    // }
 
     useEffect(() => {
 
@@ -144,10 +140,10 @@ export default function BalloonPage() {
 
 
     useEffect(() => {
-        if (!hitAnimationInProggess && gameState.ongoing === false) {
+        if (gameState.ongoing === false) {
             setOpenModal(true)
         }
-    }, [gameState.ongoing, hitAnimationInProggess])
+    }, [gameState.ongoing])
 
 
     const handleChangeOfBalloons = (event, newValue) => {
@@ -348,6 +344,7 @@ export default function BalloonPage() {
     <TabPanel value={selected} index={0} style={{width: '80vw'}}>
         <h3>Test your luck with the Balloon Game!</h3>
         <p>In this game you flip a coin and throw a dart randomly at balloons on a dartboard. At the start of the game the dartboard is filled with balloons. If the flipped coin lands heads then you throw a dart at the dartboard. However, if the coin lands tails then the game is over. Your score is however many balloons you managed to pop. </p>
+        <p>Can you pop them all?</p>
     </TabPanel>
     <TabPanel value={selected} index={1}>
         
@@ -360,7 +357,7 @@ export default function BalloonPage() {
             <Grid container direction='row' justifyContent='center' style={{ marginLeft:'150px', marginRight: '150px', background:'hsl(70, 31%, 85%)', textAlign: 'center', width: 'fit-content', maxWidth: '600px'}}>
                 
 
-                {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState, handleSetHitAnimationInProgress)}
+            {createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState)}
                 
                 
             </Grid>
@@ -452,11 +449,11 @@ export default function BalloonPage() {
 
 
 //function being used to create each the balloon component
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState, handleSetHitAnimationInProgress) {
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState) {
     let result = []
     
     for (let i = 0; i < numberOfBalloons; i++) {
-        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState} handleSetHitAnimationInProgress={handleSetHitAnimationInProgress}></Balloon></Grid>));
+        result = result.concat((<Grid key={`uniqueGridId${i}`}item><Balloon key={`uniqueBalloonId${i + 1}`} idNum={i + 1} onReset={onReset} setOnReset={setOnReset} toBePopped={toBePopped} handlePop={handlePop} gameState={gameState} handleGameState={handleGameState} ></Balloon></Grid>));
         
     }
     
