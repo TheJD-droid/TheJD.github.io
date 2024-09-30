@@ -9,6 +9,7 @@ export default function CoinFlip(props) {
 
     const [state, setState] = React.useState({result: "stayTails"});
 
+    //function I'm using to combine the two different audio clips that I want to play, one after the other.
     function playCoinSound() {
       const coinFlickAudio = new Audio(coinFlickSound)
       const coinDropAudio = new Audio(coinDropSound)
