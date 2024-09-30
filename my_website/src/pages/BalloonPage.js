@@ -6,7 +6,7 @@ import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
 import { Slider } from "@mui/material";
 import BalloonGameState from "../components/BalloonGame/BalloonGameState";
-
+import WinnerAnimation from "../components/WinnerAnimation";
 import CoinFlip from "../components/BalloonGame/CoinFlip";
 import './../CSSFiles/coinFlip.css';
 
@@ -128,7 +128,8 @@ export default function BalloonPage() {
             setLoading(true)
         }
 
-    }, [coinState])
+
+    }, [coinState, hitAnimationEndFlag, coinAnimationInProgress, soundPlaying])
 
 
     useEffect(() => {
@@ -213,7 +214,7 @@ export default function BalloonPage() {
         
     }, [onReset, gameState, numberOfBalloons]);
 
-
+    //Should never happen
     useEffect(() => {
         if (toBePopped > numberOfBalloons) {
             setToBePopped(-1)
@@ -299,6 +300,47 @@ export default function BalloonPage() {
     }, [triggerCoinToss, coinState])
 
 
+    useEffect(() => {
+        // console.log(gameState)
+        if (gameState.balloonsPopped === gameState.numberOfBalloons && hitAnimationEndFlag) {
+            setDidWin(true);
+            gameState.ongoing = false;
+            handleOpenModal()
+        }
+
+        if (gameState.ongoing === false && coinAnimationInProgress === false) {
+            handleOpenModal()
+        }
+        // console.log(gameState)
+    }, [gameState, gameState.balloonsPopped, gameState.numberOfBalloons, toBePopped, coinAnimationInProgress, hitAnimationEndFlag])
+
+
+    // const retrieveGameStateStatus = useCallback(() => {
+    //     return gameState.ongoing;
+    // }, [gameStatealksdj])
+    // useEffect(() => {
+    //     if (gameState.ongoing === false) {
+            
+    //     }
+    // })
+
+    const handleCoinAnimationInProgress = (x) => {
+        console.log(`coinAnimationInProgress: ${coinAnimationInProgress}`)
+        //setCoinAnimationInProgress(x)
+        setCoinAnimationInProgress(false)
+        console.log(`coinAnimationInProgress: ${coinAnimationInProgress}`)
+    }
+
+    const handleHitAnimationEndFlag = (x) => {
+        setHitAnimationEndFlag(x);
+    }
+
+
+    const handleSoundPlaying = (x) => {
+        setSoundPlaying(x)
+    }
+
+
     return(
     <>
 
@@ -330,6 +372,7 @@ export default function BalloonPage() {
         </Typography>}
     </Box>
 </Modal>
+
 
 
 
@@ -373,14 +416,18 @@ export default function BalloonPage() {
                             <Grid container direction='column'>
                                 <ThemeProvider theme={theme}>
                                 <Button disabled={loading || !(gameState.ongoing)} variant='contained' style={{margin: '5px'}} onClick={() => {
-                                    
+                                    if (!loading) {
+                                    setLoading(true)
+                                    setHitAnimationEndFlag(false)
+                                    console.log(`coinAnimationInProgress: ${coinAnimationInProgress}`)
+                                    setCoinAnimationInProgress(true)
                                     setTriggerCoinToss(true)
                                     // console.log(coinState.result)
                                     // console.log(toBePopped)
                                     if (onReset) {
                                         setOnReset(false)
                                     }
-                                    
+                                }
                                 }}>Flip</Button>
                                 <Button disabled={loading} variant='contained' style={{margin: '5px'}} onClick={() => {
                                     
@@ -399,7 +446,7 @@ export default function BalloonPage() {
                                 <Grid item>
 
                                     {/* Coin being flipped here */}
-                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState}></CoinFlip>
+                                    <CoinFlip coinState={coinState} setCoinState={handleCoinState} throwDart={throwDart} setThrowDart={handleThrowDartState} handleOpenModal={handleOpenModal} gameState={gameState} coinAnimationInProgress={coinAnimationInProgress} setCoinAnimationInProgress={handleCoinAnimationInProgress} soundPlaying={soundPlaying} setSoundPlaying={handleSoundPlaying}></CoinFlip>
                                 
                                 </Grid>
 
@@ -449,7 +496,7 @@ export default function BalloonPage() {
 
 
 //function being used to create each the balloon component
-function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState) {
+function createBalloons(numberOfBalloons, onReset, setOnReset, toBePopped, handlePop, gameState, handleGameState, handleHitAnimationEndFlag) {
     let result = []
     
     for (let i = 0; i < numberOfBalloons; i++) {
