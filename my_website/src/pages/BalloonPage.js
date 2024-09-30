@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import '../CSSFiles/balloons.css';
 import { Button, Tabs, Tab, ThemeProvider } from "@mui/material";
-import '../CSSFiles/bubble.css';
 import Balloon from "../components/BalloonGame/Balloon";
 import { Grid } from "@mui/material";
 import { Slider } from "@mui/material";
