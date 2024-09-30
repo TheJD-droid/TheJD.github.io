@@ -325,7 +325,7 @@ export default function BalloonPage() {
             {`Congratulations! You popped them all! You can increase the difficulty by increasing the number of balloons.`}
         </Typography> :
         <Typography id="modal-modal-description" sx={{mt: 2}}>
-            {probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that lucky. Could be worse. Not by much, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, didn't you?`}
+            {probability > 49 ? `Wow, failed on the first try? What bad luck you have.` : probability > 10 ? `Not that lucky. Could be worse. Not by much, though.` : probability > 5 ? `Pretty unlikely, you must've gotten pretty lucky. You didn't try too hard to get this, did you?` : probability > 1 ? `Wow, you've got some good luck. Too bad you wasted it on this silly game.` : `Be honest, you feel pretty bad about how much time you wasted trying to get an outcome this unlikely, don't you?`}
         </Typography>}
     </Box>
 </Modal>
