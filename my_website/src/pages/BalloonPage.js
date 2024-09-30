@@ -388,7 +388,7 @@ export default function BalloonPage() {
                                     
                                 }}>Reset</Button>
                                 </ThemeProvider>
-                                <Button variant='contained' style={{margin: '5px'}} href={Pdf} target="_blank">The Math</Button>
+                                <Button variant='contained' style={{margin: '5px'}} href={Pdf} target="_blank">Math for Nerds</Button>
 
                             </Grid>
                         </Grid>
