@@ -8,35 +8,16 @@ export default function CoinFlip(props) {
 
 
     const [state, setState] = React.useState({result: "stayTails"});
-    //const [playingSound, setPlayingSound] = React.useState(false)
-    const coinFlickAudio = new Audio(coinFlickSound)
-    const coinDropAudio = new Audio(coinDropSound)
-    
-    coinDropAudio.addEventListener('ended', () => {
-      props.setSoundPlaying(false)
-      //setPlayingSound(false);
-      console.log(`coinAnimation1: ${props.coinAnimationInProgress}`)
-      props.setCoinAnimationInProgress(false)
-      console.log(`coinAnimation2: ${props.coinAnimationInProgress}`)
-    })
 
-    coinFlickAudio.addEventListener('ended', () => {
-      coinDropAudio.play()
-    })
-
-    coinFlickAudio.addEventListener('play', () => {
-      props.setSoundPlaying(true)
-      //setPlayingSound(true)
-    })
-
-    // function playCoinSound() {
-    //   console.log('playSound')
-    //   if (!playingSound) {
-    //     coinFlickAudio.play()
-    //   }
-        
-      
-    // }
+    //function I'm using to combine the two different audio clips that I want to play, one after the other.
+    function playCoinSound() {
+      const coinFlickAudio = new Audio(coinFlickSound)
+      const coinDropAudio = new Audio(coinDropSound)
+      coinFlickAudio.addEventListener('ended', () => {
+        coinDropAudio.play()
+      })
+      coinFlickAudio.play()
+    }
 
 
     
@@ -51,15 +32,7 @@ export default function CoinFlip(props) {
           {/* <div>state.result: {state.result}</div> */}
           <div id="coin" className={state.result} key={+new Date()}
           onAnimationStart={(e) => {
-            console.log('animationStart')
-            // playCoinSound()
-            // if (!playingSound) {
-            //       coinFlickAudio.play()
-            //     }
-            if (!(props.soundPlaying)) {
-              coinFlickAudio.play()
-            }
-            //coinFlickAudio.play()
+            playCoinSound()
             
           }}
           onAnimationEnd = {(e) => { 
@@ -75,13 +48,9 @@ export default function CoinFlip(props) {
 
             if ((props.coinState.result === 'headsFromTails') || (props.coinState.result === 'headsFromHeads')) {
               props.setCoinState({result: "stayHeads"})
-              props.setThrowDart(true);
-              
+              props.setThrowDart(true)
+            
             }
-
-            //props.setCoinAnimationInProgress(false);
-            
-            
             // console.log(props.coinState)
             
           }
