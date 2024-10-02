@@ -15,7 +15,7 @@ import BalloonPage from './pages/BalloonPage';
 function App() {
 
 
-
+  const urlHome = 'https://thejd-droid.github.io/TheJDProjects/'
 
    return (
     <div className="App" id='root'>
@@ -28,9 +28,11 @@ function App() {
         <Routes>
             
               <Route index element={<Home />} />
-              {/* <Route path='JDsProjects' element={<Home />} /> */}
-              <Route path='/TicTacToe' element={<TicTacToe />} />
-              <Route path='/BalloonPage' element={<BalloonPage />} />
+              <Route path={urlHome} element={<TicTacToe/>}/>
+              <Route path={urlHome + 'TicTacToe'} element={<TicTacToe/>}/>
+              {/* <Route path='/JDsProjects' element={<Home />} /> */}
+              {/* <Route path='/TicTacToe' element={<TicTacToe />} /> */}
+              {/* <Route path='/BalloonPage' element={<BalloonPage />} /> */}
             
           </Routes>        
         </div>
