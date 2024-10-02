@@ -28,8 +28,9 @@ function App() {
         <Routes>
             
               <Route index element={<Home />} />
-              <Route path='TicTacToe' element={<TicTacToe />} />
-              <Route path='BalloonPage' element={<BalloonPage />} />
+              {/* <Route path='JDsProjects' element={<Home />} /> */}
+              <Route path='/TicTacToe' element={<TicTacToe />} />
+              <Route path='/BalloonPage' element={<BalloonPage />} />
             
           </Routes>        
         </div>
