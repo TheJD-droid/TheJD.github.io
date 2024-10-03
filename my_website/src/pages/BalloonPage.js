@@ -131,7 +131,7 @@ export default function BalloonPage() {
 
 
     useEffect(() => {
-        if (gameState.numberOfBalloons === gameState.balloonsPopped) {
+        if (gameState.numberOfBalloons !== 0 && gameState.numberOfBalloons === gameState.balloonsPopped) {
             setDidWin(true)
             gameState.ongoing = false;
         }

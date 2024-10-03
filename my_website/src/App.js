@@ -10,18 +10,19 @@ import Navbar from './components/Navbar';
 import Winner from './pages/BalloonPage';
 import React, { useCallback, useEffect, useContext } from 'react';
 import BalloonPage from './pages/BalloonPage';
-
+import WinnerAnimation from './components/WinnerAnimation';
 
 function App() {
 
 
+  const { windowHeight, windowWidth } = useWindowDimensions();
   // const urlHome = 'https://thejd-droid.github.io/TheJDProjects/'
 
    return (
     <div className="App" id='root'>
       {/* <BrowserRouter> */}
       <HashRouter basename=''>
-      <div className="App-header">
+      <div className="App-header" height={windowHeight} width={windowWidth}>
             <Navbar />
       </div>
           <div className="App-body">
