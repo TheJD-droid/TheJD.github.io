@@ -2,7 +2,7 @@ import '../App.css';
 
 function Home() {
   return (
-    <p>Make a page a home</p>
+    <p>This is where I put projects that I've made.</p>
     
   );
 }

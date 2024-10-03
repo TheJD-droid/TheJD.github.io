@@ -20,15 +20,18 @@ function App() {
    return (
     <div className="App" id='root'>
       {/* <BrowserRouter> */}
-      <HashRouter basename='TheJDProjects'>
+      <HashRouter basename=''>
       <div className="App-header">
             <Navbar />
       </div>
           <div className="App-body">
           
         <Routes>
-            <Route index element={<Home />} />
-            <Route path='TicTacToe' element={<TicTacToe/>} />
+            {/* <Route path='/' element={<Home />} /> */}
+            {/* <Route path='/' element={<Home/>} /> */}
+            <Route path='' element={<Home />} />
+            <Route path='/TicTacToe' element={<TicTacToe/>} />
+            <Route path='/BalloonGame' element={<BalloonPage/>} />
               {/* <Route index element={<Home />} /> */}
               {/* <Route path={urlHome} element={<TicTacToe/>}/> */}
               {/* <Route path={urlHome + 'TicTacToe'} element={<TicTacToe/>}/> */}
